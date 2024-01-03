@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group 'com.example'
+version 'unspecified'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+
+    // swagger
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.12'
+    implementation project(':Domain')
+    implementation project(':Core')
+    implementation project(':Infra')
+}
+
+test {
+    useJUnitPlatform()
+}

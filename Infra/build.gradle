@@ -1,0 +1,19 @@
+bootJar { enabled = false }
+jar { enabled = true }
+
+dependencies {
+    /* redis */
+    api 'org.springframework.boot:spring-boot-starter-data-redis'
+    api 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.redisson:redisson:3.19.0'
+    implementation 'io.github.openfeign:feign-httpclient:12.1'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.4'
+    implementation 'com.amazonaws:aws-java-sdk-s3control:1.12.372'
+    implementation 'com.nimbusds:nimbus-jose-jwt:3.10'
+    implementation "com.slack.api:slack-api-client:1.28.0"
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+    api project(':Core')
+}

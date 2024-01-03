@@ -1,0 +1,6 @@
+rootProject.name = 'youngduck'
+include 'Api'
+include 'Domain'
+include 'Core'
+include 'Infra'
+
