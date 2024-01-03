@@ -1,6 +1,6 @@
 package com.example.feign.config;
 
-import com.example.oauth.BaseFeignClientClass;
+
 import feign.Logger;
 import feign.Retryer;
 import org.springframework.cloud.openfeign.EnableFeignClients;
