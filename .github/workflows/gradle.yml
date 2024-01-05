@@ -53,9 +53,9 @@ jobs:
             sudo touch .env
             echo "${{ secrets.ENV }}" | sudo tee .env > /dev/null
             
-            docker stop $(sudo docker ps -a -q)
-            docker rm $(sudo docker ps -a -q)
-            docker rmi $(sudo docker images -q)
+            docker stop $(docker ps -a -q)
+            docker rm $(docker ps -a -q)
+            docker rmi $(docker images -q)
             docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_DEV_REPO }}:latest
             docker-compose -f ~/Youngduck-Server/docker-compose.dev.yml --env-file ~/Youngduck-Server/.env up --build -d
-            docker system prune --all -f
+            docker image prune -a -f
