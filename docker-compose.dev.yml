@@ -15,7 +15,7 @@ services:
   redis:
     image: redis
     container_name: redis
-    hostname: redis
+    hostname: localhost
     ports:
       - "6379:6379"
 
