@@ -46,6 +46,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_DEV_HOST }}
+          username: ubuntu
           key: ${{ secrets.EC2_DEV_KEY }}
           script: |
             cd Youngduck-Server
