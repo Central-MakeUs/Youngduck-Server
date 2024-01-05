@@ -3,8 +3,8 @@ version: '3.7'
 services:
   server:
     image: bee1162/popcornmate-dev
-    container_name: popcornmate-server
-    hostname: popcornmate-server
+    container_name: server
+    hostname: server
     env_file:
       - .env
     environment:
@@ -21,7 +21,7 @@ services:
 
   nginx:
     depends_on:
-      - popcornmate-server
+      - server
     restart: always
     build:
       dockerfile: Dockerfile

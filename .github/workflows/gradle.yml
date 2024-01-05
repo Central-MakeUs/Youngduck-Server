@@ -49,14 +49,11 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_DEV_KEY }}
           script: |
-            cd Youngduck-Server
-            
             sudo touch .env
             echo "${{ secrets.ENV }}" | sudo tee .env > /dev/null
             
-            sudo docker stop $(sudo docker ps -a -q)
-            sudo docker rm $(sudo docker ps -a -q)
-            sudo docker rmi $(sudo docker images -q)
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_DEV_REPO }}:latest
-            sudo docker-compose -f ~/Youngduck-Server/docker-compose.dev.yml --env-file ~/Youngduck-Server/.env up --build -d
-            sudo docker system prune --all -f
+            docker stop $(docker ps -a -q)
+            docker rm $(docker ps -a -q)
+            docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_DEV_REPO }}:latest
+            docker-compose -f ~/Youngduck-Server/docker-compose.dev.yml --env-file ~/Youngduck-Server/.env up --build -d
+            docker image prune -a -f
