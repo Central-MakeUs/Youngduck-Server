@@ -58,5 +58,5 @@ jobs:
             sudo docker rm $(sudo docker ps -a -q)
             sudo docker rmi $(sudo docker images -q)
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_DEV_REPO }}:latest
-            sudo docker-compose -f ~/docker-compose.dev.yml --env-file ~/.env up --build -d
+            sudo docker-compose -f ~/Youngduck-Server/docker-compose.dev.yml --env-file ~/Youngduck-Server/.env up --build -d
             sudo docker system prune --all -f
