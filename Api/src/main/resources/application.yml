@@ -13,11 +13,11 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
-springdoc:
-  default-consumes-media-type: application/json
-  default-produces-media-type: application/json
-  swagger-ui:
-    tags-sorter: alpha
+#springdoc:
+#  default-consumes-media-type: application/json
+#  default-produces-media-type: application/json
+#  swagger-ui:
+#    tags-sorter: alpha
 
 ---
 spring:

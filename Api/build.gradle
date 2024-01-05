@@ -15,7 +15,7 @@ dependencies {
 
 
     // swagger
-    implementation 'org.springdoc:springdoc-openapi-ui:1.6.12'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
     implementation project(':Domain')
     implementation project(':Core')
     implementation project(':Infra')
