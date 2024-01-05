@@ -49,6 +49,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_DEV_KEY }}
           script: |
+            
             sudo touch .env
             echo "${{ secrets.ENV }}" | sudo tee .env > /dev/null
             
