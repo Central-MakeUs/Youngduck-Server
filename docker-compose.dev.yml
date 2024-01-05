@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   server:
-    image: bee1162/popcornmate-dev
+    image: bee1162/popcornmate-dev:latest
     container_name: server
     hostname: server
     env_file:
