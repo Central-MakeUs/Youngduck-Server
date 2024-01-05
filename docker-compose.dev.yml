@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  server:
+    image: bee1162/popcornmate-dev
+    container_name: popcornmate-server
+    hostname: popcornmate-server
+    env_file:
+      - .env
+    environment:
+      - TZ=Asia/Seoul
+    expose:
+      - 8080
+
+  nginx:
+    depends_on:
+      - popcornmate-server
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: './nginx'
+    ports:
+      - "80:80"
