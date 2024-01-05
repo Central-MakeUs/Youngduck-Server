@@ -4,7 +4,8 @@ import com.example.dto.ErrorReason;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-\
+import static com.example.consts.PopCornMateConsts.*;
+
 
 @Getter
 @AllArgsConstructor
