@@ -1,5 +1,9 @@
 package com.example.oauth.config;
 
+import com.example.error.exception.ServerBadRequestException;
+import com.example.error.exception.ServerExpiredTokenException;
+import com.example.error.exception.ServerForbiddenException;
+import com.example.error.exception.ServerNotAuthorizedException;
 import feign.FeignException;
 import feign.Response;
 import feign.codec.ErrorDecoder;
@@ -11,13 +15,13 @@ public class KakaoInfoErrorDecoder implements ErrorDecoder {
         if (response.status() >= 400) {
             switch (response.status()) {
                 case 401:
-                    throw OtherServerUnauthorizedException.EXCEPTION;
+                    throw ServerNotAuthorizedException.EXCEPTION;
                 case 403:
-                    throw OtherServerForbiddenException.EXCEPTION;
+                    throw ServerForbiddenException.EXCEPTION;
                 case 419:
-                    throw OtherServerExpiredTokenException.EXCEPTION;
+                    throw ServerExpiredTokenException.EXCEPTION;
                 default:
-                    throw OtherServerBadRequestException.EXCEPTION;
+                    throw ServerBadRequestException.EXCEPTION;
             }
         }
 
