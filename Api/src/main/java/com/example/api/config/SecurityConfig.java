@@ -43,8 +43,10 @@ public class SecurityConfig {
 
         http.authorizeRequests()
                 .requestMatchers("/api/v1/auth/**").permitAll()
+                .requestMatchers( "/","/api/swagger-ui/**", "/api/v3/api-docs/**").permitAll()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Preflight Request 허용해주기
                 .requestMatchers("/api/v1/**").authenticated();
+
 
 
         //http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider,filterExceptionProcessor), UsernamePasswordAuthenticationFilter.class);

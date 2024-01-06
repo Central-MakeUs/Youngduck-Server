@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  server:
+    image: bee1162/popcornmate-dev:latest
+    container_name: server
+    hostname: server
+    env_file:
+      - .env
+    environment:
+      - TZ=Asia/Seoul
+    expose:
+      - 8080
+
+  redis:
+    image: redis
+    container_name: redis
+    hostname: localhost
+    ports:
+      - "6379:6379"
+
+  nginx:
+    depends_on:
+      - server
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: './nginx'
+    ports:
+      - "80:80"
