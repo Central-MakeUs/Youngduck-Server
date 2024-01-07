@@ -38,5 +38,5 @@ out/
 
 .env
 
-/Domain/src/main/generated/*
+Domain/src/main/generated/**/*.java
 
