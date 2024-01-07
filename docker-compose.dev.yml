@@ -1,23 +1,25 @@
 version: '3.7'
 
 services:
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+    restart: always
+
   server:
     image: bee1162/popcornmate-dev:latest
     container_name: server
     hostname: server
+    depends_on:
+      - redis
     env_file:
       - .env
     environment:
       - TZ=Asia/Seoul
     expose:
       - 8080
-
-  redis:
-    image: redis
-    container_name: redis
-    hostname: localhost
-    ports:
-      - "6379:6379"
 
   nginx:
     depends_on:
