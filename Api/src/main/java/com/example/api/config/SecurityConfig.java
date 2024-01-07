@@ -1,5 +1,7 @@
 package com.example.api.config;
 
+
+import com.example.api.config.security.FilterConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,8 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 )
 public class SecurityConfig {
 
-//    private final JwtProvider jwtTokenProvider;
-//    private final FilterExceptionProcessor filterExceptionProcessor;
+    private final FilterConfig filterConfig;
 
 
     @Bean
@@ -42,15 +43,12 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests()
-                .requestMatchers("/api/v1/auth/**").permitAll()
+                .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers( "/","/api/swagger-ui/**", "/api/v3/api-docs/**").permitAll()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Preflight Request 허용해주기
-                .requestMatchers("/api/v1/**").authenticated();
+                .requestMatchers("/api/**").authenticated();
 
-
-
-        //http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider,filterExceptionProcessor), UsernamePasswordAuthenticationFilter.class);
-
+        http.apply(filterConfig);
 
 
 

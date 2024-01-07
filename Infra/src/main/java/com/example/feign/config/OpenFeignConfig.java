@@ -4,13 +4,16 @@ package com.example.feign.config;
 import com.example.oauth.BaseFeignClientClass;
 import feign.Logger;
 import feign.Retryer;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.concurrent.TimeUnit;
 
 @Configuration
+@ImportAutoConfiguration({FeignAutoConfiguration.class})
 @EnableFeignClients(basePackageClasses = BaseFeignClientClass.class)
 public class OpenFeignConfig {
     @Bean
