@@ -38,3 +38,5 @@ out/
 
 .env
 
+/Domain/src/main/generated/*
+
