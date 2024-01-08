@@ -22,10 +22,10 @@ spring:
 #cloud:
 #  aws:
 #    s3:
-#      bucket: bapmate
+#      bucket:
 #    credentials:
-#      access-key: AKIAQVWFQPSQMHLAJWWN
-#      secret-key: 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
+#      access-key:
+#      secret-key:
 #    region:
 #      static: ap-northeast-2
 #      auto: false
