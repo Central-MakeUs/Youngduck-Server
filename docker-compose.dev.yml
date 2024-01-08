@@ -30,3 +30,4 @@ services:
       context: './nginx'
     ports:
       - "80:80"
+    
