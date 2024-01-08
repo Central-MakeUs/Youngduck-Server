@@ -18,4 +18,17 @@ spring:
     redis:
       host: ${REDIS_HOST}
       port: ${REDIS_PORT:6379}
+
+#cloud:
+#  aws:
+#    s3:
+#      bucket: bapmate
+#    credentials:
+#      access-key: AKIAQVWFQPSQMHLAJWWN
+#      secret-key: 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
+#    region:
+#      static: ap-northeast-2
+#      auto: false
+#    stack:
+#      auto: false
 ---
