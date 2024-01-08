@@ -15,6 +15,7 @@ import com.example.properties.KakaoOAuthProperties;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 
 import static com.example.consts.PopCornMateConsts.BEARER;
 
@@ -49,7 +50,7 @@ public class KakaoOauthHelper {
         System.out.println(referer);
         return kakaoOauthClient.kakaoAuth(
                 kakaoOauthProperties.getClientId(),
-                "http://localhost:8080/kakao/callback",
+                "http://localhost:3000/kakao/callback",
                 code,
                 kakaoOauthProperties.getClientSecret());
     }
