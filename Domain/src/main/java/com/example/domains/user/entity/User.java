@@ -23,6 +23,8 @@ public class User extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+
     @NotNull
     private String nickname;
     @Embedded
@@ -42,9 +44,9 @@ public class User extends BaseTimeEntity {
     private List<Genre> genres = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
-    private Level level = Level.LEVEL_ONE;
+    private Level level = Level.ONE;
 
-    private String phoneNumber;
+//    private String phoneNumber;
 
     @Builder
     private User (
@@ -52,14 +54,12 @@ public class User extends BaseTimeEntity {
             List<Genre> genres,
             boolean lawAgreement,
             boolean isVerified,
-            OauthInfo oauthInfo,
-            Level level
+            OauthInfo oauthInfo
             ){
         this.nickname = nickname;
         this.lawAgreement = lawAgreement;
         this.isVerified = isVerified;
         this.oauthInfo = oauthInfo;
-        this.level = level;
         this.genres = genres;
     }
 
@@ -68,6 +68,7 @@ public class User extends BaseTimeEntity {
             List<Genre> genres,
             boolean lawAgreement,
             OauthInfo oauthInfo
+
     ){
         return User.builder()
                 .nickname(nickname)
@@ -87,6 +88,14 @@ public class User extends BaseTimeEntity {
         if (!this.userState.equals(UserState.ACTIVE)) {
             throw ServerForbiddenException.EXCEPTION;
         }
+    }
+
+    public void updateInfo(String name, List<Genre> genres) {
+        if (!UserState.ACTIVE.equals(this.userState)) {
+            throw ServerForbiddenException.EXCEPTION;
+        }
+        this.nickname = nickname;
+        this.genres = genres;
     }
 
 

@@ -48,6 +48,15 @@ public class OauthController {
         return oauthLoginUseCase.loginWithCode(provider, code, referer);
     }
 
+    @Operation(summary = "개발용 로그인", deprecated = true)
+    @GetMapping("/login/{provider}/dev")
+    public OauthSignInResponse oauthUserLoginDev(
+            @PathVariable("provider") OauthProvider provider, @RequestParam("code") String code) {
+        return oauthLoginUseCase.devLogin(provider, code);
+    }
+
+
+
     @Operation(summary = "로그인 (idtoken 용)", description = "회원가입 안된 유저일 경우, canLogin=false 값을 보냅니다!")
     @PostMapping("/login/{provider}/idtoken")
     public OauthSignInResponse oauthUserIdTokenLogin(
@@ -63,6 +72,14 @@ public class OauthController {
             @RequestParam("idToken") String idToken,
             @RequestBody RegisterRequest registerRequest) {
         return oauthRegisterUseCase.execute(provider, idToken, registerRequest);
+    }
+
+    @Operation(summary = "회원가입 (개발용)", deprecated = true)
+    @PostMapping("/register/{provider}/dev")
+    public OauthRegisterResponse oauthUserRegisterDev(
+            @PathVariable("provider") OauthProvider provider,
+            @RequestParam("idToken") String idToken, @RequestBody RegisterRequest registerRequest) {
+        return oauthRegisterUseCase.executeDev(provider, idToken, registerRequest);
     }
 
 

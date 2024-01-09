@@ -31,6 +31,17 @@ public class OauthRegisterUseCase {
         return OauthRegisterResponse.from(tokenGenerateHelper.execute(user));
     }
 
+    @Transactional
+    public OauthRegisterResponse executeDev(
+            OauthProvider provider,
+            String idToken,
+            RegisterRequest request) {
+        final OauthInfo oauthInfo = oauthHelper.getOauthInfoDev(provider, idToken);
+        final User user = registerUser(provider, oauthInfo, request);
+        return OauthRegisterResponse.from(tokenGenerateHelper.execute(user));
+    }
+
+
     private User registerUser(
             OauthProvider provider,
             OauthInfo oauthInfo,

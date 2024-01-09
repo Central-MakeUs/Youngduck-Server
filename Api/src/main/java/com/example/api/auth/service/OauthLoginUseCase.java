@@ -40,6 +40,17 @@ public class OauthLoginUseCase {
         return checkUserCanLogin(oauthInfo, idToken);
     }
 
+    @Transactional
+    public OauthSignInResponse devLogin(OauthProvider provider, String code) {
+        final OauthTokenResponse oauthTokenResponse = oauthHelper.getCredentialDev(provider, code);
+        return processLoginWithIdTokenDev(provider, oauthTokenResponse.getIdToken());
+    }
+
+    private OauthSignInResponse processLoginWithIdTokenDev(OauthProvider provider, String idToken) {
+        final OauthInfo oauthInfo = oauthHelper.getOauthInfoDev(provider, idToken);
+        return checkUserCanLogin(oauthInfo, idToken);
+    }
+
 
     private OauthSignInResponse checkUserCanLogin(OauthInfo oauthInfo, String idToken) {
         if (userDomainService.checkUserCanLogin(oauthInfo)) {
