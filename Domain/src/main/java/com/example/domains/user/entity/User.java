@@ -23,6 +23,8 @@ public class User extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+
     @NotNull
     private String nickname;
     @Embedded
@@ -87,6 +89,14 @@ public class User extends BaseTimeEntity {
         if (!this.userState.equals(UserState.ACTIVE)) {
             throw ServerForbiddenException.EXCEPTION;
         }
+    }
+
+    public void updateInfo(String name, List<Genre> genres) {
+        if (!UserState.ACTIVE.equals(this.userState)) {
+            throw ServerForbiddenException.EXCEPTION;
+        }
+        this.nickname = nickname;
+        this.genres = genres;
     }
 
 
