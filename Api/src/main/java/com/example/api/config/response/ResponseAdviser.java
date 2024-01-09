@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 
+import static com.example.consts.PopCornMateConsts.SwaggerPatterns;
+
 @Slf4j
 @RestControllerAdvice
 public class ResponseAdviser implements ResponseBodyAdvice<Object> {
@@ -35,13 +37,23 @@ public class ResponseAdviser implements ResponseBodyAdvice<Object> {
         HttpServletResponse servletResponse =
                 ((ServletServerHttpResponse) response).getServletResponse();
 
+        ContentCachingRequestWrapper servletRequest =
+                new ContentCachingRequestWrapper(
+                        ((ServletServerHttpRequest) request).getServletRequest());
+
+        for (String swaggerPattern : SwaggerPatterns) {
+            if (servletRequest.getRequestURL().toString().contains(swaggerPattern)) return body;
+        }
+
+
+
         int status = servletResponse.getStatus();
         HttpStatus resolve = HttpStatus.resolve(servletResponse.getStatus());
 
         if (resolve == null) return body;
 
         if (resolve.is2xxSuccessful())
-            return new SuccessResponse(status, body);
+            return SuccessResponse.onSuccess(status, body);
 
         return body;
     }

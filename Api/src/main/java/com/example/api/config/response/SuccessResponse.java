@@ -1,17 +1,36 @@
 package com.example.api.config.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 
-public class SuccessResponse {
+@Getter
+public class SuccessResponse<T> {
+    @JsonProperty("status")
+    private int code;
 
-    private final boolean success = true;
-    private final int status;
-    private final Object data;
-    private final LocalDateTime timeStamp;
+    @JsonProperty("message")
+    private String message;
 
-    public SuccessResponse(int status, Object data) {
-        this.status = status;
+    @JsonProperty("data")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private T data;
+
+    @Builder
+    private SuccessResponse(int code, String message, T data) {
+        this.code = code;
+        this.message = message;
         this.data = data;
-        this.timeStamp = LocalDateTime.now();
+    }
+
+    public static <T> SuccessResponse<T> onSuccess(int code) {
+        return SuccessResponse.<T>builder().code(code).message("요청에 성공하였습니다.").data(null).build();
+    }
+
+    public static <T> SuccessResponse<T> onSuccess(int code, T data) {
+        return SuccessResponse.<T>builder().code(code).message("요청에 성공하였습니다.").data(data).build();
     }
 }
