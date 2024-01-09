@@ -6,9 +6,9 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum Level {
-    LEVEL_ONE("1"),
+    ONE("LEVEL_ONE"),
     // 탈퇴한유저
-    LEVEL_TWO("2");
+    TWO("LEVEL_TWO");
 
     private String value;
 }
