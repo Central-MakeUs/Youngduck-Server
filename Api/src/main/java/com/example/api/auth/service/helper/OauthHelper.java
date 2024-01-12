@@ -76,6 +76,14 @@ public class OauthHelper {
             default -> throw InvalidOauthProviderException.EXCEPTION;
         }
     }
+    public void withdrawDev(
+            OauthProvider provider, String oid, String appleAccessToken) {
+        switch (provider) {
+            case KAKAO -> kakaoOauthHelper.withdrawKakaoOauthUser(oid);
+            case APPLE -> appleOauthHelper.withdrawAppleOauthUserDev(appleAccessToken);
+            default -> throw InvalidOauthProviderException.EXCEPTION;
+        }
+    }
 
 
     /** 유저 정보 가져오기 * */
