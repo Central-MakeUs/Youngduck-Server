@@ -1,5 +1,6 @@
 package com.example.api.screening.controller;
 
+import com.example.api.config.response.SuccessResponse;
 import com.example.api.screening.dto.request.PostReviewRequest;
 import com.example.api.screening.dto.request.PostScreeningRequest;
 import com.example.api.screening.dto.response.BookMarkResponse;
@@ -13,7 +14,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/screening")
@@ -25,6 +30,18 @@ public class ScreeningController {
     private final GetScreeningUseCase getScreeningUseCase;
     private final ReviewUseCase reviewUseCase;
     private final BookMarkScreeningUseCase bookMarkScreeningUseCase;
+
+    @Operation(description = "모임 대표 이미지")
+    @PostMapping(value = "/image", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public SuccessResponse<Object> uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
+        try {
+            String imageUrl = screeningUploadUseCase.uploadImage(file);
+            SuccessResponse<Object> successResponse = SuccessResponse.onSuccess(200,imageUrl);
+            return successResponse;
+        } catch (IOException e) {
+            throw  new IllegalArgumentException("오류");
+        }
+    }
 
     @Operation(
             summary = "스크리닝 업로드하기",
