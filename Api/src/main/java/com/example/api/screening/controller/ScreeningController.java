@@ -1,5 +1,6 @@
 package com.example.api.screening.controller;
 
+import com.example.api.screening.dto.request.PostReviewRequest;
 import com.example.api.screening.dto.request.PostScreeningRequest;
 import com.example.api.screening.dto.response.BookMarkResponse;
 import com.example.api.screening.dto.response.ScreeningUploadResponse;
@@ -49,9 +50,9 @@ public class ScreeningController {
 
     @Operation(summary = "특정 스크리닝에 리뷰 달기", description = "screening id가져와서 리뷰하기")
     @PostMapping("/review/{screeningId}")
-    public void reviewOnScreening(@PathVariable("screeningId") Long screeningId)
+    public void reviewOnScreening(@PathVariable("screeningId")Long screeningId, @RequestBody PostReviewRequest request)
     {
-        reviewUseCase.execute(screeningId);
+        reviewUseCase.execute(screeningId,request);
     }
 
     //TODO 리뷰 반환하기
