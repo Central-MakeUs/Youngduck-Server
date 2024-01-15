@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserScreening{
+    //isAlarmOn해보기
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -47,5 +48,9 @@ public class UserScreening{
                 .screening(screening)
                 .build();
 
+    }
+    public void updateBookmarkedAndParticipating(boolean newIsBookmarked, boolean newIsParticipating) {
+        this.isBookmarked = newIsBookmarked;
+        this.isParticipating = newIsParticipating;
     }
 }
