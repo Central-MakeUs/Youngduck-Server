@@ -44,16 +44,13 @@ public class BookMarkScreeningUseCase {
         //특정 userScreening에서 update해주기
         UserScreening newUserScreening = update(screeningId,userId);
         //bookmarkResponse로 만들어주기
-        return BookMarkResponse.from(newUserScreening);
+        return BookMarkResponse.firstCreated(newUserScreening);
     }
 
     private UserScreening updateWhenExists(UserScreening userScreening) {
         userScreeningAdaptor.updateUserScreening(userScreening);
         UserScreening newUserScreening = userScreeningAdaptor.findByUserAndScreening(userScreening.getUser().getId(),userScreening.getScreening().getId());
         return newUserScreening;
-    }
-
-    private void proceedSaving(Long id, Long id1) {
     }
 
     private UserScreening update(Long screeningId, Long userId) {

@@ -43,4 +43,11 @@ public class BookMarkResponse {
         }
 
     }
+    public static BookMarkResponse firstCreated(UserScreening userScreening) {
+            return BookMarkResponse.builder()
+                    .screeningId(userScreening.getScreening().getId())
+                    .isBookMarked(true)
+                    .canCancel(true)
+                    .build();
+    }
 }
