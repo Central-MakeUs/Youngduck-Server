@@ -7,6 +7,7 @@ import com.example.domains.user.entity.User;
 import com.example.domains.userscreening.entity.UserScreening;
 import com.example.domains.userscreening.repository.UserScreeningRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 @Adaptor
 @RequiredArgsConstructor
@@ -26,5 +27,11 @@ public class ScreeningAdaptor {
     public Screening findById(Long id) {
         Screening screening = screeningRepository.findById(id).get();
         return screening;
+    }
+
+    @Transactional
+    public void changePrivateStatus(Long screeningId) {
+       Screening screening = screeningRepository.findById(screeningId).get();
+       screening.updatePrivacy(!screening.isPrivate());
     }
 }

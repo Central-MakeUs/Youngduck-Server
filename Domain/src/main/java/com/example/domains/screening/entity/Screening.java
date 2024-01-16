@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -70,5 +71,10 @@ public class Screening extends BaseTimeEntity {
                 .hasAgreed(hasAgreed)
                 .category(category)
                 .build();
+    }
+
+
+    public void updatePrivacy(boolean isPrivate) {
+        this.isPrivate = isPrivate;
     }
 }
