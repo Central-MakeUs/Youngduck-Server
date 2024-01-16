@@ -16,6 +16,7 @@ import java.util.List;
 public class GetScreeningListUseCase {
     private final UserScreeningAdaptor userScreeningAdaptor;
     private final ScreeningAdaptor screeningAdaptor;
+    //TODO dto 따로 만들기
     public List<Screening> execute(){
         Long userId = SecurityUtil.getCurrentUserId();
 

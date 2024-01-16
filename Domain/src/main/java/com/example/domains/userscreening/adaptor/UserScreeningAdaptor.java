@@ -1,12 +1,15 @@
 package com.example.domains.userscreening.adaptor;
 
 import com.example.adaptor.Adaptor;
+import com.example.domains.screeningReview.entity.QScreeningReview;
+import com.example.domains.screeningReview.entity.dto.ReviewResponseDto;
 import com.example.domains.user.entity.User;
 import com.example.domains.user.repository.UserRepository;
 import com.example.domains.userscreening.entity.QUserScreening;
 import com.example.domains.userscreening.entity.UserScreening;
 import com.example.domains.userscreening.exception.exceptions.UserScreeningNotFound;
 import com.example.domains.userscreening.repository.UserScreeningRepository;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +34,8 @@ public class UserScreeningAdaptor {
             throw UserScreeningNotFound.EXCEPTION;
         }
     }
+
+
 
     
     public boolean checkExists(Long userId, Long screeningId) {
@@ -57,5 +62,31 @@ public class UserScreeningAdaptor {
                 .selectFrom(QUserScreening.userScreening)
                 .where(QUserScreening.userScreening.isHost.eq(true),QUserScreening.userScreening.user.id.eq(userId))
                 .fetch();
+    }
+
+
+    public List<ReviewResponseDto> getReviewListByScreening(Long userId,Long screeningId) {
+        // Use QueryDSL to perform the projection
+        List<ReviewResponseDto> reviewResponseDtos = queryFactory
+                .select(Projections.constructor(
+                        ReviewResponseDto.class,
+                        QScreeningReview.screeningReview.beforeScreening,
+                        QScreeningReview.screeningReview.afterScreening,
+                        QScreeningReview.screeningReview.movieReview,
+                        QScreeningReview.screeningReview.locationReview,
+                        QScreeningReview.screeningReview.serviceReview,
+                        QScreeningReview.screeningReview.review,
+                        QScreeningReview.screeningReview.hasAgreed,
+                        QScreeningReview.screeningReview.userScreening.screening.id
+                ))
+                .from(QScreeningReview.screeningReview)
+                .join(QUserScreening.userScreening)
+                .on(QUserScreening.userScreening.id.eq(QScreeningReview.screeningReview.userScreening.id)
+                        .and(QUserScreening.userScreening.isHost.eq(false))
+                        .and(QUserScreening.userScreening.user.id.eq(userId)))
+                .where(QUserScreening.userScreening.screening.id.eq(screeningId))
+                .fetch();
+
+        return reviewResponseDtos;
     }
 }

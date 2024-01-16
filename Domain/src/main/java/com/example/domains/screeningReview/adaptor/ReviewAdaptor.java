@@ -23,6 +23,10 @@ public class ReviewAdaptor {
         screeningReviewRepository.save(screeningReview);
     }
 
+    public ScreeningReview findById(Long reviewId) {
+        return screeningReviewRepository.findById(reviewId).get();
+    }
+
     //본인이 리뷰한 (host아님) 상영회에 대한 리뷰 반환
     public List<ReviewResponseDto> getPostedScreeningReviews(Long userId) {
         // QUserScreening과 QScreeningReview는 QueryDSL에서 생성된 엔터티 클래스여야 합니다.

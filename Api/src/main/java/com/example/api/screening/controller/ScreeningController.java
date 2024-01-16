@@ -4,6 +4,7 @@ import com.example.api.config.response.SuccessResponse;
 import com.example.api.screening.dto.request.PostReviewRequest;
 import com.example.api.screening.dto.request.PostScreeningRequest;
 import com.example.api.screening.dto.response.BookMarkResponse;
+import com.example.api.screening.dto.response.PostReviewResponse;
 import com.example.api.screening.dto.response.ScreeningUploadResponse;
 import com.example.api.screening.service.*;
 import com.example.domains.screening.entity.Screening;
@@ -32,6 +33,8 @@ public class ScreeningController {
     private final BookMarkScreeningUseCase bookMarkScreeningUseCase;
     private final GetScreeningListUseCase getScreeningListUseCase;
     private final GetScreeningReviewListUseCase getScreeningReviewListUseCase;
+    private final GetReviewUseCase getReviewUseCase;
+    private final GetReviewListUseCase getReviewListUseCase;
 
     @Operation(description = "모임 대표 이미지")
     @PostMapping(value = "/image", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
@@ -59,8 +62,14 @@ public class ScreeningController {
         return getScreeningUseCase.execute(screeningId);
     }
 
+    @Operation(summary = "스크리닝 리뷰 id별로 가져오기", description = "screening review id가져와서 요청하기")
+    @GetMapping("/review/{reviewId}")
+    public PostReviewResponse getReviewById(@PathVariable("reviewId") Long reviewId) {
+        return getReviewUseCase.execute(reviewId);
+    }
+
     @Operation(summary = "본인이 만든 스크리닝 목록 가져오기", description = "screening list가져와서 요청하기")
-    @PostMapping("/all")
+    @GetMapping("/all")
     public List<Screening> getScreeningList() {
         return getScreeningListUseCase.execute();
     }
@@ -81,11 +90,18 @@ public class ScreeningController {
         reviewUseCase.execute(screeningId,request);
     }
 
-    //TODO 리뷰 아이디별로 반환하기
+    //TODO 리뷰 목록 스크리닝 아이디별로 반환하기
+    @Operation(summary = "특정 스크리닝에 리뷰 리스트 가져오기", description = "screening id로 리뷰리스트 가져오기")
+    @GetMapping("/screening-reviews/{screeningId}")
+    public List<ReviewResponseDto> reviewsFromScreening(@PathVariable("screeningId")Long screeningId)
+    {
+        return getReviewListUseCase.execute(screeningId);
+    }
+
 
     //TODO 내가 남긴 리뷰 모아보기 리스트로
     @Operation(summary = "본인이 리뷰남긴 리뷰 목록 가져오기", description = "screeningReview list가져와서 요청하기")
-    @PostMapping("/review/all")
+    @GetMapping("/review/all")
     public List<ReviewResponseDto> getScreeningReviewList() {
         return getScreeningReviewListUseCase.execute();
     }
