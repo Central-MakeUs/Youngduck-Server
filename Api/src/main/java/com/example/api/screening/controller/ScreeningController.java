@@ -5,7 +5,11 @@ import com.example.api.screening.dto.request.PostReviewRequest;
 import com.example.api.screening.dto.request.PostScreeningRequest;
 import com.example.api.screening.dto.response.*;
 import com.example.api.screening.service.*;
+import com.example.domains.screening.adaptor.ScreeningAdaptor;
 import com.example.domains.screening.entity.Screening;
+import com.example.domains.screening.entity.dto.ScreeningResponseDto;
+import com.example.domains.screening.enums.Category;
+import com.example.domains.screening.service.ScreeningService;
 import com.example.domains.screeningReview.entity.ScreeningReview;
 import com.example.domains.screeningReview.entity.dto.ReviewResponseDto;
 import com.example.domains.screeningReview.entity.dto.ScreeningReviewResponseDto;
@@ -14,6 +18,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,6 +47,8 @@ public class ScreeningController {
     private final GetReviewListUseCase getReviewListUseCase;
     private final PostScreeningPrivateUseCase postScreeningPrivateUseCase;
     private final PatchScreeningUseCase patchScreeningUseCase;
+    private final ScreeningAdaptor screeningAdaptor;
+
 
     @Operation(description = "모임 대표 이미지")
     @PostMapping(value = "/image", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, APPLICATION_JSON_VALUE})
@@ -129,6 +139,30 @@ public class ScreeningController {
     }
 
 
-    //TODO 검색하기 기능 구현하기
+    //TODO 검색하기 기능 구현하기, hostName추가하기
+    @GetMapping("/screenings/search")
+    public Slice<Screening> searchScreenings(
+            @RequestParam(required = false,value = "title") String title,
+            @RequestParam(required = false,value= "category") Category category,
+            @ParameterObject @PageableDefault(size = 10) Pageable pageable
+    ) {
+        return screeningAdaptor.searchScreenings(title, category, pageable);
+    }
 
+    //TODO 검색하기 기능 -> 날짜 순
+
+    //TODO 댓글 많은 수 Top3 반환
+
+
+    @Operation(summary = "현재시점에서 이번주 상영작 3개 반환", description = "현재시점에서 다음주 상영작 3개 반환")
+    @GetMapping("/upcoming-Screening")
+    public List<ScreeningResponseDto> getTopThreeScreening() {
+        return screeningAdaptor.getTopThree();
+    }
+
+    @Operation(summary = "현재시점에서 이번주 상영작 3개 반환", description = "현재시점에서 다음주 상영작 3개 반환")
+    @GetMapping("/recent-Screening")
+    public List<ScreeningResponseDto> getRecentScreening() {
+        return screeningAdaptor.getMostRecentScreening();
+    }
 }

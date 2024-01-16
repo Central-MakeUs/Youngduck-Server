@@ -24,7 +24,6 @@ import java.io.IOException;
 public class ScreeningUploadUseCase {
     private final UserValidator userValidator;
     private final ScreeningAdaptor screeningAdaptor;
-    private final UserRepository userRepository;
     private final UserAdaptor userAdaptor;
     private final UserScreeningAdaptor userScreeningAdaptor;
     private final S3PresignedUrlService s3UploadService;
