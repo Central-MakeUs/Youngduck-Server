@@ -1,38 +1,39 @@
-package com.example.api.screening.dto.response;
+package com.example.domains.screeningReview.entity.dto;
 
 import com.example.domains.screeningReview.entity.ScreeningReview;
-import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-public class PostReviewResponse {
-    @Schema(defaultValue = "true", description = "기대 지수")
+@NoArgsConstructor
+public class ReviewResponseDto {
+
     private boolean beforeScreeningSatisfied;
 
-    @Schema(defaultValue = "true", description = "만족도")
+
     private boolean afterScreening;
 
-    @Schema(defaultValue = "true", description = "작품")
+
     private boolean screeningReview;
 
-    @Schema(defaultValue = "true", description = "장소")
+
     private boolean locationReview;
-    @Schema(defaultValue = "true", description = "운영")
+
     private boolean serviceReview;
 
-    @Schema(defaultValue = "너무 좋았습니다", description = "텍스트 리뷰")
+
     private String review;
 
-    @Schema(defaultValue = "true", description = "정책 약관")
+
     private boolean hasAgreed;
 
-    @Schema(defaultValue = "1", description = "screening아이디")
     private Long screeningId;
 
     @Builder
-    public PostReviewResponse(boolean beforeScreeningSatisfied, boolean afterScreening, boolean screeningReview,
-                             boolean locationReview, boolean serviceReview, String review, boolean hasAgreed, Long screeningId) {
+    public ReviewResponseDto(boolean beforeScreeningSatisfied, boolean afterScreening, boolean screeningReview,
+                              boolean locationReview, boolean serviceReview, String review, boolean hasAgreed, Long screeningId) {
         this.beforeScreeningSatisfied = beforeScreeningSatisfied;
         this.afterScreening = afterScreening;
         this.screeningReview = screeningReview;
@@ -42,8 +43,8 @@ public class PostReviewResponse {
         this.hasAgreed =hasAgreed;
         this.screeningId = screeningId;
     }
-    public static PostReviewResponse from(ScreeningReview screeningReview) {
-        return PostReviewResponse.builder()
+    public static ReviewResponseDto from(ScreeningReview screeningReview) {
+        return ReviewResponseDto.builder()
                 .beforeScreeningSatisfied(screeningReview.isBeforeScreening())
                 .afterScreening(screeningReview.isAfterScreening())
                 .screeningReview(screeningReview.isMovieReview())
@@ -55,3 +56,4 @@ public class PostReviewResponse {
                 .build();
     }
 }
+
