@@ -3,6 +3,7 @@ package com.example.domains.userscreening.adaptor;
 import com.example.adaptor.Adaptor;
 import com.example.domains.screeningReview.entity.QScreeningReview;
 import com.example.domains.screeningReview.entity.dto.ReviewResponseDto;
+import com.example.domains.screeningReview.entity.dto.ScreeningReviewResponseDto;
 import com.example.domains.user.entity.User;
 import com.example.domains.user.repository.UserRepository;
 import com.example.domains.userscreening.entity.QUserScreening;
@@ -65,19 +66,16 @@ public class UserScreeningAdaptor {
     }
 
 
-    public List<ReviewResponseDto> getReviewListByScreening(Long userId,Long screeningId) {
+    @Transactional
+    public List<ScreeningReviewResponseDto> getReviewListByScreening(Long userId, Long screeningId) {
         // Use QueryDSL to perform the projection
-        List<ReviewResponseDto> reviewResponseDtos = queryFactory
+        List<ScreeningReviewResponseDto> reviewResponseDtos = queryFactory
                 .select(Projections.constructor(
-                        ReviewResponseDto.class,
-                        QScreeningReview.screeningReview.beforeScreening,
+                        ScreeningReviewResponseDto.class,
                         QScreeningReview.screeningReview.afterScreening,
-                        QScreeningReview.screeningReview.movieReview,
-                        QScreeningReview.screeningReview.locationReview,
-                        QScreeningReview.screeningReview.serviceReview,
-                        QScreeningReview.screeningReview.review,
-                        QScreeningReview.screeningReview.hasAgreed,
-                        QScreeningReview.screeningReview.userScreening.screening.id
+                        QScreeningReview.screeningReview.createdAt,
+                        QScreeningReview.screeningReview.userScreening.screening.id,
+                        QScreeningReview.screeningReview.review
                 ))
                 .from(QScreeningReview.screeningReview)
                 .join(QUserScreening.userScreening)
@@ -86,6 +84,7 @@ public class UserScreeningAdaptor {
                         .and(QUserScreening.userScreening.user.id.eq(userId)))
                 .where(QUserScreening.userScreening.screening.id.eq(screeningId))
                 .fetch();
+
 
         return reviewResponseDtos;
     }

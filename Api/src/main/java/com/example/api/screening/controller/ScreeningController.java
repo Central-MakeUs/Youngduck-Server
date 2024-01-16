@@ -5,11 +5,14 @@ import com.example.api.screening.dto.request.PostReviewRequest;
 import com.example.api.screening.dto.request.PostScreeningRequest;
 import com.example.api.screening.dto.response.BookMarkResponse;
 import com.example.api.screening.dto.response.PostReviewResponse;
+import com.example.api.screening.dto.response.ScreeningReviewUserResponse;
 import com.example.api.screening.dto.response.ScreeningUploadResponse;
 import com.example.api.screening.service.*;
 import com.example.domains.screening.entity.Screening;
 import com.example.domains.screeningReview.entity.ScreeningReview;
 import com.example.domains.screeningReview.entity.dto.ReviewResponseDto;
+import com.example.domains.screeningReview.entity.dto.ScreeningReviewResponseDto;
+import com.example.domains.screeningReview.entity.dto.ScreeningReviewUserResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/screening")
@@ -37,7 +42,7 @@ public class ScreeningController {
     private final GetReviewListUseCase getReviewListUseCase;
 
     @Operation(description = "모임 대표 이미지")
-    @PostMapping(value = "/image", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(value = "/image", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, APPLICATION_JSON_VALUE})
     public SuccessResponse<Object> uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
         try {
             String imageUrl = screeningUploadUseCase.uploadImage(file);
@@ -56,6 +61,7 @@ public class ScreeningController {
         return screeningUploadUseCase.execute(request);
     }
 
+    //TODO private여부 넘겨주기, isHost이면 private 토글해주는 api연결하기
     @Operation(summary = "스크리닝 id별로 가져오기", description = "screening id가져와서 요청하기")
     @PostMapping("/{screeningId}")
     public Screening getScreening(@PathVariable("screeningId") Long screeningId) {
@@ -92,8 +98,8 @@ public class ScreeningController {
 
     //TODO 리뷰 목록 스크리닝 아이디별로 반환하기
     @Operation(summary = "특정 스크리닝에 리뷰 리스트 가져오기", description = "screening id로 리뷰리스트 가져오기")
-    @GetMapping("/screening-reviews/{screeningId}")
-    public List<ReviewResponseDto> reviewsFromScreening(@PathVariable("screeningId")Long screeningId)
+    @GetMapping("/screening-review/{screeningId}")
+    public List<ScreeningReviewUserResponse> reviewsFromScreening(@PathVariable("screeningId")Long screeningId)
     {
         return getReviewListUseCase.execute(screeningId);
     }
@@ -110,5 +116,9 @@ public class ScreeningController {
     //TODO 검색하기 기능 구현하기
 
     //TODO 특정 스크리닝 리뷰 좋아요 누르기
+
+    //TODO 스크리닝 수정하기
+
+    //TODO 비공개하기
 
 }
