@@ -77,4 +77,19 @@ public class Screening extends BaseTimeEntity {
     public void updatePrivacy(boolean isPrivate) {
         this.isPrivate = isPrivate;
     }
+
+    public void update(Screening request) {
+        // Update the screening with the new information from the request
+        this.title = request.getTitle();
+        this.posterImgUrl = request.getPosterImgUrl();
+        this.hostInfo = HostInfo.of(request.hostInfo.getHostName(), request.hostInfo.getHostPhoneNumber(), request.hostInfo.getHostEmail());
+        this.location = request.getLocation();
+        this.participationUrl = request.getParticipationUrl();
+        this.information = request.getInformation();
+        this.screeningStartDate = request.getScreeningStartDate();
+        this.screeningEndDate = request.getScreeningEndDate();
+        this.screeningStartTime = request.getScreeningStartTime();
+        this.hasAgreed = request.isHasAgreed();
+        this.category = request.getCategory();
+    }
 }

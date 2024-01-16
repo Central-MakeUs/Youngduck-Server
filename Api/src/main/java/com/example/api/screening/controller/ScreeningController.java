@@ -38,6 +38,7 @@ public class ScreeningController {
     private final GetReviewUseCase getReviewUseCase;
     private final GetReviewListUseCase getReviewListUseCase;
     private final PostScreeningPrivateUseCase postScreeningPrivateUseCase;
+    private final PatchScreeningUseCase patchScreeningUseCase;
 
     @Operation(description = "모임 대표 이미지")
     @PostMapping(value = "/image", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, APPLICATION_JSON_VALUE})
@@ -106,24 +107,28 @@ public class ScreeningController {
     }
 
 
-    //TODO 검색하기 기능 구현하기
-
-
-    //TODO 5. 스크리닝 수정하기
-
-
-    //TODO 3. private여부 넘겨주기, isHost이면 private 토글해주는 api연결하기
     @Operation(summary = "나의 스크리닝 id별로 가져오기", description = "screening id가져와서 요청하기")
     @GetMapping("/myScreening/{screeningId}")
     public ScreeningResponse getMyScreening(@PathVariable("screeningId") Long screeningId) {
         return getScreeningUseCase.getMyScreening(screeningId);
     }
 
-    //TODO 4. 비공개하기
     @Operation(summary = "나의 스크리닝 비공개 on/off하기", description = "screening id가져와서 요청하기")
     @PostMapping("/myScreening/private/{screeningId}")
     public void changeMyScreeningToPrivate(@PathVariable("screeningId") Long screeningId) {
         postScreeningPrivateUseCase.execute(screeningId);
     }
+
+
+    @Operation(
+            summary = "스크리닝 수정하기",
+            description = "screening RequestBody가지고 업로드")
+    @PatchMapping("/screening/{screeningId}")
+    public Screening modifyScreening(@PathVariable("screeningId") Long screeningId,@RequestBody PostScreeningRequest request){
+        return patchScreeningUseCase.execute(screeningId,request);
+    }
+
+
+    //TODO 검색하기 기능 구현하기
 
 }
