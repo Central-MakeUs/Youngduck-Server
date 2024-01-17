@@ -6,6 +6,7 @@ import com.example.domains.screening.entity.Screening;
 import com.example.domains.screeningReview.adaptor.ReviewAdaptor;
 import com.example.domains.screeningReview.entity.ScreeningReview;
 import com.example.domains.screeningReview.entity.dto.ReviewResponseDto;
+import com.example.domains.screeningReview.entity.dto.ScreeningWithReviewDto;
 import com.example.domains.userscreening.adaptor.UserScreeningAdaptor;
 import com.example.domains.userscreening.entity.UserScreening;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +20,11 @@ public class GetScreeningReviewListUseCase {
     private final UserScreeningAdaptor userScreeningAdaptor;
     private final ReviewAdaptor screeningReviewAdaptor;
 
-    public List<ReviewResponseDto> execute(){
+    public List<ScreeningWithReviewDto> execute(){
         Long userId = SecurityUtil.getCurrentUserId();
 
         //userScreening에서 찾기 (host)
-        List<ReviewResponseDto> userScreenings = screeningReviewAdaptor.getPostedScreeningReviews(userId);
+        List<ScreeningWithReviewDto> userScreenings = screeningReviewAdaptor.getPostedScreeningReviews(userId);
 //        //userScreening에서 screeningId가지고 다 screening다 반환
 //        List<ScreeningReview> screeningReviews = new ArrayList<>();
 //

@@ -17,6 +17,7 @@ import com.example.domains.screeningReview.entity.ScreeningReview;
 import com.example.domains.screeningReview.entity.dto.ReviewResponseDto;
 import com.example.domains.screeningReview.entity.dto.ScreeningReviewResponseDto;
 import com.example.domains.screeningReview.entity.dto.ScreeningReviewUserResponseDto;
+import com.example.domains.screeningReview.entity.dto.ScreeningWithReviewDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
@@ -117,7 +118,7 @@ public class ScreeningController {
     //TODO 리뷰 뿐만아니라 스크리닝 정보 가져오기
     @Operation(summary = "본인이 리뷰남긴 리뷰 목록 가져오기", description = "screeningReview list가져와서 요청하기")
     @GetMapping("/review/all")
-    public List<ReviewResponseDto> getScreeningReviewList() {
+    public List<ScreeningWithReviewDto> getScreeningReviewList() {
         return getScreeningReviewListUseCase.execute();
     }
 
