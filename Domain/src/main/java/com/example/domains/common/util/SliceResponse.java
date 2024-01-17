@@ -1,4 +1,4 @@
-package com.example.api.common.slice;
+package com.example.domains.common.util;
 
 import org.springframework.data.domain.Slice;
 

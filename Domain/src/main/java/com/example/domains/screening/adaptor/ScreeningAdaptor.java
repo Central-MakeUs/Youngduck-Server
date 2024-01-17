@@ -1,6 +1,7 @@
 package com.example.domains.screening.adaptor;
 
 import com.example.adaptor.Adaptor;
+import com.example.domains.common.util.SliceResponse;
 import com.example.domains.screening.entity.QScreening;
 import com.example.domains.screening.entity.Screening;
 import com.example.domains.screening.entity.dto.QScreeningResponseDto;
@@ -76,7 +77,8 @@ public class ScreeningAdaptor {
                         QScreening.screening.screeningStartDate.between(
                                 startOfWeek.atStartOfDay(),
                                 endOfWeek.atTime(23, 59, 59)
-                        )
+                        ),
+                        QScreening.screening.isPrivate.eq(false)
                 )
                 .orderBy(QScreening.screening.screeningStartDate.asc())
                 .limit(3)
@@ -103,17 +105,18 @@ public class ScreeningAdaptor {
                         QScreening.screening.isPrivate
                 ))
                 .from(QScreening.screening)
+                .where(QScreening.screening.isPrivate.eq(false))
                 .orderBy(QScreening.screening.createdAt.desc())
                 .limit(3)
                 .fetch();
     }
 
 
-    public Slice<Screening> searchScreenings(String title, Category category, Pageable pageable) {
+    public SliceResponse<Screening> searchScreenings(String title, Category category, Pageable pageable) {
         return screeningRepository.querySliceScreening(title, category, pageable);
     }
 
-    public Slice<Screening> searchByStartDate(String title, Category category, Pageable pageable) {
+    public SliceResponse<Screening> searchByStartDate(String title, Category category, Pageable pageable) {
         return screeningRepository.querySliceScreeningByDate(title, category, pageable);
     }
 
@@ -140,6 +143,7 @@ public class ScreeningAdaptor {
                 .from(QScreening.screening)
                 .leftJoin(QUserScreening.userScreening).on(QScreening.screening.eq(QUserScreening.userScreening.screening))
                 .leftJoin(QScreeningReview.screeningReview).on(QUserScreening.userScreening.eq(QScreeningReview.screeningReview.userScreening))
+                .where(QScreening.screening.isPrivate.eq(false))
                 .groupBy(QScreening.screening.id, QUserScreening.userScreening.id)
                 .orderBy(QScreeningReview.screeningReview.count().desc())
                 .limit(3)
@@ -158,7 +162,8 @@ public class ScreeningAdaptor {
                         QUserScreening.userScreening.isHost.eq(false),
                         QUserScreening.userScreening.user.id.eq(userId),
                         QUserScreening.userScreening.isBookmarked.eq(true),
-                        QScreeningReview.screeningReview.userScreening.screening.screeningStartDate.before(currentDateTime)
+                        QScreeningReview.screeningReview.userScreening.screening.screeningStartDate.before(currentDateTime),
+                        QScreeningReview.screeningReview.userScreening.screening.isPrivate.eq(false)
                 )
                 .fetch();
 
@@ -178,7 +183,8 @@ public class ScreeningAdaptor {
                         QUserScreening.userScreening.isHost.eq(false),
                         QUserScreening.userScreening.user.id.eq(userId),
                         QUserScreening.userScreening.isBookmarked.eq(true),
-                        QScreeningReview.screeningReview.userScreening.screening.screeningStartDate.after(currentDateTime)
+                        QScreeningReview.screeningReview.userScreening.screening.screeningStartDate.after(currentDateTime),
+                        QScreeningReview.screeningReview.userScreening.screening.isPrivate.eq(false)
                 )
                 .fetch();
 

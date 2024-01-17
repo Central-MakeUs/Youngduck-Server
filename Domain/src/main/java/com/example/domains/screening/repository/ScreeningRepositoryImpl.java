@@ -1,5 +1,6 @@
 package com.example.domains.screening.repository;
 
+import com.example.domains.common.util.SliceResponse;
 import com.example.domains.common.util.SliceUtil;
 import com.example.domains.screening.entity.QScreening;
 import com.example.domains.screening.entity.Screening;
@@ -16,32 +17,34 @@ import java.util.List;
 public class ScreeningRepositoryImpl implements ScreeningRepositoryCustom {
     private final JPAQueryFactory queryFactory;
     @Override
-    public Slice<Screening> querySliceScreening(String title, Category category, Pageable pageable) {
+    public SliceResponse<Screening> querySliceScreening(String title, Category category, Pageable pageable) {
         List<Screening> query = queryFactory.selectFrom(QScreening.screening)
                 .where(
                         containsTitle(title),
-                        hasCategory(category)
+                        hasCategory(category),
+                        QScreening.screening.isPrivate.eq(false)
                 )
                 .orderBy(QScreening.screening.createdAt.asc()) // Adjust the sorting as needed
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        return SliceUtil.toSlice(query, pageable);
+        return SliceResponse.of(SliceUtil.toSlice(query, pageable));
     }
     @Override
-    public Slice<Screening> querySliceScreeningByDate(String title, Category category, Pageable pageable) {
+    public SliceResponse<Screening> querySliceScreeningByDate(String title, Category category, Pageable pageable) {
         List<Screening> query = queryFactory.selectFrom(QScreening.screening)
                 .where(
                         containsTitle(title),
-                        hasCategory(category)
+                        hasCategory(category),
+                        QScreening.screening.isPrivate.eq(false)
                 )
                 .orderBy(QScreening.screening.screeningStartDate.asc()) // Adjust the sorting as needed
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        return SliceUtil.toSlice(query, pageable);
+        return SliceResponse.of(SliceUtil.toSlice(query, pageable));
     }
 
     private BooleanExpression containsHostName(String hostName) {

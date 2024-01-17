@@ -6,6 +6,7 @@ import com.example.api.screening.dto.request.PostReviewRequest;
 import com.example.api.screening.dto.request.PostScreeningRequest;
 import com.example.api.screening.dto.response.*;
 import com.example.api.screening.service.*;
+import com.example.domains.common.util.SliceResponse;
 import com.example.domains.common.util.SliceUtil;
 import com.example.domains.screening.adaptor.ScreeningAdaptor;
 import com.example.domains.screening.entity.Screening;
@@ -113,6 +114,7 @@ public class ScreeningController {
     }
 
 
+    //TODO 리뷰 뿐만아니라 스크리닝 정보 가져오기
     @Operation(summary = "본인이 리뷰남긴 리뷰 목록 가져오기", description = "screeningReview list가져와서 요청하기")
     @GetMapping("/review/all")
     public List<ReviewResponseDto> getScreeningReviewList() {
@@ -142,9 +144,9 @@ public class ScreeningController {
     }
 
 
-    //TODO 검색하기 기능 구현하기, hostName추가하기
+    //TODO 검색하기 기능 구현하기, hostName추가하기 - private 0
     @GetMapping("/screenings/search")
-    public Slice<Screening> searchScreenings(
+    public SliceResponse<Screening> searchScreenings(
             @RequestParam(required = false,value = "title") String title,
             @RequestParam(required = false,value= "category") Category category,
             @ParameterObject @PageableDefault(size = 10) Pageable pageable
@@ -152,9 +154,9 @@ public class ScreeningController {
         return screeningAdaptor.searchScreenings(title, category, pageable);
     }
 
-    //TODO 검색하기 기능 -> 날짜 순
+    //TODO 검색하기 기능 -> 날짜 순 - private 0
     @GetMapping("/screenings/search-by-date")
-    public Slice<Screening> searchScreenings(
+    public SliceResponse<Screening> searchScreenings(
             @RequestParam(required = false,value = "title") String title,
             @RequestParam(required = false,value= "category") Category category,
             @ParameterObject @PageableDefault(size = 10) Pageable pageable,
@@ -165,39 +167,41 @@ public class ScreeningController {
         } else if ("startDate".equals(sortBy)) {
             return screeningAdaptor.searchByStartDate(title, category, pageable);
         } else {
-            return SliceUtil.toSlice(Collections.emptyList(), pageable); // 기본적으로는 빈 리스트 반환
+            return SliceResponse.of(SliceUtil.toSlice(Collections.emptyList(), pageable)); // 기본적으로는 빈 리스트 반환
         }
     }
 
 
-    //TODO 댓글 많은 수 Top3 반환
+    //TODO 댓글 많은 수 Top3 반환- private0
     @Operation(summary = "댓글 많은 수 Top3 반환", description = "댓글 많은 수 Top3 반환")
     @GetMapping("/most-reviewed")
     public List<ScreeningResponseDto> getMostReviewed() {
         return screeningAdaptor.getMostReviewed();
     }
 
-
+    // private 0
     @Operation(summary = "현재시점에서 이번주 상영작 3개 반환", description = "현재시점에서 다음주 상영작 3개 반환")
     @GetMapping("/upcoming-Screening")
     public List<ScreeningResponseDto> getTopThreeScreening() {
         return screeningAdaptor.getTopThree();
     }
 
+
+    //private 0
     @Operation(summary = "현재시점에서 가장 치근에 올라온 3개 반환", description = "현재시점에서 가장 치근에 올라온 3개 반환")
     @GetMapping("/recent-Screening")
     public List<ScreeningResponseDto> getRecentScreening() {
         return screeningAdaptor.getMostRecentScreening();
     }
 
-    //TODO 관람예정(찜하기 한 것 중에서 날짜 지난거)
+    //TODO 관람예정(찜하기 한 것 중에서 날짜 지난거) - private 0
     @GetMapping("/screenings/past")
     public List<Screening> getPassedScreenings() {
         Long userId = SecurityUtil.getCurrentUserId();
         return screeningAdaptor.getBookmarkedScreenings(userId);
     }
 
-    //TODO 관람예정(찜하기 한 것 중에서 날짜 안지난거) -> try해봐야함()
+    //TODO 관람예정(찜하기 한 것 중에서 날짜 안지난거) -> try해봐야함() - private 0
     @GetMapping("/screenings/upcoming")
     public List<Screening> getPastScreenings() {
         Long userId = SecurityUtil.getCurrentUserId();
