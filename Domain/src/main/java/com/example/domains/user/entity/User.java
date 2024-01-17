@@ -40,6 +40,7 @@ public class User extends BaseTimeEntity {
     private boolean lawAgreement = false;
     private boolean isVerified = false;
 
+    //TODO :조금 더 생각하기
     @Convert(converter = StringListConverter.class)
     private List<Genre> genres = new ArrayList<>();
 
