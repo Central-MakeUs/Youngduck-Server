@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 public class ScreeningResponseDto {
+    private Long screeningId;
 
     private String posterImgUrl;
 
@@ -46,11 +47,12 @@ public class ScreeningResponseDto {
 
 
     @QueryProjection
-    public ScreeningResponseDto(
+    public ScreeningResponseDto(Long screeningId,
             String screeningTitle, String posterImgUrl, String hostName, String hostEmail, String hostPhoneNumber , String location, String formUrl,
             String information, boolean hasAgreed, Category category, LocalDateTime screeningStartDate, LocalDateTime screeningEndDate, LocalDateTime screeningStartTime,
             boolean isPrivate
     ) {
+        this.screeningId = screeningId;
         this.screeningTitle = screeningTitle;
         this.posterImgUrl = posterImgUrl;
         this.hostName = hostName;

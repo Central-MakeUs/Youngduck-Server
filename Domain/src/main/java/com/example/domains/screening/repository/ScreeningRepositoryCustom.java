@@ -8,4 +8,5 @@ import org.springframework.data.domain.Slice;
 
 public interface ScreeningRepositoryCustom {
     Slice<Screening> querySliceScreening(String title, Category  category, Pageable pageable);
+    Slice<Screening> querySliceScreeningByDate(String title, Category category, Pageable pageable);
 }

@@ -22,6 +22,20 @@ public class ScreeningRepositoryImpl implements ScreeningRepositoryCustom {
                         containsTitle(title),
                         hasCategory(category)
                 )
+                .orderBy(QScreening.screening.createdAt.asc()) // Adjust the sorting as needed
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        return SliceUtil.toSlice(query, pageable);
+    }
+    @Override
+    public Slice<Screening> querySliceScreeningByDate(String title, Category category, Pageable pageable) {
+        List<Screening> query = queryFactory.selectFrom(QScreening.screening)
+                .where(
+                        containsTitle(title),
+                        hasCategory(category)
+                )
                 .orderBy(QScreening.screening.screeningStartDate.asc()) // Adjust the sorting as needed
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -35,11 +49,11 @@ public class ScreeningRepositoryImpl implements ScreeningRepositoryCustom {
     }
 
     private BooleanExpression containsTitle(String title) {
-        return title != null ? QScreening.screening.title.eq(title) : null;
+        return title != null ? QScreening.screening.title.containsIgnoreCase(title) : null;
     }
 
     private BooleanExpression hasCategory(Category category) {
-        return category != null ? QScreening.screening.category.stringValue().eq(category.getValue()) : null;
+        return category != null ? QScreening.screening.category.eq(category) : null;
     }
 
 

@@ -7,6 +7,8 @@ import com.example.domains.screening.entity.dto.QScreeningResponseDto;
 import com.example.domains.screening.entity.dto.ScreeningResponseDto;
 import com.example.domains.screening.enums.Category;
 import com.example.domains.screening.repository.ScreeningRepository;
+import com.example.domains.screeningReview.entity.QScreeningReview;
+import com.example.domains.userscreening.entity.QUserScreening;
 import com.example.domains.userscreening.entity.UserScreening;
 import com.example.domains.userscreening.repository.UserScreeningRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -16,6 +18,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -52,6 +55,7 @@ public class ScreeningAdaptor {
         LocalDate startOfWeek = now.toLocalDate().with(java.time.temporal.TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY));
         LocalDate endOfWeek = startOfWeek.plusDays(6); // Assuming Sunday is the last day of the week
         return jpaQueryFactory.select(new QScreeningResponseDto(
+                QScreening.screening.id,
                         QScreening.screening.title,
                         QScreening.screening.posterImgUrl,
                         QScreening.screening.hostInfo.hostName,
@@ -82,6 +86,7 @@ public class ScreeningAdaptor {
     public List<ScreeningResponseDto> getMostRecentScreening() {
         return jpaQueryFactory
                 .select(new QScreeningResponseDto(
+                        QScreening.screening.id,
                         QScreening.screening.title,
                         QScreening.screening.posterImgUrl,
                         QScreening.screening.hostInfo.hostName,
@@ -107,4 +112,78 @@ public class ScreeningAdaptor {
     public Slice<Screening> searchScreenings(String title, Category category, Pageable pageable) {
         return screeningRepository.querySliceScreening(title, category, pageable);
     }
+
+    public Slice<Screening> searchByStartDate(String title, Category category, Pageable pageable) {
+        return screeningRepository.querySliceScreeningByDate(title, category, pageable);
+    }
+
+    public List<ScreeningResponseDto> getMostReviewed() {
+        //review에 있는userScreening join까지 해서 특정 스크리닝에 있는 리뷰 수 중에서 top3반환해주게 짜줘
+        return jpaQueryFactory
+                .select(new QScreeningResponseDto(
+                        QScreening.screening.id,
+                        QScreening.screening.title,
+                        QScreening.screening.posterImgUrl,
+                        QScreening.screening.hostInfo.hostName,
+                        QScreening.screening.hostInfo.hostEmail,
+                        QScreening.screening.hostInfo.hostPhoneNumber,
+                        QScreening.screening.location,
+                        QScreening.screening.participationUrl,
+                        QScreening.screening.information,
+                        QScreening.screening.hasAgreed,
+                        QScreening.screening.category,
+                        QScreening.screening.screeningStartDate,
+                        QScreening.screening.screeningEndDate,
+                        QScreening.screening.screeningStartTime,
+                        QScreening.screening.isPrivate
+                ))
+                .from(QScreening.screening)
+                .leftJoin(QUserScreening.userScreening).on(QScreening.screening.eq(QUserScreening.userScreening.screening))
+                .leftJoin(QScreeningReview.screeningReview).on(QUserScreening.userScreening.eq(QScreeningReview.screeningReview.userScreening))
+                .groupBy(QScreening.screening.id, QUserScreening.userScreening.id)
+                .orderBy(QScreeningReview.screeningReview.count().desc())
+                .limit(3)
+                .fetch();
+    }
+
+    public List<Screening> getBookmarkedScreenings(Long userId) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        List<Screening> bookmarkedScreenings = jpaQueryFactory
+                .selectDistinct(QScreeningReview.screeningReview.userScreening.screening)
+                .from(QScreeningReview.screeningReview)
+                .join(QUserScreening.userScreening)
+                .on(
+                        QUserScreening.userScreening.id.eq(QScreeningReview.screeningReview.userScreening.id),
+                        QUserScreening.userScreening.isHost.eq(false),
+                        QUserScreening.userScreening.user.id.eq(userId),
+                        QUserScreening.userScreening.isBookmarked.eq(true),
+                        QScreeningReview.screeningReview.userScreening.screening.screeningStartDate.before(currentDateTime)
+                )
+                .fetch();
+
+        return bookmarkedScreenings;
+    }
+
+
+    public List<Screening> getUpcomingScreenings(Long userId) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        List<Screening> upcomingScreenings = jpaQueryFactory
+                .selectDistinct(QScreeningReview.screeningReview.userScreening.screening)
+                .from(QScreeningReview.screeningReview)
+                .join(QUserScreening.userScreening)
+                .on(
+                        QUserScreening.userScreening.id.eq(QScreeningReview.screeningReview.userScreening.id),
+                        QUserScreening.userScreening.isHost.eq(false),
+                        QUserScreening.userScreening.user.id.eq(userId),
+                        QUserScreening.userScreening.isBookmarked.eq(true),
+                        QScreeningReview.screeningReview.userScreening.screening.screeningStartDate.after(currentDateTime)
+                )
+                .fetch();
+
+        return upcomingScreenings;
+    }
+
+
 }

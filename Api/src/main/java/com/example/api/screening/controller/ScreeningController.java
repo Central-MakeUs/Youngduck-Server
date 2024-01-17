@@ -1,10 +1,12 @@
 package com.example.api.screening.controller;
 
 import com.example.api.config.response.SuccessResponse;
+import com.example.api.config.security.SecurityUtil;
 import com.example.api.screening.dto.request.PostReviewRequest;
 import com.example.api.screening.dto.request.PostScreeningRequest;
 import com.example.api.screening.dto.response.*;
 import com.example.api.screening.service.*;
+import com.example.domains.common.util.SliceUtil;
 import com.example.domains.screening.adaptor.ScreeningAdaptor;
 import com.example.domains.screening.entity.Screening;
 import com.example.domains.screening.entity.dto.ScreeningResponseDto;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -150,8 +153,29 @@ public class ScreeningController {
     }
 
     //TODO 검색하기 기능 -> 날짜 순
+    @GetMapping("/screenings/search-by-date")
+    public Slice<Screening> searchScreenings(
+            @RequestParam(required = false,value = "title") String title,
+            @RequestParam(required = false,value= "category") Category category,
+            @ParameterObject @PageableDefault(size = 10) Pageable pageable,
+            @RequestParam(required = false, value = "sortBy") String sortBy
+    ) {
+        if ("createdAt".equals(sortBy)) {
+            return screeningAdaptor.searchScreenings(title, category, pageable);
+        } else if ("startDate".equals(sortBy)) {
+            return screeningAdaptor.searchByStartDate(title, category, pageable);
+        } else {
+            return SliceUtil.toSlice(Collections.emptyList(), pageable); // 기본적으로는 빈 리스트 반환
+        }
+    }
+
 
     //TODO 댓글 많은 수 Top3 반환
+    @Operation(summary = "댓글 많은 수 Top3 반환", description = "댓글 많은 수 Top3 반환")
+    @GetMapping("/most-reviewed")
+    public List<ScreeningResponseDto> getMostReviewed() {
+        return screeningAdaptor.getMostReviewed();
+    }
 
 
     @Operation(summary = "현재시점에서 이번주 상영작 3개 반환", description = "현재시점에서 다음주 상영작 3개 반환")
@@ -160,9 +184,23 @@ public class ScreeningController {
         return screeningAdaptor.getTopThree();
     }
 
-    @Operation(summary = "현재시점에서 이번주 상영작 3개 반환", description = "현재시점에서 다음주 상영작 3개 반환")
+    @Operation(summary = "현재시점에서 가장 치근에 올라온 3개 반환", description = "현재시점에서 가장 치근에 올라온 3개 반환")
     @GetMapping("/recent-Screening")
     public List<ScreeningResponseDto> getRecentScreening() {
         return screeningAdaptor.getMostRecentScreening();
+    }
+
+    //TODO 관람예정(찜하기 한 것 중에서 날짜 지난거)
+    @GetMapping("/screenings/past")
+    public List<Screening> getPassedScreenings() {
+        Long userId = SecurityUtil.getCurrentUserId();
+        return screeningAdaptor.getBookmarkedScreenings(userId);
+    }
+
+    //TODO 관람예정(찜하기 한 것 중에서 날짜 안지난거) -> try해봐야함()
+    @GetMapping("/screenings/upcoming")
+    public List<Screening> getPastScreenings() {
+        Long userId = SecurityUtil.getCurrentUserId();
+        return screeningAdaptor.getUpcomingScreenings(userId);
     }
 }
