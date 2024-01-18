@@ -29,8 +29,8 @@ public enum Genre {
     @JsonValue private String value;
 
     @JsonCreator
-    public static OauthProvider parsing(String inputValue) {
-        return Stream.of(OauthProvider.values())
+    public static Genre parsing(String inputValue) {
+        return Stream.of(Genre.values())
                 .filter(category -> category.getValue().equals(inputValue))
                 .findFirst()
                 .orElse(null);

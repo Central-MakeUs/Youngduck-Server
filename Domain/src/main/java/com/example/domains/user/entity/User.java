@@ -49,18 +49,21 @@ public class User extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Level level = Level.ONE;
 
+    private int profileImgNum;
+
 //    private String phoneNumber;
     private String appleEmail;
 
     @Builder
     private User (
             String nickname,
-            List<Genre> genres,
             boolean lawAgreement,
             boolean isVerified,
             String appleEmail,
             String name,
-            OauthInfo oauthInfo
+            OauthInfo oauthInfo,
+            List<Genre> genres,
+            int profileImgNum
             ){
         this.nickname = nickname;
         this.lawAgreement = lawAgreement;
@@ -69,24 +72,26 @@ public class User extends BaseTimeEntity {
         this.appleEmail = appleEmail;
         this.name = name;
         this.genres = genres;
+        this.profileImgNum =profileImgNum;
     }
 
     public static User of(
             String nickname,
-            List<Genre> genres,
             boolean lawAgreement,
+            List<Genre> genres,
             String appleEmail,
             String name,
-            OauthInfo oauthInfo
-
+            OauthInfo oauthInfo,
+            int profileImgNum
     ){
         return User.builder()
                 .nickname(nickname)
-                .genres(genres)
                 .lawAgreement(lawAgreement)
+                .genres(genres)
                 .appleEmail(appleEmail)
                 .name(name)
                 .oauthInfo(oauthInfo)
+                .profileImgNum(profileImgNum)
                 .build();
     }
 

@@ -5,6 +5,8 @@ import com.example.domains.user.adaptor.UserAdaptor;
 import com.example.domains.user.entity.User;
 import com.example.domains.user.enums.Genre;
 import com.example.domains.user.enums.OauthInfo;
+import com.example.domains.user.exception.exceptions.UserNotFoundException;
+import com.example.domains.user.repository.UserRepository;
 import com.example.domains.user.validator.UserValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,25 +19,28 @@ import java.util.logging.Level;
 public class UserService {
     private final UserAdaptor userAdaptor;
     private final UserValidator userValidator;
+    private final UserRepository userRepository;
 
 
     @Transactional
     public User registerUser(
             String nickname,
-            List<Genre> genres,
             boolean lawAgreement,
+            List<Genre> genres,
             String email,
             String name,
-            OauthInfo oauthInfo) {
+            OauthInfo oauthInfo,
+            int profileImgNumber) {
         userValidator.validUserCanRegister(oauthInfo.getOid());
         final User newUser =
                 User.of(
                         nickname,
-                        genres,
                         lawAgreement,
+                        genres,
                         email,
                         name,
-                        oauthInfo);
+                        oauthInfo,
+                        profileImgNumber);
         userAdaptor.save(newUser);
         return newUser;
     }
@@ -57,4 +62,13 @@ public class UserService {
     }
 
 
+
+    public List<Genre> getUserGenres(Long userId) {
+        // Retrieve the user from the repository
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
+
+        // Return the user's genres
+        return user.getGenres();
+    }
 }

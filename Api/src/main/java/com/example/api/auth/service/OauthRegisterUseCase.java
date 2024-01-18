@@ -11,7 +11,10 @@ import com.example.domains.user.enums.OauthInfo;
 import com.example.domains.user.enums.OauthProvider;
 import com.example.domains.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Random;
 
 @UseCase
 @RequiredArgsConstructor
@@ -27,8 +30,17 @@ public class OauthRegisterUseCase {
             RegisterRequest request) {
         final OauthInfo oauthInfo = oauthHelper.getOauthInfo(provider, idToken);
         //final OauthUserInfoDto oauthUserInfoDto = getUserInfo(provider, oauthAccessToken);
-        final User user = registerUser(provider, oauthInfo, request);
+        int profileImgNumber = makeRandomNumber();
+        final User user = registerUser(provider, oauthInfo, request,profileImgNumber);
         return OauthRegisterResponse.from(tokenGenerateHelper.execute(user));
+    }
+
+    private int makeRandomNumber() {
+        Random random = new Random();
+
+        int randomNumber = random.nextInt(5) + 1;
+
+        return randomNumber;
     }
 
     @Transactional
@@ -37,7 +49,8 @@ public class OauthRegisterUseCase {
             String idToken,
             RegisterRequest request) {
         final OauthInfo oauthInfo = oauthHelper.getOauthInfoDev(provider, idToken);
-        final User user = registerUser(provider, oauthInfo, request);
+        int profileImgNumber = makeRandomNumber();
+        final User user = registerUser(provider, oauthInfo, request,profileImgNumber);
         return OauthRegisterResponse.from(tokenGenerateHelper.execute(user));
     }
 
@@ -46,24 +59,28 @@ public class OauthRegisterUseCase {
     private User registerUser(
             OauthProvider provider,
             OauthInfo oauthInfo,
-            RegisterRequest request) {
+            RegisterRequest request,
+            int profileImgNumer) {
         switch (provider) {
             case APPLE:
                 return userDomainService.registerUser(
                         request.getNickname(),
-                        request.getGenres(),
                         request.isLawAgreement(),
+                        request.getGenres(),
                         request.getEmail(),
                         request.getName(),
-                        oauthInfo);
+                        oauthInfo,
+                        profileImgNumer);
             default:
                 return userDomainService.registerUser(
                         request.getNickname(),
-                        request.getGenres(),
                         request.isLawAgreement(),
+                        request.getGenres(),
                         "",
                         request.getName(),
-                        oauthInfo);
+                        oauthInfo,
+                        profileImgNumer
+                        );
         }
     }
 
