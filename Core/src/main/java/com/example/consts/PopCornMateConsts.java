@@ -9,6 +9,9 @@ public class PopCornMateConsts {
     public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
     public static final String REFRESH_TOKEN = "REFRESH_TOKEN";
 
+    public static final String APPLE_OAUTH_QUERY_STRING =
+            "/auth/authorize?client_id=%s&redirect_uri=%s&response_type=code";
+
     public static final String KID = "kid";
 
     public static final String PROD = "prod";
@@ -20,4 +23,9 @@ public class PopCornMateConsts {
     public static final int FORBIDDEN = 403;
     public static final int NOT_FOUND = 404;
     public static final int INTERNAL_SERVER = 500;
+
+    public static final String[] SwaggerPatterns = {
+            "/swagger-resources/**", "/swagger-ui/**", "/v3/api-docs/**", "/v3/api-docs",
+    };
+
 }

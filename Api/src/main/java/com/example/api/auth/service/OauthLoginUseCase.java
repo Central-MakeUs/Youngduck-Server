@@ -53,7 +53,7 @@ public class OauthLoginUseCase {
 
 
     private OauthSignInResponse checkUserCanLogin(OauthInfo oauthInfo, String idToken) {
-        if (userDomainService.checkUserCanLogin(oauthInfo)) {
+        if (userDomainService.checkUserCanLogin(oauthInfo.getOid())) {
             User user = userDomainService.loginUser(oauthInfo);
             return tokenGenerateHelper.execute(user);
         } else {

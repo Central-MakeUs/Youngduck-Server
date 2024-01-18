@@ -3,6 +3,7 @@ package com.example.domains.user.entity;
 import com.example.domains.common.StringListConverter;
 import com.example.domains.common.model.BaseTimeEntity;
 import com.example.domains.user.enums.*;
+import com.example.domains.user.exception.exceptions.AlreadyDeletedUserException;
 import com.example.error.exception.ServerForbiddenException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -11,6 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,41 +42,56 @@ public class User extends BaseTimeEntity {
     private boolean lawAgreement = false;
     private boolean isVerified = false;
 
+    //TODO :조금 더 생각하기
     @Convert(converter = StringListConverter.class)
     private List<Genre> genres = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Level level = Level.ONE;
 
+    private int profileImgNum;
+
 //    private String phoneNumber;
+    private String appleEmail;
 
     @Builder
     private User (
             String nickname,
-            List<Genre> genres,
             boolean lawAgreement,
             boolean isVerified,
-            OauthInfo oauthInfo
+            String appleEmail,
+            String name,
+            OauthInfo oauthInfo,
+            List<Genre> genres,
+            int profileImgNum
             ){
         this.nickname = nickname;
         this.lawAgreement = lawAgreement;
         this.isVerified = isVerified;
         this.oauthInfo = oauthInfo;
+        this.appleEmail = appleEmail;
+        this.name = name;
         this.genres = genres;
+        this.profileImgNum =profileImgNum;
     }
 
     public static User of(
             String nickname,
-            List<Genre> genres,
             boolean lawAgreement,
-            OauthInfo oauthInfo
-
+            List<Genre> genres,
+            String appleEmail,
+            String name,
+            OauthInfo oauthInfo,
+            int profileImgNum
     ){
         return User.builder()
                 .nickname(nickname)
-                .genres(genres)
                 .lawAgreement(lawAgreement)
+                .genres(genres)
+                .appleEmail(appleEmail)
+                .name(name)
                 .oauthInfo(oauthInfo)
+                .profileImgNum(profileImgNum)
                 .build();
     }
 
@@ -99,4 +116,20 @@ public class User extends BaseTimeEntity {
     }
 
 
+    public void checkOidDuplicate(String oid) {
+        if (this.oauthInfo.getOid().equals(oid)) {
+            throw new IllegalArgumentException("already Exists");
+        }
+    }
+
+    public void withdrawUser() {
+        if (UserState.DELETED.equals(this.userState)) {
+            throw AlreadyDeletedUserException.EXCEPTION;
+        }
+        this.userState = UserState.DELETED;
+        this.nickname = LocalDateTime.now() + "삭제한 유저";
+        this.oauthInfo.withDrawOauthInfo();
+        this.genres = new ArrayList<>();
+        this.name = null;
+    }
 }

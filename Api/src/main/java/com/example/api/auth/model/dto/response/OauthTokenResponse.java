@@ -1,5 +1,6 @@
 package com.example.api.auth.model.dto.response;
 
+import com.example.oauth.apple.AppleTokenResponse;
 import com.example.oauth.dto.KakaoTokenResponse;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,6 +23,14 @@ public class OauthTokenResponse {
                 .idToken(kakaoTokenResponse.getIdToken())
                 .refreshToken(kakaoTokenResponse.getRefreshToken())
                 .accessToken(kakaoTokenResponse.getAccessToken())
+                .build();
+    }
+
+    public static OauthTokenResponse from(AppleTokenResponse appleTokenResponse) {
+        return OauthTokenResponse.builder()
+                .idToken(appleTokenResponse.getIdToken())
+                .refreshToken(appleTokenResponse.getRefreshToken())
+                .accessToken(appleTokenResponse.getAccessToken())
                 .build();
     }
 

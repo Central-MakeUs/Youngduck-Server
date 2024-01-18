@@ -12,12 +12,12 @@ import lombok.RequiredArgsConstructor;
 public class UserValidator {
     private final UserAdaptor userAdaptor;
 
-    public void validUserCanRegister(OauthInfo oauthInfo) {
-        if (!checkUserCanRegister(oauthInfo)) throw AlreadySignUpUserException.EXCEPTION;
+    public void validUserCanRegister(String oid) {
+        if (!checkUserCanRegister(oid)) throw AlreadySignUpUserException.EXCEPTION;
     }
 
-    public Boolean checkUserCanRegister(OauthInfo oauthInfo) {
-        return !userAdaptor.exist(oauthInfo);
+    public Boolean checkUserCanRegister(String oid) {
+        return !userAdaptor.exist(oid);
     }
 
     public void validateUserStatusNormal(Long userId) {

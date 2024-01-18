@@ -14,13 +14,13 @@ import java.util.List;
 public class UserAdaptor {
     private final UserRepository userRepository;
 
-    public Boolean exist(OauthInfo oauthInfo) {
-        return userRepository.existsByOauthInfo(oauthInfo);
+    public Boolean exist(String oid) {
+        return userRepository.existsByOauthInfoOid(oid);
     }
 
-    public User findByOauthInfo(OauthInfo oauthInfo) {
+    public User findByOauthInfo(String oid) {
         return userRepository
-                .findByOauthInfo(oauthInfo)
+                .findByOauthInfoOid(oid)
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
     }
 
@@ -39,4 +39,5 @@ public class UserAdaptor {
     public Boolean existsById(Long userId) {
         return userRepository.existsById(userId);
     }
+
 }
