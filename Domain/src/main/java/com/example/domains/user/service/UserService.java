@@ -24,13 +24,17 @@ public class UserService {
             String nickname,
             List<Genre> genres,
             boolean lawAgreement,
+            String email,
+            String name,
             OauthInfo oauthInfo) {
-        userValidator.validUserCanRegister(oauthInfo);
+        userValidator.validUserCanRegister(oauthInfo.getOid());
         final User newUser =
                 User.of(
                         nickname,
                         genres,
                         lawAgreement,
+                        email,
+                        name,
                         oauthInfo);
         userAdaptor.save(newUser);
         return newUser;
@@ -38,12 +42,18 @@ public class UserService {
 
     @Transactional
     public User loginUser(OauthInfo oauthInfo) {
-        User user = userAdaptor.findByOauthInfo(oauthInfo);
+        User user = userAdaptor.findByOauthInfo(oauthInfo.getOid());
         user.login();
         return user;
     }
-    public Boolean checkUserCanLogin(OauthInfo oauthInfo) {
-        return userAdaptor.exist(oauthInfo);
+    public Boolean checkUserCanLogin(String oid) {
+        return userAdaptor.exist(oid);
+    }
+
+    @Transactional
+    public void deleteUserById(Long userId) {
+        User user = userAdaptor.findById(userId);
+        user.withdrawUser();
     }
 
 

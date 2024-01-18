@@ -44,7 +44,7 @@ public class AppleOauthHelper {
     public AppleTokenResponse getAppleOAuthToken(String code, String referer) {
         return appleOAuthClient.appleAuth(
                 appleOAuthProperties.getClientId(),
-                referer + appleOAuthProperties.getWebCallbackUrl(),
+                appleOAuthProperties.getWebCallbackUrl(),
                 code,
                 this.getClientSecret());
     }

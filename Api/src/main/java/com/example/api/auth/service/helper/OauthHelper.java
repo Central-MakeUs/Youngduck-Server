@@ -62,7 +62,7 @@ public class OauthHelper {
     public OauthInfo getOauthInfoDev(OauthProvider provider, String idToken) {
         return switch (provider) {
             case KAKAO -> kakaoOauthHelper.getKakaoOauthInfoByIdTokenDev(idToken);
-            case APPLE -> appleOauthHelper.getAppleOAuthInfoByIdToken(idToken);
+            case APPLE -> appleOauthHelper.getAppleOAuthInfoByIdTokenDev(idToken);
             default -> throw InvalidOauthProviderException.EXCEPTION;
         };
     }

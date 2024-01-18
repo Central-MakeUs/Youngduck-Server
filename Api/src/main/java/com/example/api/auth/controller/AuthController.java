@@ -5,12 +5,12 @@ import com.example.api.auth.service.LogOutUserUseCase;
 import com.example.api.auth.service.TokenRefreshUseCase;
 import com.example.api.auth.service.helper.WithdrawUseCase;
 import com.example.api.config.security.SecurityUtil;
+import com.example.domains.quit.domain.enums.Reason;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.desktop.UserSessionEvent;
 
 @RestController
 @RequestMapping("/auth")
@@ -26,7 +26,7 @@ public class AuthController {
     public void withDrawUser(
             @RequestParam(required = false, name = "appleCode", value = "") String appleCode,
             @RequestHeader(value = "referer", required = false) String referer,
-            @RequestParam("quitReason") UserSessionEvent.Reason reason) {
+            @RequestParam("quitReason") Reason reason) {
         Long userId = SecurityUtil.getCurrentUserId();
         withdrawUserUseCase.execute(appleCode, referer, userId, reason);
     }

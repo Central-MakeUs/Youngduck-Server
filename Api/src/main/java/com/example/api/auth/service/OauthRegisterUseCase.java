@@ -48,18 +48,21 @@ public class OauthRegisterUseCase {
             OauthInfo oauthInfo,
             RegisterRequest request) {
         switch (provider) {
-//            case APPLE:
-//                return userDomainService.registerUser(
-//                        request.getEmail(),
-//                        request.getNickname(),
-//                        request.getGenres(),
-//                        request.isLawAgreement(),
-//                        oauthInfo);
+            case APPLE:
+                return userDomainService.registerUser(
+                        request.getNickname(),
+                        request.getGenres(),
+                        request.isLawAgreement(),
+                        request.getEmail(),
+                        request.getName(),
+                        oauthInfo);
             default:
                 return userDomainService.registerUser(
                         request.getNickname(),
                         request.getGenres(),
                         request.isLawAgreement(),
+                        "",
+                        request.getName(),
                         oauthInfo);
         }
     }

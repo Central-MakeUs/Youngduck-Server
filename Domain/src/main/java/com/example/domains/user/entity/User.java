@@ -3,6 +3,7 @@ package com.example.domains.user.entity;
 import com.example.domains.common.StringListConverter;
 import com.example.domains.common.model.BaseTimeEntity;
 import com.example.domains.user.enums.*;
+import com.example.domains.user.exception.exceptions.AlreadyDeletedUserException;
 import com.example.error.exception.ServerForbiddenException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -11,6 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +50,7 @@ public class User extends BaseTimeEntity {
     private Level level = Level.ONE;
 
 //    private String phoneNumber;
+    private String appleEmail;
 
     @Builder
     private User (
@@ -55,12 +58,16 @@ public class User extends BaseTimeEntity {
             List<Genre> genres,
             boolean lawAgreement,
             boolean isVerified,
+            String appleEmail,
+            String name,
             OauthInfo oauthInfo
             ){
         this.nickname = nickname;
         this.lawAgreement = lawAgreement;
         this.isVerified = isVerified;
         this.oauthInfo = oauthInfo;
+        this.appleEmail = appleEmail;
+        this.name = name;
         this.genres = genres;
     }
 
@@ -68,6 +75,8 @@ public class User extends BaseTimeEntity {
             String nickname,
             List<Genre> genres,
             boolean lawAgreement,
+            String appleEmail,
+            String name,
             OauthInfo oauthInfo
 
     ){
@@ -75,6 +84,8 @@ public class User extends BaseTimeEntity {
                 .nickname(nickname)
                 .genres(genres)
                 .lawAgreement(lawAgreement)
+                .appleEmail(appleEmail)
+                .name(name)
                 .oauthInfo(oauthInfo)
                 .build();
     }
@@ -100,4 +111,20 @@ public class User extends BaseTimeEntity {
     }
 
 
+    public void checkOidDuplicate(String oid) {
+        if (this.oauthInfo.getOid().equals(oid)) {
+            throw new IllegalArgumentException("already Exists");
+        }
+    }
+
+    public void withdrawUser() {
+        if (UserState.DELETED.equals(this.userState)) {
+            throw AlreadyDeletedUserException.EXCEPTION;
+        }
+        this.userState = UserState.DELETED;
+        this.nickname = LocalDateTime.now() + "삭제한 유저";
+        this.oauthInfo.withDrawOauthInfo();
+        this.genres = new ArrayList<>();
+        this.name = null;
+    }
 }
