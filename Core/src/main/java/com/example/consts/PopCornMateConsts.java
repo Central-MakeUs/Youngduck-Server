@@ -9,6 +9,9 @@ public class PopCornMateConsts {
     public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
     public static final String REFRESH_TOKEN = "REFRESH_TOKEN";
 
+    public static final String APPLE_OAUTH_QUERY_STRING =
+            "/auth/authorize?client_id=%s&redirect_uri=%s&response_type=code";
+
     public static final String KID = "kid";
 
     public static final String PROD = "prod";

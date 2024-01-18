@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OauthHelper {
     private final KakaoOauthHelper kakaoOauthHelper;
+    private final AppleOauthHelper appleOauthHelper;
 
     /** oauth link 가져오기 * */
     public OauthLoginLinkResponse getOauthLinkDev(OauthProvider provider) {
@@ -35,6 +36,8 @@ public class OauthHelper {
         return switch (provider) {
             case KAKAO -> OauthTokenResponse.from(
                     kakaoOauthHelper.getKakaoOauthToken(code, referer));
+            case APPLE -> OauthTokenResponse.from(
+                    appleOauthHelper.getAppleOAuthToken(code, referer));
             default -> throw InvalidOauthProviderException.EXCEPTION;
         };
     }
@@ -42,6 +45,7 @@ public class OauthHelper {
     public OauthTokenResponse getCredentialDev(OauthProvider provider, String code) {
         return switch (provider) {
             case KAKAO -> OauthTokenResponse.from(kakaoOauthHelper.getKakaoOauthTokenDev(code));
+            case APPLE -> OauthTokenResponse.from(appleOauthHelper.getAppleOAuthTokenDev(code));
             default -> throw InvalidOauthProviderException.EXCEPTION;
         };
     }
@@ -50,6 +54,7 @@ public class OauthHelper {
     public OauthInfo getOauthInfo(OauthProvider provider, String idToken) {
         return switch (provider) {
             case KAKAO -> kakaoOauthHelper.getKakaoOauthInfoByIdToken(idToken);
+            case APPLE -> appleOauthHelper.getAppleOAuthInfoByIdToken(idToken);
             default -> throw InvalidOauthProviderException.EXCEPTION;
         };
     }
@@ -57,6 +62,7 @@ public class OauthHelper {
     public OauthInfo getOauthInfoDev(OauthProvider provider, String idToken) {
         return switch (provider) {
             case KAKAO -> kakaoOauthHelper.getKakaoOauthInfoByIdTokenDev(idToken);
+            case APPLE -> appleOauthHelper.getAppleOAuthInfoByIdTokenDev(idToken);
             default -> throw InvalidOauthProviderException.EXCEPTION;
         };
     }
@@ -66,6 +72,15 @@ public class OauthHelper {
             OauthProvider provider, String oid, String appleAccessToken, String referer) {
         switch (provider) {
             case KAKAO -> kakaoOauthHelper.withdrawKakaoOauthUser(oid);
+            case APPLE -> appleOauthHelper.withdrawAppleOauthUser(appleAccessToken, referer);
+            default -> throw InvalidOauthProviderException.EXCEPTION;
+        }
+    }
+    public void withdrawDev(
+            OauthProvider provider, String oid, String appleAccessToken) {
+        switch (provider) {
+            case KAKAO -> kakaoOauthHelper.withdrawKakaoOauthUser(oid);
+            case APPLE -> appleOauthHelper.withdrawAppleOauthUserDev(appleAccessToken);
             default -> throw InvalidOauthProviderException.EXCEPTION;
         }
     }
@@ -78,4 +93,6 @@ public class OauthHelper {
             default -> throw InvalidOauthProviderException.EXCEPTION;
         };
     }
+
+
 }
