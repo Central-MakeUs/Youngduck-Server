@@ -18,36 +18,37 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-@RequiredArgsConstructor
+
 @EnableCaching
 @Configuration
 public class RedisCacheManagerConfig {
 
-    private final RedisConnectionFactory redisConnectionFactory;
 
     @Bean
     @Primary
-    public CacheManager redisCacheManager() {
-        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
-                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
-                .entryTtl(Duration.ofDays(1L));
+    public CacheManager redisCacheManager(RedisConnectionFactory cf) {
+        RedisCacheConfiguration redisCacheConfiguration =
+                RedisCacheConfiguration.defaultCacheConfig()
+                        .serializeKeysWith(
+                                RedisSerializationContext.SerializationPair.fromSerializer(
+                                        new StringRedisSerializer()))
+                        .serializeValuesWith(
+                                RedisSerializationContext.SerializationPair.fromSerializer(
+                                        new GenericJackson2JsonRedisSerializer()))
+                        .entryTtl(Duration.ofMinutes(30L));
 
-        RedisCacheManager redisCacheManager = RedisCacheManager.RedisCacheManagerBuilder
-                .fromConnectionFactory(redisConnectionFactory)
+        return RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(cf)
                 .cacheDefaults(redisCacheConfiguration)
-                .withInitialCacheConfigurations(customConfigurationMap(redisCacheConfiguration))
                 .build();
-        return redisCacheManager;
     }
 
-    /* 커스텀하여 만료기간 설정 */
-    private Map<String, RedisCacheConfiguration> customConfigurationMap(RedisCacheConfiguration redisCacheConfiguration) {
-        Map<String, RedisCacheConfiguration> customConfigurationMap = new HashMap<>();
-        customConfigurationMap.put("kakaoPublicKeys", redisCacheConfiguration.entryTtl(Duration.ofDays(1L)));
-        customConfigurationMap.put("refreshToken", redisCacheConfiguration.entryTtl(Duration.ofDays(14L)));
-        return customConfigurationMap;
-    }
+//    /* 커스텀하여 만료기간 설정 */
+//    private Map<String, RedisCacheConfiguration> customConfigurationMap(RedisCacheConfiguration redisCacheConfiguration) {
+//        Map<String, RedisCacheConfiguration> customConfigurationMap = new HashMap<>();
+//        customConfigurationMap.put("kakaoPublicKeys", redisCacheConfiguration.entryTtl(Duration.ofDays(1L)));
+//        customConfigurationMap.put("refreshToken", redisCacheConfiguration.entryTtl(Duration.ofDays(14L)));
+//        return customConfigurationMap;
+//    }
     @Bean
     public CacheManager oidcCacheManager(RedisConnectionFactory cf) {
         RedisCacheConfiguration redisCacheConfiguration =
