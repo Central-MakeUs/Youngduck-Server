@@ -42,6 +42,7 @@ public class OauthRegisterUseCase {
     }
 
 
+    //TODO 랜덤 id부여
     private User registerUser(
             OauthProvider provider,
             OauthInfo oauthInfo,
