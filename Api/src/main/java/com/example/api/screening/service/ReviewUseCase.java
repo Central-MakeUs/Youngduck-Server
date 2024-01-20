@@ -9,6 +9,8 @@ import com.example.domains.screening.entity.Screening;
 import com.example.domains.screening.validator.ScreeningValidator;
 import com.example.domains.screeningReview.adaptor.ReviewAdaptor;
 import com.example.domains.screeningReview.entity.ScreeningReview;
+import com.example.domains.screeningReview.entity.enums.Negative;
+import com.example.domains.screeningReview.entity.enums.Positive;
 import com.example.domains.screeningReview.validator.ReviewValidator;
 import com.example.domains.user.adaptor.UserAdaptor;
 import com.example.domains.user.entity.User;
@@ -17,6 +19,7 @@ import com.example.domains.userscreening.adaptor.UserScreeningAdaptor;
 import com.example.domains.userscreening.entity.UserScreening;
 import com.example.domains.userscreening.exception.exceptions.UserScreeningIsHost;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 @UseCase
 @RequiredArgsConstructor
@@ -37,20 +40,134 @@ public class ReviewUseCase {
         //save, userScreenId
     }
 
+
     private PostReviewResponse reviewUpload(UserScreening userScreening,PostReviewRequest request) {
         final ScreeningReview newSreeningReview = ScreeningReview.of(
-                request.isBeforeScreeningSatisfied(),
                 request.isAfterScreening(),
                 request.isScreeningReview(),
                 request.isLocationReview(),
                 request.isServiceReview(),
                 request.getReview(),
                 request.isHasAgreed(),
-                userScreening
+                userScreening,
+                request.getPositive(),
+                request.getNegative()
         );
+        Screening screening = screeningAdaptor.findById(userScreening.getScreening().getId());
+
+        incrementNegative(request.getNegative(),screening);
+        incrementPositive(request.getPositive(),screening);
+
         //save
         reviewAdaptor.save(newSreeningReview);
+        //screeningAdaptor.save(screening);
         return PostReviewResponse.from(newSreeningReview);
+    }
+
+//    @Transactional
+//    public PostReviewResponse proceed(ScreeningReview newSreeningReview, Screening screening) {
+//        screeningAdaptor.save(screening);
+//        return PostReviewResponse.from(newSreeningReview);
+//    }
+//
+
+    @Transactional
+    public void incrementPositive(Positive positive, Screening userScreening) {
+        if (positive != null) {
+            if (positive.isCineMaster()) {
+                screeningAdaptor.incrementPositiveCineMaster(userScreening);
+            }
+            if (positive.isGreatFilming()) {
+                screeningAdaptor.incrementPositiveGreatFilming(userScreening);
+            }
+            if (positive.isPom()) {
+                screeningAdaptor.incrementPositivePom(userScreening);
+            }
+            if (positive.isAnimationIsGood()) {
+                screeningAdaptor.incrementPositiveAnimationIsGood(userScreening);
+            }
+            if (positive.isArtIsGood()) {
+                screeningAdaptor.incrementPositiveArtIsGood(userScreening);
+            }
+            if (positive.isCustom()) {
+                screeningAdaptor.incrementPositiveCustom(userScreening);
+            }
+            if (positive.isMusic()) {
+                screeningAdaptor.incrementPositiveMusic(userScreening);
+            }
+            if (positive.isTopicIsGood()) {
+                screeningAdaptor.incrementPositiveTopicIsGood(userScreening);
+            }
+            if (positive.isLinesAreGood()) {
+                screeningAdaptor.incrementPositiveLinesAreGood(userScreening);
+            }
+            if (positive.isEndingIsGood()) {
+                screeningAdaptor.incrementPositiveEndingIsGood(userScreening);
+            }
+            if (positive.isCastingIsGood()) {
+                screeningAdaptor.incrementPositiveCastingIsGood(userScreening);
+            }
+            if (positive.isActingIsGood()) {
+                screeningAdaptor.incrementPositiveActingIsGood(userScreening);
+            }
+            if (positive.isChemistryIsGood()) {
+                screeningAdaptor.incrementPositiveChemistryIsGood(userScreening);
+            }
+            // Add similar checks for other positive attributes
+        }
+
+    }
+
+
+    @Transactional
+    public void incrementNegative(Negative negative,Screening userScreening) {
+
+        if ( negative != null) {
+            if ( negative.isIffy()) {
+                screeningAdaptor.incrementNegativeIffy(userScreening);
+            }
+            if ( negative.isBadEditing()) {
+                screeningAdaptor.incrementNegativeBadEditing(userScreening);
+            }
+            if ( negative.isBadAngle()) {
+                screeningAdaptor.incrementNegativeBadAngle(userScreening);
+            }
+            if ( negative.isBadDetail()) {
+                screeningAdaptor.incrementNegativeBadDetail(userScreening);
+            }
+            if ( negative.isBadColor()) {
+                screeningAdaptor.incrementNegativeBadColor(userScreening);
+            }
+            if ( negative.isBadCustom()) {
+                screeningAdaptor.incrementNegativeBadCustom(userScreening);
+            }
+            if ( negative.isBadMusic()) {
+                screeningAdaptor.incrementNegativeBadMusic(userScreening);
+            }
+            if ( negative.isBadSound()) {
+                screeningAdaptor.incrementNegativeBadSound(userScreening);
+            }
+            if ( negative.isBadEnding()) {
+                screeningAdaptor.incrementNegativeBadEnding(userScreening);
+            }
+            if ( negative.isEndingLoose()) {
+                screeningAdaptor.incrementNegativeEndingLoose(userScreening);
+            }
+            if ( negative.isNoDetail()) {
+                screeningAdaptor.incrementNegativeNoDetail(userScreening);
+            }
+            if ( negative.isBadTopic()) {
+                screeningAdaptor.incrementNegativeBadTopic(userScreening);
+            }
+            if ( negative.isBadActing()) {
+                screeningAdaptor.incrementNegativeBadActing(userScreening);
+            }
+            if ( negative.isBadCasting()) {
+                screeningAdaptor.incrementNegativeBadCasting(userScreening);
+            }
+            // Add similar checks for other negative attributes
+        }
+
     }
 
     private UserScreening validate(Long screenId, Long userId){

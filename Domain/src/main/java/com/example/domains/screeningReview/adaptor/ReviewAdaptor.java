@@ -38,7 +38,6 @@ public class ReviewAdaptor {
                 .select(
                         Projections.constructor(
                                 ScreeningWithReviewDto.class,
-                                QScreeningReview.screeningReview.beforeScreening,
                                 QScreeningReview.screeningReview.afterScreening,
                                 QScreeningReview.screeningReview.movieReview,
                                 QScreeningReview.screeningReview.locationReview,

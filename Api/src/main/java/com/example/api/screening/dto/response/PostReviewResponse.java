@@ -7,8 +7,6 @@ import lombok.Getter;
 
 @Getter
 public class PostReviewResponse {
-    @Schema(defaultValue = "true", description = "기대 지수")
-    private boolean beforeScreeningSatisfied;
 
     @Schema(defaultValue = "true", description = "만족도")
     private boolean afterScreening;
@@ -31,9 +29,8 @@ public class PostReviewResponse {
     private Long screeningId;
 
     @Builder
-    public PostReviewResponse(boolean beforeScreeningSatisfied, boolean afterScreening, boolean screeningReview,
+    public PostReviewResponse(boolean afterScreening, boolean screeningReview,
                              boolean locationReview, boolean serviceReview, String review, boolean hasAgreed, Long screeningId) {
-        this.beforeScreeningSatisfied = beforeScreeningSatisfied;
         this.afterScreening = afterScreening;
         this.screeningReview = screeningReview;
         this.locationReview = locationReview;
@@ -44,7 +41,6 @@ public class PostReviewResponse {
     }
     public static PostReviewResponse from(ScreeningReview screeningReview) {
         return PostReviewResponse.builder()
-                .beforeScreeningSatisfied(screeningReview.isBeforeScreening())
                 .afterScreening(screeningReview.isAfterScreening())
                 .screeningReview(screeningReview.isMovieReview())
                 .locationReview(screeningReview.isLocationReview())

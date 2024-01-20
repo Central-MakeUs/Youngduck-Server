@@ -21,6 +21,9 @@ cloud:
     stack:
       auto: false
 
+app:
+  firebase-configuration-file: ${FCM_PATH}
+
 ---
 spring:
   config:
