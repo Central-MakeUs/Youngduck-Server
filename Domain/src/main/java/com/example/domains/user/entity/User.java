@@ -2,6 +2,7 @@ package com.example.domains.user.entity;
 
 import com.example.domains.common.StringListConverter;
 import com.example.domains.common.model.BaseTimeEntity;
+import com.example.domains.fcm.entity.FcmToken;
 import com.example.domains.user.enums.*;
 import com.example.domains.user.exception.exceptions.AlreadyDeletedUserException;
 import com.example.error.exception.ServerForbiddenException;
@@ -53,6 +54,9 @@ public class User extends BaseTimeEntity {
 
 //    private String phoneNumber;
     private String appleEmail;
+
+    @OneToOne(mappedBy = "user")
+    private FcmToken fcmToken;
 
     @Builder
     private User (

@@ -1,6 +1,8 @@
 package com.example.api.screening.dto.request;
 
 import com.example.domains.screening.enums.Category;
+import com.example.domains.screeningReview.entity.enums.Negative;
+import com.example.domains.screeningReview.entity.enums.Positive;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,8 +11,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class PostReviewRequest {
-    @Schema(defaultValue = "true", description = "기대 지수")
-    private boolean beforeScreeningSatisfied;
 
     @Schema(defaultValue = "true", description = "만족도")
     private boolean afterScreening;
@@ -29,15 +29,24 @@ public class PostReviewRequest {
     @Schema(defaultValue = "true", description = "정책 약관")
     private boolean hasAgreed;
 
+    @Schema(description = "Positive attributes")
+    private Positive positive;
+
+    @Schema(description = "Negative attributes")
+    private Negative negative;
+
+
     @Builder
-    public PostReviewRequest(boolean beforeScreeningSatisfied, boolean afterScreening, boolean screeningReview,
-                                boolean locationReview, boolean serviceReview, String review, boolean hasAgreed) {
-        this.beforeScreeningSatisfied = beforeScreeningSatisfied;
+    public PostReviewRequest(boolean afterScreening, boolean screeningReview,
+                             boolean locationReview, boolean serviceReview, String review, boolean hasAgreed,
+                             Positive positive, Negative negative) {
         this.afterScreening = afterScreening;
         this.screeningReview = screeningReview;
         this.locationReview = locationReview;
         this.serviceReview = serviceReview;
         this.review = review;
-        this.hasAgreed =hasAgreed;
+        this.hasAgreed = hasAgreed;
+        this.positive = positive;
+        this.negative = negative;
     }
 }

@@ -2,6 +2,9 @@ package com.example.domains.screeningReview.entity;
 
 import com.example.domains.common.model.BaseTimeEntity;
 import com.example.domains.screening.entity.Screening;
+import com.example.domains.screening.enums.PositiveCount;
+import com.example.domains.screeningReview.entity.enums.Negative;
+import com.example.domains.screeningReview.entity.enums.Positive;
 import com.example.domains.user.entity.User;
 import com.example.domains.userscreening.entity.UserScreening;
 import jakarta.persistence.*;
@@ -21,21 +24,24 @@ public class ScreeningReview extends BaseTimeEntity {
     private String review;
 
     private int likes;
-
-    private boolean beforeScreening;
     private boolean afterScreening;
     private boolean movieReview;
     private boolean locationReview;
     private boolean serviceReview;
     private boolean hasAgreed;
 
-    @OneToOne
+    @Embedded
+    private Positive positive;
+
+    @Embedded
+    private Negative negative;
+
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_screening_id")
     private UserScreening userScreening;
 
     @Builder
-    private ScreeningReview(boolean beforeScreening,boolean afterScreening, boolean movieReview, boolean locationReview,boolean serviceReview, String review, boolean hasAgreed,UserScreening userScreening) {
-        this.beforeScreening = beforeScreening;
+    private ScreeningReview(boolean afterScreening, boolean movieReview, boolean locationReview,boolean serviceReview, String review, boolean hasAgreed,UserScreening userScreening,Positive positive,Negative negative) {
         this.afterScreening = afterScreening;
         this.movieReview = movieReview;
         this.locationReview = locationReview;
@@ -43,11 +49,12 @@ public class ScreeningReview extends BaseTimeEntity {
         this.review = review;
         this.hasAgreed =hasAgreed;
         this.userScreening = userScreening;
+        this.positive = positive;
+        this.negative =negative;
     }
 
-    public static ScreeningReview of(boolean beforeScreening,boolean afterScreening, boolean movieReview, boolean locationReview,boolean serviceReview, String review, boolean hasAgreed,UserScreening userScreening) {
+    public static ScreeningReview of(boolean afterScreening, boolean movieReview, boolean locationReview,boolean serviceReview, String review, boolean hasAgreed,UserScreening userScreening,Positive positive, Negative negative) {
         return ScreeningReview.builder()
-                .beforeScreening(beforeScreening)
                 .afterScreening(afterScreening)
                 .movieReview(movieReview)
                 .locationReview(locationReview)
@@ -55,6 +62,8 @@ public class ScreeningReview extends BaseTimeEntity {
                 .review(review)
                 .hasAgreed(hasAgreed)
                 .userScreening(userScreening)
+                .positive(positive)
+                .negative(negative)
                 .build();
 
     }

@@ -35,6 +35,8 @@ subprojects {
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		testCompileOnly 'org.projectlombok:lombok'
 		testAnnotationProcessor 'org.projectlombok:lombok'
+		/* fcm */
+		implementation 'com.google.firebase:firebase-admin:9.2.0'
 	}
 
 	repositories {

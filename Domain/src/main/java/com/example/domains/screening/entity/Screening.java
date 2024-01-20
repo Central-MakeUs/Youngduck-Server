@@ -3,6 +3,8 @@ package com.example.domains.screening.entity;
 import com.example.domains.common.model.BaseTimeEntity;
 import com.example.domains.screening.enums.Category;
 import com.example.domains.screening.enums.HostInfo;
+import com.example.domains.screening.enums.NegativeCount;
+import com.example.domains.screening.enums.PositiveCount;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -24,6 +26,12 @@ public class Screening extends BaseTimeEntity {
     private String posterImgUrl;
     @Embedded
     private HostInfo hostInfo;
+
+    @Embedded
+    private PositiveCount positiveCount = new PositiveCount();
+
+    @Embedded
+    private NegativeCount negativeCount = new NegativeCount();
 
     private Date month;
     private LocalDateTime screeningStartDate;
@@ -92,4 +100,5 @@ public class Screening extends BaseTimeEntity {
         this.hasAgreed = request.isHasAgreed();
         this.category = request.getCategory();
     }
+
 }

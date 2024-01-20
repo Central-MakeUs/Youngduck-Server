@@ -2,6 +2,7 @@ package com.example.domains.userscreening.entity;
 
 import com.example.domains.common.model.BaseTimeEntity;
 import com.example.domains.screening.entity.Screening;
+import com.example.domains.screeningReview.entity.ScreeningReview;
 import com.example.domains.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

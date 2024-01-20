@@ -24,6 +24,11 @@ public class UserScreeningAdaptor {
     private final UserScreeningRepository userScreeningRepository;
     private final JPAQueryFactory queryFactory;
 
+    public List<UserScreening> findByBookMarked() {
+        List<UserScreening> bookmarkedUserScreenings = userScreeningRepository.findByIsBookmarked(true);
+        return bookmarkedUserScreenings;
+    }
+
     public void save(UserScreening userScreening) {
         userScreeningRepository.save(userScreening);
     }
