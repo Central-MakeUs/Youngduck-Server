@@ -29,7 +29,7 @@ public class ScreeningReview extends BaseTimeEntity {
     private boolean serviceReview;
     private boolean hasAgreed;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_screening_id")
     private UserScreening userScreening;
 

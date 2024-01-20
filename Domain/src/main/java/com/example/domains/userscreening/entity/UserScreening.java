@@ -2,6 +2,7 @@ package com.example.domains.userscreening.entity;
 
 import com.example.domains.common.model.BaseTimeEntity;
 import com.example.domains.screening.entity.Screening;
+import com.example.domains.screeningReview.entity.ScreeningReview;
 import com.example.domains.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -29,6 +30,9 @@ public class UserScreening{
     @ManyToOne
     @JoinColumn(name = "screening_id")
     private Screening screening;
+
+    @OneToOne(mappedBy = "userScreening")
+    private ScreeningReview screeningReview;
 
     @Builder
     private UserScreening(boolean isHost, boolean isBookmarked, boolean isParticipating,User user, Screening screening) {

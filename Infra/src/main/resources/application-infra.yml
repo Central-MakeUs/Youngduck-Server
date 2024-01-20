@@ -11,7 +11,7 @@ spring:
 cloud:
   aws:
     s3:
-      bucket: popcornmate
+      bucket: popcornmate-bucket
     credentials:
       access-key: ${S3_ACCESS}
       secret-key: ${S3_SECRET}
@@ -20,6 +20,9 @@ cloud:
       auto: false
     stack:
       auto: false
+
+app:
+  firebase-configuration-file: ${FCM_PATH}
 
 ---
 spring:
@@ -35,7 +38,7 @@ spring:
 cloud:
   aws:
     s3:
-      bucket: popcornmate
+      bucket: popcornmate-bucket
     credentials:
       access-key: ${S3_ACCESS}
       secret-key: ${S3_SECRET}

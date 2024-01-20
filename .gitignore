@@ -39,4 +39,4 @@ out/
 .env
 
 Domain/src/main/generated/**/*.java
-
+Infra/src/main/resources/popcornmate-d7ca1-firebase-adminsdk-svbpw-fce737e873.json
