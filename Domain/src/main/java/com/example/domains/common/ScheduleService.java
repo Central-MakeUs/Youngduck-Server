@@ -1,7 +1,5 @@
 package com.example.domains.common;
 
-import com.example.domains.fcm.entity.dto.request.NotificationRequest;
-import com.example.domains.fcm.service.FcmService;
 import com.example.domains.screening.adaptor.ScreeningAdaptor;
 import com.example.domains.screening.entity.Screening;
 import com.example.domains.userscreening.adaptor.UserScreeningAdaptor;
@@ -17,12 +15,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ScheduleService {
 
-    private final FcmService fcmService;
-
-    private final UserScreeningAdaptor userScreeningAdaptor;
-    private final ScreeningAdaptor screeningAdaptor;
-
-    private static final String NOTIFICATION_TITLE = "상영회 하루 전 알림";
+//    private final FcmService fcmService;
+//
+//    private final UserScreeningAdaptor userScreeningAdaptor;
+//    private final ScreeningAdaptor screeningAdaptor;
+//
+//    private static final String NOTIFICATION_TITLE = "상영회 하루 전 알림";
 //    @Scheduled(cron = "0 0/1 * * * *")
 //    private void notifyReservation() {
 //        LocalDateTime now = LocalDateTime.now().withSecond(0).withNano(0);

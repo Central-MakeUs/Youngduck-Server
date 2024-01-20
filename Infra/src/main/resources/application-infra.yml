@@ -22,7 +22,7 @@ cloud:
       auto: false
 
 app:
-  firebase-configuration-file: ${FCM_PATH}
+
 
 ---
 spring:
@@ -49,5 +49,5 @@ cloud:
       auto: false
 
 app:
-  firebase-configuration-file: ${FCM_PATH}
+
 ---
