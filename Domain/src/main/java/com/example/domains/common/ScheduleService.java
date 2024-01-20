@@ -34,7 +34,6 @@ public class ScheduleService {
         List<UserScreening> bookmarkedUserScreenings =  userScreeningAdaptor.findByBookMarked();
 
         for (UserScreening userScreening : bookmarkedUserScreenings) {
-            // 알림을 보내는 로직 구현
             LocalDateTime screeningStartDate = userScreening.getScreening().getScreeningStartDate();
 
             // 오늘이 screeningStartDate의 하루 전인 경우 해당 Screening을 가져옴
