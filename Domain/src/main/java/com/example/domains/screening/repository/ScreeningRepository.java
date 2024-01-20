@@ -10,5 +10,5 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ScreeningRepository extends JpaRepository<Screening, Long>, ScreeningRepositoryCustom {
-    List<Screening> findByStartDate(LocalDateTime minusDays);
+    List<Screening> findByScreeningStartDate(LocalDateTime minusDays);
 }

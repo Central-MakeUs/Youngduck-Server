@@ -31,9 +31,6 @@ public class UserScreening{
     @JoinColumn(name = "screening_id")
     private Screening screening;
 
-    @OneToOne(mappedBy = "userScreening")
-    private ScreeningReview screeningReview;
-
     @Builder
     private UserScreening(boolean isHost, boolean isBookmarked, boolean isParticipating,User user, Screening screening) {
         this.isHost = isHost;

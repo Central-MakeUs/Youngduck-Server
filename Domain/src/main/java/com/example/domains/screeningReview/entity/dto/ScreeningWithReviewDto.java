@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 public class ScreeningWithReviewDto {
-    private boolean beforeScreeningSatisfied;
 
 
     private boolean afterScreening;
@@ -38,10 +37,9 @@ public class ScreeningWithReviewDto {
     private String profileImg;
 
     @Builder
-    public ScreeningWithReviewDto (boolean beforeScreeningSatisfied, boolean afterScreening, boolean screeningReview,
+    public ScreeningWithReviewDto (boolean afterScreening, boolean screeningReview,
                              boolean locationReview, boolean serviceReview, String review, boolean hasAgreed, Long screeningId,
                              String screeningTitle,LocalDateTime startDate, LocalDateTime endDate, String profileImg) {
-        this.beforeScreeningSatisfied = beforeScreeningSatisfied;
         this.afterScreening = afterScreening;
         this.screeningReview = screeningReview;
         this.locationReview = locationReview;
@@ -56,7 +54,6 @@ public class ScreeningWithReviewDto {
     }
     public static ScreeningWithReviewDto  from(ScreeningReview screeningReview) {
         return  ScreeningWithReviewDto .builder()
-                .beforeScreeningSatisfied(screeningReview.isBeforeScreening())
                 .afterScreening(screeningReview.isAfterScreening())
                 .screeningReview(screeningReview.isMovieReview())
                 .locationReview(screeningReview.isLocationReview())

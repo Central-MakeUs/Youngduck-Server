@@ -13,6 +13,7 @@ import com.example.domains.userscreening.entity.QUserScreening;
 import com.example.domains.userscreening.entity.UserScreening;
 import com.example.domains.userscreening.repository.UserScreeningRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -193,6 +194,292 @@ public class ScreeningAdaptor {
 
 
     public List<Screening> findByStartDate(LocalDateTime minusDays) {
-        return screeningRepository.findByStartDate(minusDays);
+        return screeningRepository.findByScreeningStartDate(minusDays);
+    }
+
+    @Transactional
+    public void incrementNegativeIffy(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.negativeCount.iffy, screening.getNegativeCount().getIffy() + 1)
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeBadAngle(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.negativeCount.badAngle, qScreening.negativeCount.badAngle.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeBadDetail(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.negativeCount.badDetail, qScreening.negativeCount.badDetail.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeBadColor(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.negativeCount.badColor, qScreening.negativeCount.badColor.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeBadCustom(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.negativeCount.badCustom, qScreening.negativeCount.badCustom.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+   @Transactional
+    public void incrementNegativeBadMusic(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.negativeCount.badMusic, qScreening.negativeCount.badMusic.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeBadSound(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.negativeCount.badSound, qScreening.negativeCount.badSound.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeBadEnding(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.negativeCount.badEnding, qScreening.negativeCount.badEnding.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeNoDetail(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.negativeCount.noDetail, qScreening.negativeCount.noDetail.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeBadTopic(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.negativeCount.badTopic, qScreening.negativeCount.badTopic.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeBadActing(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.negativeCount.badActing, qScreening.negativeCount.badActing.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeBadCasting(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.negativeCount.badCasting, qScreening.negativeCount.badCasting.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void incrementNegativeBadEditing(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.negativeCount.badEditing, qScreening.negativeCount.badEditing.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void incrementNegativeEndingLoose(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        jpaQueryFactory
+                .update(qScreening)
+                .set(qScreening.negativeCount.endingLoose, qScreening.negativeCount.endingLoose.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void incrementPositiveCineMaster(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.positiveCount.cineMaster, qScreening.positiveCount.cineMaster.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void incrementPositiveGreatFilming(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.positiveCount.greatFilming, qScreening.positiveCount.greatFilming.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void incrementPositivePom(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.positiveCount.pom, qScreening.positiveCount.pom.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void incrementPositiveAnimationIsGood(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.positiveCount.animationIsGood, qScreening.positiveCount.animationIsGood.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void incrementPositiveArtIsGood(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.positiveCount.artIsGood, qScreening.positiveCount.artIsGood.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void incrementPositiveCustom(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.positiveCount.custom, qScreening.positiveCount.custom.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void incrementPositiveMusic(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.positiveCount.music, qScreening.positiveCount.music.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void incrementPositiveTopicIsGood(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.positiveCount.topicIsGood, qScreening.positiveCount.topicIsGood.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void incrementPositiveLinesAreGood(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.positiveCount.linesAreGood, qScreening.positiveCount.linesAreGood.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void incrementPositiveEndingIsGood(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.positiveCount.endingIsGood, qScreening.positiveCount.endingIsGood.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void incrementPositiveCastingIsGood(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.positiveCount.castingIsGood, qScreening.positiveCount.castingIsGood.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void incrementPositiveActingIsGood(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.positiveCount.actingIsGood, qScreening.positiveCount.actingIsGood.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void incrementPositiveChemistryIsGood(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.positiveCount.chemistryIsGood, qScreening.positiveCount.chemistryIsGood.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
     }
 }
