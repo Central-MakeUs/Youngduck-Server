@@ -1,5 +1,7 @@
 package com.example.domains.fcm.entity.dto.request;
 
+import com.example.domains.screening.adaptor.ScreeningAdaptor;
+import com.example.domains.screening.entity.Screening;
 import com.example.domains.userscreening.entity.UserScreening;
 import lombok.Getter;
 
@@ -9,9 +11,9 @@ public class NotificationRequest {
     private String title;
     private String body;
 
-    public NotificationRequest(UserScreening userScreening, String title) {
-        this.userId = userScreening.getUser().getId();
+    public NotificationRequest(Screening screening, Long user, String title) {
+        this.userId = user;
         this.title = title;
-        this.body = userScreening.getScreening().getScreeningStartDate() + " 상영회 하루 전 입니다.";
+        this.body = screening.getTitle() + " 상영회 하루 전 입니다.";
     }
 }

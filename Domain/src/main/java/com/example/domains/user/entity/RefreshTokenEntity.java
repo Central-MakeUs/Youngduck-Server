@@ -1,5 +1,6 @@
 package com.example.domains.user.entity;
 
+import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import lombok.Builder;
@@ -10,7 +11,7 @@ import org.springframework.data.redis.core.index.Indexed;
 
 @RedisHash(value = "refreshToken")
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RefreshTokenEntity {
     @Id
     private Long id;
