@@ -47,4 +47,7 @@ cloud:
       auto: false
     stack:
       auto: false
+
+app:
+  firebase-configuration-file: ${FCM_PATH}
 ---
