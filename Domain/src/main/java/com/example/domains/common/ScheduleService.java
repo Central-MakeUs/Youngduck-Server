@@ -36,12 +36,16 @@ public class ScheduleService {
         for (UserScreening userScreening : bookmarkedUserScreenings) {
             // 알림을 보내는 로직 구현
             LocalDateTime screeningStartDate = userScreening.getScreening().getScreeningStartDate();
+
             // 오늘이 screeningStartDate의 하루 전인 경우 해당 Screening을 가져옴
-            List<Screening> tomorrowScreenings = screeningAdaptor.findByStartDate(screeningStartDate.minusDays(1));
-            Long userId = userScreening.getUser().getId();
-            List<NotificationRequest> notificationRequests = tomorrowScreenings.stream()
-                    .map(tomorrowScreening -> new NotificationRequest(tomorrowScreening, userId,NOTIFICATION_TITLE)).toList();
-            sendNotifications(notificationRequests);
+            if (screeningStartDate.toLocalDate().isEqual(now.toLocalDate())) {
+                List<Screening> tomorrowScreenings = screeningAdaptor.findByStartDate(screeningStartDate);
+                Long userId = userScreening.getUser().getId();
+                List<NotificationRequest> notificationRequests = tomorrowScreenings.stream()
+                        .map(tomorrowScreening -> new NotificationRequest(tomorrowScreening, userId, NOTIFICATION_TITLE))
+                        .toList();
+                sendNotifications(notificationRequests);
+            }
         }
     }
 

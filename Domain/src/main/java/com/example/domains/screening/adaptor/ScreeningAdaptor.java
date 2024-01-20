@@ -193,6 +193,6 @@ public class ScreeningAdaptor {
 
 
     public List<Screening> findByStartDate(LocalDateTime minusDays) {
-        screeningRepository.findByStartDate(minusDays);
+        return screeningRepository.findByStartDate(minusDays);
     }
 }
