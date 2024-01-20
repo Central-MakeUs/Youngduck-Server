@@ -1,6 +1,7 @@
 package com.example.domains.user.entity;
 
 import lombok.AccessLevel;
+
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import lombok.Builder;
