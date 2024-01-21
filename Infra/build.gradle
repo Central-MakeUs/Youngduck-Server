@@ -18,3 +18,11 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
     api project(':Core')
 }
+
+processResources.dependsOn('copySecret')
+
+tasks.register('copySecret', Copy) {
+    from '../popcornmate-config' // 서브 모듈 디렉토리 경로
+    include "*"  // 설정 파일 복사
+    into './src/main/resources'  // 붙여넣을 위치
+}
