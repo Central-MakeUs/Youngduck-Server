@@ -22,7 +22,7 @@ cloud:
       auto: false
 
 app:
-  firebase-configuration-file: ${FCM_PATH}
+  firebase-configuration-file: popcornmate-d7ca1-firebase-adminsdk-svbpw-fce737e873.json
 
 ---
 spring:

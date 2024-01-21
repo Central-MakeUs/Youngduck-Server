@@ -1,0 +1,3 @@
+[submodule "popcornmate-config"]
+	path = popcornmate-config
+	url = https://github.com/AlmondBreez3/popcornmate-config.git

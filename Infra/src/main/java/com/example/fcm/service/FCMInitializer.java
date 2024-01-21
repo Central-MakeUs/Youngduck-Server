@@ -4,13 +4,16 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.messaging.FirebaseMessaging;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Configuration
@@ -39,4 +42,23 @@ public class FCMInitializer {
         }
         return FirebaseMessaging.getInstance(firebaseApp);
     }
+
+//    @PostConstruct
+//    private void initialize() {
+//        try {
+//            if (FirebaseApp.getApps().isEmpty()) {
+//                FirebaseOptions options =
+//                        FirebaseOptions.builder()
+//                                .setCredentials(
+//                                        GoogleCredentials.fromStream(
+//                                                new ByteArrayInputStream(
+//                                                        firebaseConfigPath.getBytes(StandardCharsets.UTF_8))))
+//                                .build();
+//                FirebaseApp.initializeApp(options);
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
+
