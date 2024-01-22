@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 public enum UserState {
     ACTIVE("ACTIVE"),
-    DEACTIVE("DEACTIVE"),
+    NOT_ACTIVE("NOT_ACTIVE"),
     // 탈퇴한유저
     DELETED("DELETED");
 

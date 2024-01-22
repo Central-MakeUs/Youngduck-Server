@@ -14,9 +14,11 @@ import com.example.domains.userscreening.entity.QUserScreening;
 import com.example.domains.userscreening.entity.UserScreening;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 @Adaptor
@@ -67,6 +69,7 @@ public class ReviewAdaptor {
         return screeningReviews;
     }
 
+    @Transactional
     public void postComplain(Long reviewId) {
             ScreeningReview screeningReview = findById(reviewId);
         int complainCount = screeningReview.getComplaintCount();
@@ -85,25 +88,18 @@ public class ReviewAdaptor {
 
     @Transactional
     public void deActivateUser(User user) {
-        QUser qUser = QUser.user;
-
-        // Set user state to DEACTIVE
-        queryFactory
-                .update(qUser)
-                .set(qUser.userState, UserState.DEACTIVE)
-                .where(qUser.eq(user))
-                .execute();
+        user.turnBlind();
     }
 
     @Transactional
     public void changeBlindStatus(ScreeningReview screeningReview) {
         QScreeningReview qScreeningReview = QScreeningReview.screeningReview;
+        JPAUpdateClause updateClause = queryFactory.update(qScreeningReview);
 
 //        // Set blindStatus to true
-        queryFactory
-                .update(qScreeningReview)
+        updateClause
                 .set(qScreeningReview.isBlind, true)
-                .where(qScreeningReview.eq(screeningReview))
+                .where(qScreeningReview.id.eq(screeningReview.getId()))
                 .execute();
 
     }
@@ -111,13 +107,13 @@ public class ReviewAdaptor {
     @Transactional
     public void incrementComplaintCount(ScreeningReview screeningReview) {
         QScreeningReview qScreeningReview = QScreeningReview.screeningReview;
+        JPAUpdateClause updateClause = queryFactory.update(qScreeningReview);
 
-        // Increment complainCount
-        queryFactory
-                .update(qScreeningReview)
+//        // Set blindStatus to true
+        updateClause
                 .set(qScreeningReview.complaintCount, qScreeningReview.complaintCount.add(1))
-                .where(qScreeningReview.eq(screeningReview))
+                .where(qScreeningReview.id.eq(screeningReview.getId()))
                 .execute();
     }
-    }
+
 }
