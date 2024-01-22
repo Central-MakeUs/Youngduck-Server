@@ -24,28 +24,23 @@ public class Popcorn extends BaseTimeEntity {
     private String recommendationReason;
     private int popcornRate;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "popcorn_review_id")
-    private PopcornReview popcornReview;
 
     @Builder
-    private Popcorn (String movieId,String movieTitle, String imageUrl, String movieDetail, String recommendationReason, PopcornReview popcornReview) {
+    private Popcorn (String movieId,String movieTitle, String imageUrl, String movieDetail, String recommendationReason) {
         this.movieId = movieId;
         this.movieTitle = movieTitle;
         this.imageUrl = imageUrl;
         this.movieDetail = movieDetail;
         this.recommendationReason = recommendationReason;
-        this.popcornReview = popcornReview;
     }
 
-    public static Popcorn of(String movieId,String movieTitle, String imageUrl, String movieDetail, String recommendationReason, PopcornReview popcornReview) {
+    public static Popcorn of(String movieId,String movieTitle, String imageUrl, String movieDetail, String recommendationReason) {
         return Popcorn.builder()
                 .movieId(movieId)
                 .movieTitle(movieTitle)
                 .imageUrl(imageUrl)
                 .movieDetail(movieDetail)
                 .recommendationReason(recommendationReason)
-                .popcornReview(popcornReview)
                 .build();
     }
 }

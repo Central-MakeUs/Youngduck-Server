@@ -4,6 +4,7 @@ import com.example.domains.common.model.BaseTimeEntity;
 import com.example.domains.popcorn.entity.Popcorn;
 import com.example.domains.popcornReview.entity.enums.PopcornNegative;
 import com.example.domains.popcornReview.entity.enums.PopcornPositive;
+import com.example.domains.popcornUser.entity.PopcornUser;
 import com.example.domains.screeningReview.entity.ScreeningReview;
 import com.example.domains.screeningReview.entity.enums.Negative;
 import com.example.domains.screeningReview.entity.enums.Positive;
@@ -39,10 +40,13 @@ public class PopcornReview extends BaseTimeEntity {
 
     @Embedded
     private PopcornNegative popcornNegative;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "popcorn_user_id")
+    private PopcornUser popcornUser;
 
 
     @Builder
-    private PopcornReview(boolean afterScreening, boolean movieReview, boolean locationReview,boolean serviceReview, String review, boolean hasAgreed,PopcornPositive popcornPositive,PopcornNegative popcornNegative) {
+    private PopcornReview(boolean afterScreening, boolean movieReview, boolean locationReview,boolean serviceReview, String review, boolean hasAgreed,PopcornPositive popcornPositive,PopcornNegative popcornNegative,PopcornUser popcornUser) {
         this.afterScreening = afterScreening;
         this.movieReview = movieReview;
         this.locationReview = locationReview;
@@ -51,9 +55,10 @@ public class PopcornReview extends BaseTimeEntity {
         this.hasAgreed =hasAgreed;
         this.popcornPositive = popcornPositive;
         this.popcornNegative = popcornNegative;
+        this.popcornUser = popcornUser;
     }
 
-    public static  PopcornReview of(boolean afterScreening, boolean movieReview, boolean locationReview, boolean serviceReview, String review, boolean hasAgreed,PopcornPositive popcornPositive,PopcornNegative popcornNegative) {
+    public static  PopcornReview of(boolean afterScreening, boolean movieReview, boolean locationReview, boolean serviceReview, String review, boolean hasAgreed,PopcornPositive popcornPositive,PopcornNegative popcornNegative,PopcornUser popcornUser) {
         return PopcornReview.builder()
                 .afterScreening(afterScreening)
                 .movieReview(movieReview)
@@ -63,6 +68,7 @@ public class PopcornReview extends BaseTimeEntity {
                 .hasAgreed(hasAgreed)
                 .popcornPositive(popcornPositive)
                 .popcornNegative(popcornNegative)
+                .popcornUser(popcornUser)
                 .build();
 
     }
