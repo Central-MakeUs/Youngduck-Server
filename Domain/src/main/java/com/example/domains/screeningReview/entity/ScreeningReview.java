@@ -29,6 +29,9 @@ public class ScreeningReview extends BaseTimeEntity {
     private boolean locationReview;
     private boolean serviceReview;
     private boolean hasAgreed;
+    private int complaintCount = 0;
+
+    private boolean isBlind = false;
 
     @Embedded
     private Positive positive;

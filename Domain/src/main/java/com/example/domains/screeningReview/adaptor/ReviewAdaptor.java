@@ -7,11 +7,15 @@ import com.example.domains.screeningReview.entity.ScreeningReview;
 import com.example.domains.screeningReview.entity.dto.ReviewResponseDto;
 import com.example.domains.screeningReview.entity.dto.ScreeningWithReviewDto;
 import com.example.domains.screeningReview.repository.ScreeningReviewRepository;
+import com.example.domains.user.entity.QUser;
+import com.example.domains.user.entity.User;
+import com.example.domains.user.enums.UserState;
 import com.example.domains.userscreening.entity.QUserScreening;
 import com.example.domains.userscreening.entity.UserScreening;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -61,5 +65,59 @@ public class ReviewAdaptor {
                 .fetch();
 
         return screeningReviews;
+    }
+
+    public void postComplain(Long reviewId) {
+            ScreeningReview screeningReview = findById(reviewId);
+        int complainCount = screeningReview.getComplaintCount();
+        if (complainCount == 5) {
+            // Get user from the screeningReview
+            User user = screeningReview.getUserScreening().getUser();
+
+            deActivateUser(user);
+
+            // Delete the screeningReview
+            changeBlindStatus(screeningReview);  // Assuming there is a method to delete screeningReview
+        } else {
+            incrementComplaintCount(screeningReview);
+        }
+    }
+
+    @Transactional
+    public void deActivateUser(User user) {
+        QUser qUser = QUser.user;
+
+        // Set user state to DEACTIVE
+        queryFactory
+                .update(qUser)
+                .set(qUser.userState, UserState.DEACTIVE)
+                .where(qUser.eq(user))
+                .execute();
+    }
+
+    @Transactional
+    public void changeBlindStatus(ScreeningReview screeningReview) {
+        QScreeningReview qScreeningReview = QScreeningReview.screeningReview;
+
+//        // Set blindStatus to true
+        queryFactory
+                .update(qScreeningReview)
+                .set(qScreeningReview.isBlind, true)
+                .where(qScreeningReview.eq(screeningReview))
+                .execute();
+
+    }
+
+    @Transactional
+    public void incrementComplaintCount(ScreeningReview screeningReview) {
+        QScreeningReview qScreeningReview = QScreeningReview.screeningReview;
+
+        // Increment complainCount
+        queryFactory
+                .update(qScreeningReview)
+                .set(qScreeningReview.complaintCount, qScreeningReview.complaintCount.add(1))
+                .where(qScreeningReview.eq(screeningReview))
+                .execute();
+    }
     }
 }

@@ -22,7 +22,6 @@ public class UserScreening{
     private boolean isHost;
     private boolean isBookmarked;
     private boolean isParticipating;
-    private int complaintCount;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
