@@ -73,7 +73,8 @@ public class ReviewAdaptor {
     public void postComplain(Long reviewId) {
             ScreeningReview screeningReview = findById(reviewId);
         int complainCount = screeningReview.getComplaintCount();
-        if (complainCount == 5) {
+        if (complainCount == 4) {
+            incrementComplaintCount(screeningReview);
             // Get user from the screeningReview
             User user = screeningReview.getUserScreening().getUser();
 
