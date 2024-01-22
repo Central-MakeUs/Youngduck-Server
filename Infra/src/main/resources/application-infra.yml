@@ -1,0 +1,50 @@
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+cloud:
+  aws:
+    s3:
+      bucket: popcornmate-bucket
+    credentials:
+      access-key: ${S3_ACCESS}
+      secret-key: ${S3_SECRET}
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
+
+app:
+  firebase-configuration-file: popcornmate-d7ca1-firebase-adminsdk-svbpw-fce737e873.json
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  data:
+    redis:
+      host: redis
+      port: 6379
+
+cloud:
+  aws:
+    s3:
+      bucket: popcornmate-bucket
+    credentials:
+      access-key: ${S3_ACCESS}
+      secret-key: ${S3_SECRET}
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
+---
