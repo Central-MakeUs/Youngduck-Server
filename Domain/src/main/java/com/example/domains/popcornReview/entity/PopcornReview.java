@@ -1,11 +1,13 @@
-package com.example.domains.screeningReview.entity;
+package com.example.domains.popcornReview.entity;
 
 import com.example.domains.common.model.BaseTimeEntity;
-import com.example.domains.screening.entity.Screening;
-import com.example.domains.screening.enums.PositiveCount;
+import com.example.domains.popcorn.entity.Popcorn;
+import com.example.domains.popcornReview.entity.enums.PopcornNegative;
+import com.example.domains.popcornReview.entity.enums.PopcornPositive;
+import com.example.domains.popcornUser.entity.PopcornUser;
+import com.example.domains.screeningReview.entity.ScreeningReview;
 import com.example.domains.screeningReview.entity.enums.Negative;
 import com.example.domains.screeningReview.entity.enums.Positive;
-import com.example.domains.user.entity.User;
 import com.example.domains.userscreening.entity.UserScreening;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -16,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ScreeningReview extends BaseTimeEntity {
+public class PopcornReview extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,39 +36,39 @@ public class ScreeningReview extends BaseTimeEntity {
     private boolean isBlind;
 
     @Embedded
-    private Positive positive;
+    private PopcornPositive popcornPositive;
 
     @Embedded
-    private Negative negative;
-
+    private PopcornNegative popcornNegative;
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_screening_id")
-    private UserScreening userScreening;
+    @JoinColumn(name = "popcorn_user_id")
+    private PopcornUser popcornUser;
+
 
     @Builder
-    private ScreeningReview(boolean afterScreening, boolean movieReview, boolean locationReview,boolean serviceReview, String review, boolean hasAgreed,UserScreening userScreening,Positive positive,Negative negative) {
+    private PopcornReview(boolean afterScreening, boolean movieReview, boolean locationReview,boolean serviceReview, String review, boolean hasAgreed,PopcornPositive popcornPositive,PopcornNegative popcornNegative,PopcornUser popcornUser) {
         this.afterScreening = afterScreening;
         this.movieReview = movieReview;
         this.locationReview = locationReview;
         this.serviceReview = serviceReview;
         this.review = review;
         this.hasAgreed =hasAgreed;
-        this.userScreening = userScreening;
-        this.positive = positive;
-        this.negative =negative;
+        this.popcornPositive = popcornPositive;
+        this.popcornNegative = popcornNegative;
+        this.popcornUser = popcornUser;
     }
 
-    public static ScreeningReview of(boolean afterScreening, boolean movieReview, boolean locationReview,boolean serviceReview, String review, boolean hasAgreed,UserScreening userScreening,Positive positive, Negative negative) {
-        return ScreeningReview.builder()
+    public static  PopcornReview of(boolean afterScreening, boolean movieReview, boolean locationReview, boolean serviceReview, String review, boolean hasAgreed,PopcornPositive popcornPositive,PopcornNegative popcornNegative,PopcornUser popcornUser) {
+        return PopcornReview.builder()
                 .afterScreening(afterScreening)
                 .movieReview(movieReview)
                 .locationReview(locationReview)
                 .serviceReview(serviceReview)
                 .review(review)
                 .hasAgreed(hasAgreed)
-                .userScreening(userScreening)
-                .positive(positive)
-                .negative(negative)
+                .popcornPositive(popcornPositive)
+                .popcornNegative(popcornNegative)
+                .popcornUser(popcornUser)
                 .build();
 
     }

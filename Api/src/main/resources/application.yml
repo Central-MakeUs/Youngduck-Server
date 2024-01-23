@@ -19,6 +19,9 @@ springdoc:
   swagger-ui:
     tags-sorter: alpha
 
+app:
+  tmdb: ${TMDB_SECRET}
+
 ---
 spring:
   config:

@@ -13,6 +13,7 @@ import com.example.domains.screening.entity.Screening;
 import com.example.domains.screening.entity.dto.ScreeningResponseDto;
 import com.example.domains.screening.enums.Category;
 import com.example.domains.screening.service.ScreeningService;
+import com.example.domains.screeningReview.adaptor.ReviewAdaptor;
 import com.example.domains.screeningReview.entity.ScreeningReview;
 import com.example.domains.screeningReview.entity.dto.ReviewResponseDto;
 import com.example.domains.screeningReview.entity.dto.ScreeningReviewResponseDto;
@@ -53,6 +54,7 @@ public class ScreeningController {
     private final PostScreeningPrivateUseCase postScreeningPrivateUseCase;
     private final PatchScreeningUseCase patchScreeningUseCase;
     private final ScreeningAdaptor screeningAdaptor;
+    private final ReviewAdaptor reviewAdaptor;
 
 
     @Operation(description = "모임 대표 이미지")
@@ -207,5 +209,13 @@ public class ScreeningController {
     public List<Screening> getPastScreenings() {
         Long userId = SecurityUtil.getCurrentUserId();
         return screeningAdaptor.getUpcomingScreenings(userId);
+    }
+
+    //TODO duplicate 없애기
+    @PostMapping("/review/complain/{reviewId}")
+    public void postReviewComplain(@RequestParam("reviewId") Long reviewId) {
+
+        Long userId = SecurityUtil.getCurrentUserId();
+        reviewAdaptor.postComplain(reviewId,userId);
     }
 }

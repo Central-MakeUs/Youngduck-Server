@@ -135,4 +135,8 @@ public class User extends BaseTimeEntity {
         this.genres = new ArrayList<>();
         this.name = null;
     }
+
+    public void turnBlind() {
+        this.userState = UserState.DELETED;
+    }
 }

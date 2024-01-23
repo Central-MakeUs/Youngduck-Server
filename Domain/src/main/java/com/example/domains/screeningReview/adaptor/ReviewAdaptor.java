@@ -1,24 +1,34 @@
 package com.example.domains.screeningReview.adaptor;
 
 import com.example.adaptor.Adaptor;
+import com.example.domains.block.adaptor.BlockAdaptor;
 import com.example.domains.screening.entity.QScreening;
 import com.example.domains.screeningReview.entity.QScreeningReview;
 import com.example.domains.screeningReview.entity.ScreeningReview;
 import com.example.domains.screeningReview.entity.dto.ReviewResponseDto;
 import com.example.domains.screeningReview.entity.dto.ScreeningWithReviewDto;
 import com.example.domains.screeningReview.repository.ScreeningReviewRepository;
+import com.example.domains.user.entity.QUser;
+import com.example.domains.user.entity.User;
+import com.example.domains.user.enums.UserState;
 import com.example.domains.userscreening.entity.QUserScreening;
 import com.example.domains.userscreening.entity.UserScreening;
+import com.google.api.client.util.SecurityUtils;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.security.SecurityUtil;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 @Adaptor
 @RequiredArgsConstructor
 public class ReviewAdaptor {
     private final ScreeningReviewRepository screeningReviewRepository;
+    private final BlockAdaptor blockAdaptor;
     private final JPAQueryFactory queryFactory;
 
     public void save(ScreeningReview screeningReview) {
@@ -62,4 +72,56 @@ public class ReviewAdaptor {
 
         return screeningReviews;
     }
+
+    @Transactional
+    public void postComplain(Long reviewId,Long userId) {
+        ScreeningReview screeningReview = findById(reviewId);
+
+        blockAdaptor.save(userId,screeningReview.getUserScreening().getUser().getId(),reviewId);
+
+        int complainCount = screeningReview.getComplaintCount();
+        if (complainCount == 4) {
+            incrementComplaintCount(screeningReview);
+            // Get user from the screeningReview
+            User user = screeningReview.getUserScreening().getUser();
+
+            deActivateUser(user);
+
+            // Delete the screeningReview
+            changeBlindStatus(screeningReview);  // Assuming there is a method to delete screeningReview
+        } else {
+            incrementComplaintCount(screeningReview);
+        }
+    }
+
+    @Transactional
+    public void deActivateUser(User user) {
+        user.turnBlind();
+    }
+
+    @Transactional
+    public void changeBlindStatus(ScreeningReview screeningReview) {
+        QScreeningReview qScreeningReview = QScreeningReview.screeningReview;
+        JPAUpdateClause updateClause = queryFactory.update(qScreeningReview);
+
+//        // Set blindStatus to true
+        updateClause
+                .set(qScreeningReview.isBlind, true)
+                .where(qScreeningReview.id.eq(screeningReview.getId()))
+                .execute();
+
+    }
+
+    @Transactional
+    public void incrementComplaintCount(ScreeningReview screeningReview) {
+        QScreeningReview qScreeningReview = QScreeningReview.screeningReview;
+        JPAUpdateClause updateClause = queryFactory.update(qScreeningReview);
+
+//        // Set blindStatus to true
+        updateClause
+                .set(qScreeningReview.complaintCount, qScreeningReview.complaintCount.add(1))
+                .where(qScreeningReview.id.eq(screeningReview.getId()))
+                .execute();
+    }
+
 }
