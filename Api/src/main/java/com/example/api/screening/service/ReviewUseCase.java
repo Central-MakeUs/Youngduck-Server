@@ -58,6 +58,8 @@ public class ReviewUseCase {
         incrementNegative(request.getNegative(),screening);
         incrementPositive(request.getPositive(),screening);
 
+        
+
         //save
         reviewAdaptor.save(newSreeningReview);
         //screeningAdaptor.save(screening);

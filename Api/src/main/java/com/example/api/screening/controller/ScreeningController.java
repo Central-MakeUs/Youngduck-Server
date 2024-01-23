@@ -218,4 +218,6 @@ public class ScreeningController {
         Long userId = SecurityUtil.getCurrentUserId();
         reviewAdaptor.postComplain(reviewId,userId);
     }
+
+
 }
