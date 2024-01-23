@@ -39,7 +39,6 @@ jobs:
           cd ./Infra/src/main/resources
           touch ./popcornmate-d7ca1-firebase-adminsdk-svbpw-fce737e873.json
           echo "$FIREBASE_JSON" > ./popcornmate-d7ca1-firebase-adminsdk-svbpw-fce737e873.json
-          sed -i 's/#/"/g' ./popcornmate-d7ca1-firebase-adminsdk-svbpw-fce737e873.json
         env:
           FIREBASE_JSON: ${{ secrets.FCM_SECRET }}
         shell: bash
