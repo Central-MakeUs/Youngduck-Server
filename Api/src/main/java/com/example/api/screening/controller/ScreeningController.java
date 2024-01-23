@@ -211,8 +211,11 @@ public class ScreeningController {
         return screeningAdaptor.getUpcomingScreenings(userId);
     }
 
+    //TODO duplicate 없애기
     @PostMapping("/review/complain/{reviewId}")
     public void postReviewComplain(@RequestParam("reviewId") Long reviewId) {
-        reviewAdaptor.postComplain(reviewId);
+
+        Long userId = SecurityUtil.getCurrentUserId();
+        reviewAdaptor.postComplain(reviewId,userId);
     }
 }

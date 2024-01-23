@@ -1,6 +1,7 @@
 package com.example.domains.screeningReview.adaptor;
 
 import com.example.adaptor.Adaptor;
+import com.example.domains.block.adaptor.BlockAdaptor;
 import com.example.domains.screening.entity.QScreening;
 import com.example.domains.screeningReview.entity.QScreeningReview;
 import com.example.domains.screeningReview.entity.ScreeningReview;
@@ -12,10 +13,12 @@ import com.example.domains.user.entity.User;
 import com.example.domains.user.enums.UserState;
 import com.example.domains.userscreening.entity.QUserScreening;
 import com.example.domains.userscreening.entity.UserScreening;
+import com.google.api.client.util.SecurityUtils;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.security.SecurityUtil;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
@@ -25,6 +28,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReviewAdaptor {
     private final ScreeningReviewRepository screeningReviewRepository;
+    private final BlockAdaptor blockAdaptor;
     private final JPAQueryFactory queryFactory;
 
     public void save(ScreeningReview screeningReview) {
@@ -70,8 +74,11 @@ public class ReviewAdaptor {
     }
 
     @Transactional
-    public void postComplain(Long reviewId) {
-            ScreeningReview screeningReview = findById(reviewId);
+    public void postComplain(Long reviewId,Long userId) {
+        ScreeningReview screeningReview = findById(reviewId);
+
+        blockAdaptor.save(userId,screeningReview.getUserScreening().getUser().getId(),reviewId);
+
         int complainCount = screeningReview.getComplaintCount();
         if (complainCount == 4) {
             incrementComplaintCount(screeningReview);

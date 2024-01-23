@@ -1,10 +1,7 @@
 package com.example.domains.recommendedPopcorn.entity;
 
 import com.example.domains.common.model.BaseTimeEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,6 +19,7 @@ public class RecommendedPopcorn extends BaseTimeEntity {
 
     private String movieTitle;
     private String imageUrl;
+    @Column(columnDefinition = "TEXT")
     private String movieDetail;
     private String recommendationReason;
     private int recommendationCount;

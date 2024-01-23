@@ -4,4 +4,6 @@ import com.example.domains.recommendedPopcorn.entity.RecommendedPopcorn;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RecommendedPopcornRepository extends JpaRepository<RecommendedPopcorn,Long> {
+    boolean existsByMovieId(String movieId);
+
 }
