@@ -93,4 +93,8 @@ public class UserScreeningAdaptor {
 
         return reviewResponseDtos;
     }
+
+    public List<UserScreening> findByScreeningId(Long screeningId) {
+        return userScreeningRepository.findByScreeningId(screeningId);
+    }
 }

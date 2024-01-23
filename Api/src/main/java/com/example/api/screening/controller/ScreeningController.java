@@ -43,6 +43,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Slf4j
 @SecurityRequirement(name = "access-token")
 public class ScreeningController {
+    private final GetRateCountUseCase getRateCountUseCase;
     private final ScreeningUploadUseCase screeningUploadUseCase;
     private final GetScreeningUseCase getScreeningUseCase;
     private final ReviewUseCase reviewUseCase;
@@ -218,6 +219,14 @@ public class ScreeningController {
         Long userId = SecurityUtil.getCurrentUserId();
         reviewAdaptor.postComplain(reviewId,userId);
     }
+
+    //TODO 스크리닝 장소, 운영, 감상 개수 pos, neg,스크리닝지수 마다 반환
+    @GetMapping("/count")
+    public GetCountResponse getScreeningCount(@RequestParam("screeningId") Long screeningId){
+        return getRateCountUseCase.execute(screeningId);
+    }
+
+    //TODO 테스트 해보기
 
 
 }
