@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @SecurityRequirement(name = "access-token")
 public class PopcornController {
-
     //TODO 지난주 (테스트는 3분) 팝콘작 중 투표수 가장 높았던 것 3개 반환
     //TODO 이번 주 (테스트는 3분) 팝콘작 선정 된 것  저장 -> 스케쥴링? PopCorn
     //TODO 5. 팝콘작 리뷰하기
