@@ -17,7 +17,4 @@ public class PopcornController {
     //TODO 이번 주 (테스트는 3분) 팝콘작 선정 된 것  저장 -> 스케쥴링? PopCorn
     //TODO 5. 팝콘작 리뷰하기
     //TODO 6. 팝콘작 팝콘지수 산출 - 스케쥴링
-
-
-    //TODO 1. 독립영화 Top5 매 주 월요일 저장 - 스케쥴링
 }
