@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 
 @Getter
 public class ScreeningResponse {
+    @Schema(defaultValue = "1", description = "스크리닝 id")
+    private Long screeningId;
 
     @Schema(defaultValue = "https://jgjfhdjghsdkjhgkjd", description = "상영회 대표 이미지")
     private String posterImgUrl;
@@ -56,11 +58,12 @@ public class ScreeningResponse {
 
 
     @Builder
-    public ScreeningResponse(
+    public ScreeningResponse(Long screeningId,
             String screeningTitle, String posterImgUrl, String hostName, String hostEmail, String hostPhoneNumber , String location, String formUrl,
             String information, boolean hasAgreed, Category category, LocalDateTime screeningStartDate, LocalDateTime screeningEndDate, LocalDateTime screeningStartTime,
             boolean isPrivate
     ) {
+        this.screeningId = screeningId;
         this.screeningTitle = screeningTitle;
         this.posterImgUrl = posterImgUrl;
         this.hostName = hostName;
@@ -79,6 +82,7 @@ public class ScreeningResponse {
 
     public static ScreeningResponse from(Screening screening) {
         return ScreeningResponse.builder()
+                .screeningId(screening.getId())
                 .screeningTitle(screening.getTitle())
                 .posterImgUrl(screening.getPosterImgUrl())
                 .hostName(screening.getHostInfo().getHostName())

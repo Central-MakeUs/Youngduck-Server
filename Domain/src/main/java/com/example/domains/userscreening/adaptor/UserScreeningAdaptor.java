@@ -1,6 +1,7 @@
 package com.example.domains.userscreening.adaptor;
 
 import com.example.adaptor.Adaptor;
+import com.example.domains.screening.entity.Screening;
 import com.example.domains.screeningReview.entity.QScreeningReview;
 import com.example.domains.screeningReview.entity.dto.ReviewResponseDto;
 import com.example.domains.screeningReview.entity.dto.ScreeningReviewResponseDto;
@@ -17,6 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+
+import static com.example.domains.screening.entity.QScreening.screening;
+import static com.example.domains.userscreening.entity.QUserScreening.userScreening;
 
 @Adaptor
 @RequiredArgsConstructor
@@ -65,10 +69,23 @@ public class UserScreeningAdaptor {
 
     public List<UserScreening> findByUserId(Long userId) {
         return queryFactory
-                .selectFrom(QUserScreening.userScreening)
-                .where(QUserScreening.userScreening.isHost.eq(true),QUserScreening.userScreening.user.id.eq(userId))
+                .selectFrom(userScreening)
+                .where(userScreening.isHost.eq(true), userScreening.user.id.eq(userId))
                 .fetch();
     }
+
+    public List<Screening> findBookmarkedUserScreening(Long userId) {
+        return queryFactory
+                .select(screening)
+                .from(screening)
+                .join(userScreening).on(userScreening.screening.eq(screening)) // Join with Screening entity
+                .where(
+                        userScreening.isHost.eq(false),
+                        userScreening.user.id.eq(userId)
+                )
+                .fetch();
+    }
+
 
 
     @Transactional
@@ -77,17 +94,18 @@ public class UserScreeningAdaptor {
         List<ScreeningReviewResponseDto> reviewResponseDtos = queryFactory
                 .select(Projections.constructor(
                         ScreeningReviewResponseDto.class,
+                        QScreeningReview.screeningReview.id,
                         QScreeningReview.screeningReview.afterScreening,
                         QScreeningReview.screeningReview.createdAt,
                         QScreeningReview.screeningReview.userScreening.screening.id,
                         QScreeningReview.screeningReview.review
                 ))
                 .from(QScreeningReview.screeningReview)
-                .join(QUserScreening.userScreening)
-                .on(QUserScreening.userScreening.id.eq(QScreeningReview.screeningReview.userScreening.id)
-                        .and(QUserScreening.userScreening.isHost.eq(false))
-                        .and(QUserScreening.userScreening.user.id.eq(userId)))
-                .where(QUserScreening.userScreening.screening.id.eq(screeningId))
+                .join(userScreening)
+                .on(userScreening.id.eq(QScreeningReview.screeningReview.userScreening.id)
+                        .and(userScreening.isHost.eq(false))
+                        .and(userScreening.user.id.eq(userId)))
+                .where(userScreening.screening.id.eq(screeningId))
                 .fetch();
 
 

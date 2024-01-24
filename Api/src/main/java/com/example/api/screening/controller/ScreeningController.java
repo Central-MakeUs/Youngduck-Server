@@ -56,6 +56,7 @@ public class ScreeningController {
     private final PatchScreeningUseCase patchScreeningUseCase;
     private final ScreeningAdaptor screeningAdaptor;
     private final ReviewAdaptor reviewAdaptor;
+    private final GetBookMarkedScreeningsUseCase getBookMarkedScreeningUseCase;
 
 
     @Operation(description = "모임 대표 이미지")
@@ -220,13 +221,17 @@ public class ScreeningController {
         reviewAdaptor.postComplain(reviewId,userId);
     }
 
-    //TODO 스크리닝 장소, 운영, 감상 개수 pos, neg,스크리닝지수 마다 반환
+    //TODO 스크리닝 장소, 운영, 감상 개수 pos, neg,스크리닝지수 마다 반환 (0)
     @GetMapping("/count")
     public GetCountResponse getScreeningCount(@RequestParam("screeningId") Long screeningId){
         return getRateCountUseCase.execute(screeningId);
     }
 
-    //TODO 테스트 해보기
+    //TODO 찜하기 한 스크리닝 목록 반환 (0)
+    @GetMapping("/bookmarked")
+    public List<ScreeningResponse> getBookmarkedScreenings(){
+        return getBookMarkedScreeningUseCase.execute();
+    }
 
 
 }
