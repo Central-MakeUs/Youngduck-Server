@@ -20,9 +20,9 @@ public class PopcornSchedule {
 //        System.out.println("매 주 일요일에 실행되는 작업");
 //    }
 
-        @Scheduled(cron = "0 * * * * *")
-    public void scheduledMethod() {
-            popcornService.getTopRecommended();
-            System.out.println("1분마다 실행되는 작업");
-    }
+//        @Scheduled(cron = "0 * * * * *")
+//    public void scheduledMethod() {
+//            popcornService.getTopRecommended();
+//            System.out.println("1분마다 실행되는 작업");
+//    }
 }

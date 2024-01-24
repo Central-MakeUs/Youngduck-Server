@@ -40,7 +40,7 @@ public class GetCountResponse {
                 .movieReviewCountPos(screeningCountDto.getMovieReviewCountPos())
                 .serviceCountNeg(screeningCountDto.getServiceCountNeg())
                 .serviceCountPos(screeningCountDto.getServiceCountPos())
-                .screeningRate(builder().screeningRate)
+                .screeningRate(screeningCountDto.getScreeningRate())
                 .build();
     }
 }
