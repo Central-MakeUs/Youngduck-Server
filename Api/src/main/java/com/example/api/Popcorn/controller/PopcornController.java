@@ -31,6 +31,4 @@ public class PopcornController {
     //TODO 7: 팝콘작 상세 페이지
 
 
-
-
 }
