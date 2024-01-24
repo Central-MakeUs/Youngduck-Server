@@ -55,23 +55,50 @@ public class ReviewUseCase {
         );
         Screening screening = screeningAdaptor.findById(userScreening.getScreening().getId());
 
+        calculateCount(request.isScreeningReview(),request.isLocationReview(),request.isServiceReview(),screening);
+        calculateRate(request.isAfterScreening(),screening);
         incrementNegative(request.getNegative(),screening);
         incrementPositive(request.getPositive(),screening);
 
-        
+
 
         //save
         reviewAdaptor.save(newSreeningReview);
         //screeningAdaptor.save(screening);
         return PostReviewResponse.from(newSreeningReview);
     }
+    @Transactional
+    public void calculateRate(boolean afterScreening,Screening screening) {
+        if(afterScreening) {
+            screeningAdaptor.incrementAfterScreening(screening);
+        }
+    }
 
-//    @Transactional
-//    public PostReviewResponse proceed(ScreeningReview newSreeningReview, Screening screening) {
-//        screeningAdaptor.save(screening);
-//        return PostReviewResponse.from(newSreeningReview);
-//    }
-//
+    @Transactional
+    public void calculateCount(boolean screeningReview, boolean locationReview, boolean serviceReview,Screening screening) {
+        if(screeningReview) {
+            screeningAdaptor.incrementScreeningReview(screening);
+        } else if (!screeningReview) {
+            screeningAdaptor.decrementScreeningReview(screening);
+        }
+        if(locationReview) {
+            screeningAdaptor.incrementLocationReview(screening);
+        } else if (!locationReview) {
+            screeningAdaptor.decrementLocationReview(screening);
+        }
+        if(serviceReview) {
+            screeningAdaptor.incrementServiceReview(screening);
+        } else if(!serviceReview) {
+            screeningAdaptor.decrementServiceReview(screening);
+        }
+    }
+
+    @Transactional
+    public PostReviewResponse proceed(ScreeningReview newSreeningReview, Screening screening) {
+        screeningAdaptor.save(screening);
+        return PostReviewResponse.from(newSreeningReview);
+    }
+
 
     @Transactional
     public void incrementPositive(Positive positive, Screening userScreening) {
