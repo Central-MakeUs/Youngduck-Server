@@ -1,8 +1,6 @@
-package com.example.domains.screening.enums;
+package com.example.domains.popcorn.enums;
 
-import com.example.domains.screening.entity.Screening;
 import jakarta.persistence.Embeddable;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @AllArgsConstructor
 @NoArgsConstructor
-public class PositiveCount {
+public class PopcornPositiveCount {
 
     private int cineMaster;
     private int greatFilming;

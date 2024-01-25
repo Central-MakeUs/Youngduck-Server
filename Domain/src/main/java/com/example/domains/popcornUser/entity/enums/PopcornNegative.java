@@ -1,4 +1,4 @@
-package com.example.domains.popcornReview.entity.enums;
+package com.example.domains.popcornUser.entity.enums;
 
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;

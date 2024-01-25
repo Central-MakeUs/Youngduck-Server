@@ -564,5 +564,34 @@ public class ScreeningAdaptor {
                 .execute();
     }
 
+    @Transactional
+    public void incrementPositiveSetIsArt(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
 
+        updateClause
+                .set(qScreening.positiveCount.setIsArt, qScreening.positiveCount.setIsArt.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementPositiveWrittenByGod(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.positiveCount.writtenByGod, qScreening.positiveCount.writtenByGod.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementPositiveOst(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.positiveCount.ost, qScreening.positiveCount.ost.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
 }

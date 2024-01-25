@@ -9,7 +9,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum RecommendedErrorCode implements BaseErrorCode {
-    DUPLICATE_MOVIE(409,"MOVIE_404", "중복된 영화가 존재합니다");
+    No_MOVIE_FOUND(404,"MOVIE_404", "영화가 존재하지 않습니다"),
+    DUPLICATE_MOVIE(409,"MOVIE_409", "중복된 영화가 존재합니다");
+
     private int status;
     private String code;
     private String reason;

@@ -118,11 +118,20 @@ public class ReviewUseCase {
             if (positive.isArtIsGood()) {
                 screeningAdaptor.incrementPositiveArtIsGood(userScreening);
             }
+            if (positive.isSetIsArt()){
+                screeningAdaptor.incrementPositiveSetIsArt(userScreening);
+            }
             if (positive.isCustom()) {
                 screeningAdaptor.incrementPositiveCustom(userScreening);
             }
             if (positive.isMusic()) {
                 screeningAdaptor.incrementPositiveMusic(userScreening);
+            }
+            if (positive.isOst()) {
+                screeningAdaptor.incrementPositiveOst(userScreening);
+            }
+            if (positive.isWrittenByGod()){
+                screeningAdaptor.incrementPositiveWrittenByGod(userScreening);
             }
             if (positive.isTopicIsGood()) {
                 screeningAdaptor.incrementPositiveTopicIsGood(userScreening);

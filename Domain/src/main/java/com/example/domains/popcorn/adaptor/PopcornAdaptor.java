@@ -7,7 +7,9 @@ import com.example.domains.popcorn.entity.dto.PopcornResponseDto;
 import com.example.domains.popcorn.repository.PopcornRepository;
 import com.example.domains.recommendedPopcorn.entity.QRecommendedPopcorn;
 import com.example.domains.recommendedPopcorn.entity.RecommendedPopcorn;
+import com.example.domains.screening.entity.QScreening;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +25,7 @@ import static com.example.domains.diverseMovie.entity.QDiverseMovie.diverseMovie
 @RequiredArgsConstructor
 public class PopcornAdaptor {
     private final PopcornRepository popcornRepository;
-    private final JPAQueryFactory queryFactory;
+    private final JPAQueryFactory jpaQueryFactory;
 
     @Transactional
     public void save(Popcorn popcorn){
@@ -47,7 +49,7 @@ public class PopcornAdaptor {
     public List<RecommendedPopcorn> findTopThree() {
         QRecommendedPopcorn recommendedPopcorn = QRecommendedPopcorn.recommendedPopcorn;
 
-        return queryFactory
+        return jpaQueryFactory
                 .selectFrom(recommendedPopcorn)
                 .orderBy(
                         recommendedPopcorn.recommendationCount.desc(),
@@ -64,7 +66,7 @@ public class PopcornAdaptor {
         LocalDate startOfLastWeek = today.minusDays(today.getDayOfWeek().getValue() + 6); // 지난 주의 월요일
         LocalDate endOfLastWeek = startOfLastWeek.plusDays(6); // 지난 주의 일요일
 
-        return queryFactory
+        return jpaQueryFactory
                 .selectFrom(popcorn)
                 .where(popcorn.createdAt.between(startOfLastWeek.atStartOfDay(), endOfLastWeek.atTime(23, 59, 59)))
                 .orderBy(
@@ -73,5 +75,312 @@ public class PopcornAdaptor {
                 )
                 .limit(3)
                 .fetch();
+    }
+
+    public Popcorn findById(Long popcornId){
+      return popcornRepository.findById(popcornId).get();
+    }
+
+    @Transactional
+    public void incrementPositiveCineMaster(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornPostiveCount.cineMaster, qpopcorn.popcornPostiveCount.cineMaster.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void incrementPositiveGreatFilming(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornPostiveCount.greatFilming, qpopcorn.popcornPostiveCount.greatFilming.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void incrementPositivePom(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornPostiveCount.pom, qpopcorn.popcornPostiveCount.pom.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementPositiveAnimationIsGood(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornPostiveCount.animationIsGood, qpopcorn.popcornPostiveCount.animationIsGood.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementPositiveArtIsGood(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornPostiveCount.artIsGood, qpopcorn.popcornPostiveCount.artIsGood.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementPositiveCustom(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornPostiveCount.custom, qpopcorn.popcornPostiveCount.custom.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementPositiveMusic(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornPostiveCount.music, qpopcorn.popcornPostiveCount.music.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementPositiveTopicIsGood(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornPostiveCount.topicIsGood, qpopcorn.popcornPostiveCount.topicIsGood.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementPositiveLinesAreGood(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornPostiveCount.linesAreGood, qpopcorn.popcornPostiveCount.linesAreGood.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementPositiveEndingIsGood(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornPostiveCount.endingIsGood, qpopcorn.popcornPostiveCount.endingIsGood.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementPositiveCastingIsGood(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornPostiveCount.castingIsGood, qpopcorn.popcornPostiveCount.castingIsGood.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementPositiveActingIsGood(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornPostiveCount.actingIsGood, qpopcorn.popcornPostiveCount.actingIsGood.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementPositiveChemistryIsGood(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornPostiveCount.chemistryIsGood, qpopcorn.popcornPostiveCount.chemistryIsGood.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeIffy(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornNegativeCount.iffy, qpopcorn.popcornNegativeCount.iffy.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeBadEditing(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornNegativeCount.badEditing, qpopcorn.popcornNegativeCount.badEditing.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeBadAngle(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornNegativeCount.badAngle, qpopcorn.popcornNegativeCount.badAngle.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeBadDetail(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornNegativeCount.badDetail, qpopcorn.popcornNegativeCount.badDetail.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeBadColor(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornNegativeCount.badColor, qpopcorn.popcornNegativeCount.badColor.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeBadCustom(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornNegativeCount.badCustom, qpopcorn.popcornNegativeCount.badCustom.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeBadMusic(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornNegativeCount.badMusic, qpopcorn.popcornNegativeCount.badMusic.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeBadSound(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornNegativeCount.badSound, qpopcorn.popcornNegativeCount.badSound.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeBadEnding(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornNegativeCount.badEnding, qpopcorn.popcornNegativeCount.badEnding.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeEndingLoose(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornNegativeCount.endingLoose, qpopcorn.popcornNegativeCount.endingLoose.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeNoDetail(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornNegativeCount.noDetail, qpopcorn.popcornNegativeCount.noDetail.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeBadTopic(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornNegativeCount.badTopic, qpopcorn.popcornNegativeCount.badTopic.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeBadActing(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornNegativeCount.badActing, qpopcorn.popcornNegativeCount.badActing.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementNegativeBadCasting(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornNegativeCount.badCasting, qpopcorn.popcornNegativeCount.badCasting.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementPositiveSetIsArt(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornPostiveCount.setIsArt, qpopcorn.popcornPostiveCount.setIsArt.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementPositiveOst(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornPostiveCount.ost, qpopcorn.popcornPostiveCount.ost.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementPositiveWrittenByGod(Popcorn popcorn) {
+        QPopcorn qpopcorn = QPopcorn.popcorn;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qpopcorn);
+
+        updateClause
+                .set(qpopcorn.popcornPostiveCount.writtenByGod, qpopcorn.popcornPostiveCount.writtenByGod.add(1))
+                .where(qpopcorn.id.eq(popcorn.getId()))
+                .execute();
     }
 }
