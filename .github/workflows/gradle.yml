@@ -34,9 +34,9 @@ jobs:
       - name: 환경 변수를 세팅합니다.
         run: |
           cd ./Infra/src/main/resources
-          sudo touch ./popcornmate-d7ca1-firebase-adminsdk-svbpw-fce737e873.json
-          echo "$FIREBASE_JSON" | sudo tee ./popcornmate-d7ca1-firebase-adminsdk-svbpw-fce737e873.json > /dev/null
-          sed -i 's/#/"/g' ./popcornmate-d7ca1-firebase-adminsdk-svbpw-fce737e873.json
+          sudo touch ./popcornmateprod-firebase-adminsdk-yvb81-02b4302a03.json
+          echo "$FIREBASE_JSON" | sudo tee ./popcornmateprod-firebase-adminsdk-yvb81-02b4302a03.json > /dev/null
+          sed -i 's/#/"/g' ./popcornmateprod-firebase-adminsdk-yvb81-02b4302a03.json
         env:
           FIREBASE_JSON: ${{ secrets.FCM_SECRET }}
 
