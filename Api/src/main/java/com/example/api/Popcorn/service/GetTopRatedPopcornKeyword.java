@@ -17,7 +17,7 @@ public class GetTopRatedPopcornKeyword {
 
         Map<String, Integer> newList = addingToList(keywordList);
         // 내림차순으로 정렬
-// Map을 리스트로 변환
+        // Map을 리스트로 변환
         List<Map.Entry<String, Integer>> sortedList = newList.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
