@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -21,13 +22,16 @@ import java.util.Date;
 public class DiverseMovieService {
     private final DiverseMovieAdaptor diverseMovieAdaptor;
 
+    @Value("${API_KEY}")
+    String apiKey;
+
     public void getTopRated() {
         OkHttpClient client = new OkHttpClient();
         // 현재 날짜를 얻어오기
         String currentDate = getFirstDayOfWeek();
 
         // URL 구성
-        String url = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=1eac3f860b5d6af757c4b409321d9f74&multiMovieYn=Y&targetDt=" + currentDate + "&itemPerPage=5";
+        String url = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key="+ apiKey +"&multiMovieYn=Y&targetDt=" + currentDate + "&itemPerPage=5";
 
         Request request = new Request.Builder()
                 .url(url)

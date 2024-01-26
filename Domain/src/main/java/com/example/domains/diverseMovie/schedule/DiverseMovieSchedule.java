@@ -19,7 +19,7 @@ public class DiverseMovieSchedule {
 
 
 //    @Scheduled(cron = "0 * * * * *")
-//    public void scheduledMethod() {
+//    public void scheduledMethodTest() {
 //        // 1분마다 실행될 로직을 여기에 작성
 //        diverseMovieService.getTopRated();
 //        System.out.println("1분마다 실행되는 작업");
