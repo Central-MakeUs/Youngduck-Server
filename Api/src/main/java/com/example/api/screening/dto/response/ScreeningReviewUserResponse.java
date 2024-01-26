@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 
 @Getter
 public class ScreeningReviewUserResponse implements Serializable {
+    @Schema(defaultValue = "1", description = "리뷰 아이디")
+    private Long reviewId;
 
     @Schema(defaultValue = "true", description = "작품")
     private boolean afterScreening;
@@ -35,7 +37,8 @@ public class ScreeningReviewUserResponse implements Serializable {
 
 
     @Builder
-    public ScreeningReviewUserResponse( boolean afterScreening, String review, LocalDateTime createdAt, Long screeningId,Long userId, String nickname,int profileImageNumber) {
+    public ScreeningReviewUserResponse(Long reviewId,boolean afterScreening, String review, LocalDateTime createdAt, Long screeningId,Long userId, String nickname,int profileImageNumber) {
+        this.reviewId = reviewId;
         this.afterScreening = afterScreening;
         this.review = review;
         this.createdAt = createdAt;
@@ -46,6 +49,7 @@ public class ScreeningReviewUserResponse implements Serializable {
     }
     public static ScreeningReviewUserResponse from(ScreeningReviewResponseDto screeningReview,User user) {
         return  ScreeningReviewUserResponse.builder()
+                .reviewId(screeningReview.getReviewId())
                 .afterScreening(screeningReview.isAfterScreening())
                 .review(screeningReview.getReview())
                 .createdAt(screeningReview.getCreatedAt())

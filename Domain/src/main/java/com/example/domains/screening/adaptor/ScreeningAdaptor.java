@@ -5,10 +5,12 @@ import com.example.domains.common.util.SliceResponse;
 import com.example.domains.screening.entity.QScreening;
 import com.example.domains.screening.entity.Screening;
 import com.example.domains.screening.entity.dto.QScreeningResponseDto;
+import com.example.domains.screening.entity.dto.ScreeningCountDto;
 import com.example.domains.screening.entity.dto.ScreeningResponseDto;
 import com.example.domains.screening.enums.Category;
 import com.example.domains.screening.repository.ScreeningRepository;
 import com.example.domains.screeningReview.entity.QScreeningReview;
+import com.example.domains.userscreening.adaptor.UserScreeningAdaptor;
 import com.example.domains.userscreening.entity.QUserScreening;
 import com.example.domains.userscreening.entity.UserScreening;
 import com.example.domains.userscreening.repository.UserScreeningRepository;
@@ -30,6 +32,7 @@ public class ScreeningAdaptor {
     private final ScreeningRepository screeningRepository;
     private final UserScreeningRepository userScreeningRepository;
     private final JPAQueryFactory jpaQueryFactory;
+    private final UserScreeningAdaptor userScreeningAdaptor;
 
 
     public Screening save(Screening screening) {
@@ -71,9 +74,12 @@ public class ScreeningAdaptor {
                         QScreening.screening.screeningStartDate,
                         QScreening.screening.screeningEndDate,
                         QScreening.screening.screeningStartTime,
-                        QScreening.screening.isPrivate
+                        QScreening.screening.isPrivate,
+                QScreeningReview.screeningReview.count()
                 ))
                 .from(QScreening.screening)
+                .leftJoin(QUserScreening.userScreening).on(QScreening.screening.eq(QUserScreening.userScreening.screening))
+                .leftJoin(QScreeningReview.screeningReview).on(QUserScreening.userScreening.eq(QScreeningReview.screeningReview.userScreening))
                 .where(
                         QScreening.screening.screeningStartDate.between(
                                 startOfWeek.atStartOfDay(),
@@ -81,11 +87,12 @@ public class ScreeningAdaptor {
                         ),
                         QScreening.screening.isPrivate.eq(false)
                 )
+                .groupBy(QScreening.screening.id, QUserScreening.userScreening.id)
                 .orderBy(QScreening.screening.screeningStartDate.asc())
                 .limit(3)
                 .fetch();
     }
-
+//
     public List<ScreeningResponseDto> getMostRecentScreening() {
         return jpaQueryFactory
                 .select(new QScreeningResponseDto(
@@ -103,10 +110,14 @@ public class ScreeningAdaptor {
                         QScreening.screening.screeningStartDate,
                         QScreening.screening.screeningEndDate,
                         QScreening.screening.screeningStartTime,
-                        QScreening.screening.isPrivate
+                        QScreening.screening.isPrivate,
+                        QScreeningReview.screeningReview.count()
                 ))
                 .from(QScreening.screening)
+                .leftJoin(QUserScreening.userScreening).on(QScreening.screening.eq(QUserScreening.userScreening.screening))
+                .leftJoin(QScreeningReview.screeningReview).on(QUserScreening.userScreening.eq(QScreeningReview.screeningReview.userScreening))
                 .where(QScreening.screening.isPrivate.eq(false))
+                .groupBy(QScreening.screening.id, QUserScreening.userScreening.id)
                 .orderBy(QScreening.screening.createdAt.desc())
                 .limit(3)
                 .fetch();
@@ -139,7 +150,8 @@ public class ScreeningAdaptor {
                         QScreening.screening.screeningStartDate,
                         QScreening.screening.screeningEndDate,
                         QScreening.screening.screeningStartTime,
-                        QScreening.screening.isPrivate
+                        QScreening.screening.isPrivate,
+                        QScreeningReview.screeningReview.count()
                 ))
                 .from(QScreening.screening)
                 .leftJoin(QUserScreening.userScreening).on(QScreening.screening.eq(QUserScreening.userScreening.screening))
@@ -479,6 +491,115 @@ public class ScreeningAdaptor {
 
         updateClause
                 .set(qScreening.positiveCount.chemistryIsGood, qScreening.positiveCount.chemistryIsGood.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+
+    @Transactional
+    public void incrementScreeningReview(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.movieReviewCountPos, qScreening.movieReviewCountPos.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void decrementScreeningReview(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.movieReviewCountNeg, qScreening.movieReviewCountNeg.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void incrementLocationReview(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.locationCountPos, qScreening.locationCountPos.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void decrementLocationReview(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.locationCountNeg, qScreening.locationCountNeg.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void incrementServiceReview(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.serviceCountPos, qScreening.serviceCountPos.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void decrementServiceReview(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.serviceCountNeg, qScreening.serviceCountNeg.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void incrementAfterScreening(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.screeningRate, qScreening.screeningRate.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+
+    @Transactional
+    public void incrementPositiveSetIsArt(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.positiveCount.setIsArt, qScreening.positiveCount.setIsArt.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementPositiveWrittenByGod(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.positiveCount.writtenByGod, qScreening.positiveCount.writtenByGod.add(1))
+                .where(qScreening.id.eq(screening.getId()))
+                .execute();
+    }
+    @Transactional
+    public void incrementPositiveOst(Screening screening) {
+        QScreening qScreening = QScreening.screening;
+        JPAUpdateClause updateClause = jpaQueryFactory.update(qScreening);
+
+        updateClause
+                .set(qScreening.positiveCount.ost, qScreening.positiveCount.ost.add(1))
                 .where(qScreening.id.eq(screening.getId()))
                 .execute();
     }

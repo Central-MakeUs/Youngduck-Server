@@ -1,7 +1,8 @@
 package com.example.domains.popcorn.entity;
 
 import com.example.domains.common.model.BaseTimeEntity;
-import com.example.domains.popcornReview.entity.PopcornReview;
+import com.example.domains.popcorn.enums.PopcornNegativeCount;
+import com.example.domains.popcorn.enums.PopcornPositiveCount;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -20,27 +21,41 @@ public class Popcorn extends BaseTimeEntity {
 
     private String movieTitle;
     private String imageUrl;
+
+    @Column(columnDefinition = "TEXT")
     private String movieDetail;
     private String recommendationReason;
     private int popcornRate;
+    private String directorName;
+    private int recommendationCount;
+
+    @Embedded
+    private PopcornNegativeCount popcornNegativeCount  = new PopcornNegativeCount();
+
+    @Embedded
+    private PopcornPositiveCount popcornPostiveCount = new PopcornPositiveCount();
 
 
     @Builder
-    private Popcorn (String movieId,String movieTitle, String imageUrl, String movieDetail, String recommendationReason) {
+    private Popcorn (String movieId,String movieTitle, String imageUrl, String movieDetail,String directorName, String recommendationReason,int recommendationCount) {
         this.movieId = movieId;
         this.movieTitle = movieTitle;
         this.imageUrl = imageUrl;
         this.movieDetail = movieDetail;
+        this.directorName = directorName;
         this.recommendationReason = recommendationReason;
+        this.recommendationCount = recommendationCount;
     }
 
-    public static Popcorn of(String movieId,String movieTitle, String imageUrl, String movieDetail, String recommendationReason) {
+    public static Popcorn of(String movieId,String movieTitle, String imageUrl, String movieDetail, String directorName, String recommendationReason,int recommendationCount) {
         return Popcorn.builder()
                 .movieId(movieId)
                 .movieTitle(movieTitle)
                 .imageUrl(imageUrl)
                 .movieDetail(movieDetail)
+                .directorName(directorName)
                 .recommendationReason(recommendationReason)
+                .recommendationCount(recommendationCount)
                 .build();
     }
 }

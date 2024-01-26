@@ -47,6 +47,13 @@ public class Screening extends BaseTimeEntity {
     private Category category;
     private int screeningRate;
 
+    private int movieReviewCountNeg;
+    private int movieReviewCountPos;
+    private int locationCountNeg;
+    private int locationCountPos;
+    private int serviceCountNeg;
+    private int serviceCountPos;
+
 
     @Builder
     private Screening(String title, String posterImgUrl, HostInfo hostInfo, String location, String participationUrl,

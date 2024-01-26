@@ -14,8 +14,11 @@ public class Positive {
     private boolean pom = false;
     private boolean animationIsGood = false;
     private boolean artIsGood = false;
+    private boolean setIsArt = false;
     private boolean custom = false;
     private boolean music = false;
+    private boolean ost = false;
+    private boolean writtenByGod = false;
     private boolean topicIsGood = false;
     private boolean linesAreGood = false;
     private boolean endingIsGood = false;

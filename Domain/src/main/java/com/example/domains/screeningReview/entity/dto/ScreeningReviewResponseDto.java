@@ -10,13 +10,15 @@ import java.time.LocalDateTime;
 
 @Getter
 public class ScreeningReviewResponseDto {
+    private Long reviewId;
     private boolean afterScreening;
     private LocalDateTime createdAt;
     private Long screeningId;
     private String review;
    @QueryProjection
-    public ScreeningReviewResponseDto(boolean afterScreening, LocalDateTime createdAt, Long screeningId,String review) {
-        this.afterScreening = afterScreening;
+    public ScreeningReviewResponseDto(Long reviewId,boolean afterScreening, LocalDateTime createdAt, Long screeningId,String review) {
+       this.reviewId = reviewId;
+       this.afterScreening = afterScreening;
         this.createdAt = createdAt;
         this.screeningId = screeningId;
         this.review = review;

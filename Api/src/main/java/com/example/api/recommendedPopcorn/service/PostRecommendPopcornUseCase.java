@@ -38,7 +38,7 @@ public class PostRecommendPopcornUseCase {
     private final UserAdaptor userAdaptor;
     private final RecommendedPopcornUserAdaptor recommendedPopcornUserAdaptor;
 
-    @Value("${TMDB_SECRET}")
+    @Value("${KDMB}")
     String tmdb ;
     public void execute(RecommendedPopcornRequest request) throws IOException {
 
@@ -64,7 +64,7 @@ public class PostRecommendPopcornUseCase {
 
 
         Request request = new Request.Builder()
-                .url("https://api.themoviedb.org/3/movie/" + movieId + "?language=ko&api_key=" + tmdb)
+                .url("http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&movieSeq=" + movieId + "&detail=Y&ServiceKey=" + tmdb)
                 .get()
                 .addHeader("accept", "application/json")
                 .addHeader("Authorization", "Bearer " + tmdb)
@@ -81,26 +81,31 @@ public class PostRecommendPopcornUseCase {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(responseBody);
 
-             //필요한 정보 추출
-            String originalTitle = rootNode.path("original_title").asText();
-            String overview = rootNode.path("overview").asText();
-            String posterPath = rootNode.path("poster_path").asText();
+            // Extracting the first movie's information
+            JsonNode movieData = rootNode.path("Data").path(0).path("Result").path(0);
 
-            // 추출한 정보 활용
-            System.out.println("Original Title: " + originalTitle);
-            System.out.println("Overview: " + overview);
-            System.out.println("Poster Path: " + posterPath);
+            // Extracting specific information
+            String title = movieData.path("title").asText();
+            String directorNm = movieData.path("directors").path("director").path(0).path("directorNm").asText();
+            String plotText = movieData.path("plots").path("plot").path(0).path("plotText").asText();
+            String firstPosterUrl = movieData.path("posters").asText().split("\\|")[0];
 
-            postRecommendation(movieId.toString(),originalTitle,overview,posterPath,popcornRequest);
+            // Displaying the extracted information
+            System.out.println("Title: " + title);
+            System.out.println("Director: " + directorNm);
+            System.out.println("Plot: " + plotText);
+            System.out.println("First Poster URL: " + firstPosterUrl);
+
+            postRecommendation(movieId.toString(),title,plotText,firstPosterUrl,directorNm,popcornRequest);
         }
     }
 
-    public void postRecommendation(String movieId,String originalTitle, String overview, String posterPath, RecommendedPopcornRequest popcornRequest) {
+    public void postRecommendation(String movieId,String originalTitle, String overview, String posterPath,String directorNm, RecommendedPopcornRequest popcornRequest) {
         Long userId = SecurityUtil.getCurrentUserId();
         User user = userAdaptor.findById(userId);
 
         final RecommendedPopcorn recommendedPopcorn = RecommendedPopcorn.of(movieId
-        ,originalTitle,posterPath,overview,popcornRequest.getReason());
+        ,originalTitle,posterPath,overview,directorNm,popcornRequest.getReason());
         RecommendedPopcorn recommendedPopcornResult = recommendedPopcornAdaptor.save(recommendedPopcorn);
         proceedSaving(recommendedPopcornResult,user);
     }

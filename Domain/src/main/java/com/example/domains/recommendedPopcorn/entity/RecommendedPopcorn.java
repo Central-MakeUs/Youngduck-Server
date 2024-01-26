@@ -23,22 +23,25 @@ public class RecommendedPopcorn extends BaseTimeEntity {
     private String movieDetail;
     private String recommendationReason;
     private int recommendationCount;
+    private String movieDirector;
 
     @Builder
-    private RecommendedPopcorn(String movieId, String movieTitle, String imageUrl, String  movieDetail, String recommendationReason) {
+    private RecommendedPopcorn(String movieId, String movieTitle, String imageUrl, String  movieDetail, String movieDirector, String recommendationReason) {
         this.movieId = movieId;
         this.movieTitle = movieTitle;
         this.imageUrl = imageUrl;
         this.movieDetail = movieDetail;
+        this.movieDirector = movieDirector;
         this.recommendationReason=recommendationReason;
     }
 
-    public static RecommendedPopcorn of(String movieId, String movieTitle, String imageUrl, String  movieDetail, String recommendationReason) {
+    public static RecommendedPopcorn of(String movieId, String movieTitle, String imageUrl, String  movieDetail, String movieDirector, String recommendationReason) {
         return RecommendedPopcorn.builder()
                 .movieId(movieId)
                 .movieTitle(movieTitle)
                 .imageUrl(imageUrl)
                 .movieDetail(movieDetail)
+                .movieDirector(movieDirector)
                 .recommendationReason(recommendationReason)
                 .build();
     }
