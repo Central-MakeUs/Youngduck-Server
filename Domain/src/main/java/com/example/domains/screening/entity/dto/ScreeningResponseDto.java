@@ -44,13 +44,14 @@ public class ScreeningResponseDto {
     private boolean hasAgreed;
 
     private boolean isPrivate;
+    private Long reviewCount;
 
 
     @QueryProjection
     public ScreeningResponseDto(Long screeningId,
             String screeningTitle, String posterImgUrl, String hostName, String hostEmail, String hostPhoneNumber , String location, String formUrl,
             String information, boolean hasAgreed, Category category, LocalDateTime screeningStartDate, LocalDateTime screeningEndDate, LocalDateTime screeningStartTime,
-            boolean isPrivate
+            boolean isPrivate,Long reviewCount
     ) {
         this.screeningId = screeningId;
         this.screeningTitle = screeningTitle;
@@ -67,5 +68,6 @@ public class ScreeningResponseDto {
         this.hostEmail = hostEmail;
         this.hostPhoneNumber = hostPhoneNumber;
         this.isPrivate = isPrivate;
+        this.reviewCount = reviewCount;
     }
 }

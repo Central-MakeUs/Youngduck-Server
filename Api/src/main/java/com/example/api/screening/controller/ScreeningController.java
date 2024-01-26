@@ -184,7 +184,6 @@ public class ScreeningController {
         return screeningAdaptor.getMostReviewed();
     }
 
-    // private 0
     @Operation(summary = "현재시점에서 이번주 상영작 3개 반환", description = "현재시점에서 다음주 상영작 3개 반환")
     @GetMapping("/upcoming-Screening")
     public List<ScreeningResponseDto> getTopThreeScreening() {

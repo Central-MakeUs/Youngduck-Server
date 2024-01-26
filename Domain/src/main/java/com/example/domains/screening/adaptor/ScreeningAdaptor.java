@@ -74,9 +74,12 @@ public class ScreeningAdaptor {
                         QScreening.screening.screeningStartDate,
                         QScreening.screening.screeningEndDate,
                         QScreening.screening.screeningStartTime,
-                        QScreening.screening.isPrivate
+                        QScreening.screening.isPrivate,
+                QScreeningReview.screeningReview.count()
                 ))
                 .from(QScreening.screening)
+                .leftJoin(QUserScreening.userScreening).on(QScreening.screening.eq(QUserScreening.userScreening.screening))
+                .leftJoin(QScreeningReview.screeningReview).on(QUserScreening.userScreening.eq(QScreeningReview.screeningReview.userScreening))
                 .where(
                         QScreening.screening.screeningStartDate.between(
                                 startOfWeek.atStartOfDay(),
@@ -84,11 +87,12 @@ public class ScreeningAdaptor {
                         ),
                         QScreening.screening.isPrivate.eq(false)
                 )
+                .groupBy(QScreening.screening.id, QUserScreening.userScreening.id)
                 .orderBy(QScreening.screening.screeningStartDate.asc())
                 .limit(3)
                 .fetch();
     }
-
+//
     public List<ScreeningResponseDto> getMostRecentScreening() {
         return jpaQueryFactory
                 .select(new QScreeningResponseDto(
@@ -106,10 +110,14 @@ public class ScreeningAdaptor {
                         QScreening.screening.screeningStartDate,
                         QScreening.screening.screeningEndDate,
                         QScreening.screening.screeningStartTime,
-                        QScreening.screening.isPrivate
+                        QScreening.screening.isPrivate,
+                        QScreeningReview.screeningReview.count()
                 ))
                 .from(QScreening.screening)
+                .leftJoin(QUserScreening.userScreening).on(QScreening.screening.eq(QUserScreening.userScreening.screening))
+                .leftJoin(QScreeningReview.screeningReview).on(QUserScreening.userScreening.eq(QScreeningReview.screeningReview.userScreening))
                 .where(QScreening.screening.isPrivate.eq(false))
+                .groupBy(QScreening.screening.id, QUserScreening.userScreening.id)
                 .orderBy(QScreening.screening.createdAt.desc())
                 .limit(3)
                 .fetch();
@@ -142,7 +150,8 @@ public class ScreeningAdaptor {
                         QScreening.screening.screeningStartDate,
                         QScreening.screening.screeningEndDate,
                         QScreening.screening.screeningStartTime,
-                        QScreening.screening.isPrivate
+                        QScreening.screening.isPrivate,
+                        QScreeningReview.screeningReview.count()
                 ))
                 .from(QScreening.screening)
                 .leftJoin(QUserScreening.userScreening).on(QScreening.screening.eq(QUserScreening.userScreening.screening))

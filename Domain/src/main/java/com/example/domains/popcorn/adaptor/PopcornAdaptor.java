@@ -3,23 +3,30 @@ package com.example.domains.popcorn.adaptor;
 import com.example.adaptor.Adaptor;
 import com.example.domains.popcorn.entity.Popcorn;
 import com.example.domains.popcorn.entity.QPopcorn;
+import com.example.domains.popcorn.entity.dto.PopcornKeywordResponseDto;
 import com.example.domains.popcorn.entity.dto.PopcornResponseDto;
+import com.example.domains.popcorn.entity.dto.QPopcornKeywordResponseDto;
 import com.example.domains.popcorn.repository.PopcornRepository;
 import com.example.domains.recommendedPopcorn.entity.QRecommendedPopcorn;
 import com.example.domains.recommendedPopcorn.entity.RecommendedPopcorn;
 import com.example.domains.screening.entity.QScreening;
+import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import static com.example.domains.diverseMovie.entity.QDiverseMovie.diverseMovie;
+import static com.example.domains.popcorn.entity.QPopcorn.popcorn;
 
 @Adaptor
 @RequiredArgsConstructor
@@ -383,4 +390,51 @@ public class PopcornAdaptor {
                 .where(qpopcorn.id.eq(popcorn.getId()))
                 .execute();
     }
+//
+public PopcornKeywordResponseDto getTopRatedCounts(Long popcornId) {
+    PopcornKeywordResponseDto resultList = jpaQueryFactory
+            .select(new QPopcornKeywordResponseDto(
+                    popcorn.popcornPostiveCount.cineMaster,
+                    popcorn.popcornPostiveCount.greatFilming,
+                    popcorn.popcornPostiveCount.animationIsGood,
+                    popcorn.popcornPostiveCount.artIsGood,
+                    popcorn.popcornPostiveCount.pom,
+                    popcorn.popcornPostiveCount.setIsArt,
+                    popcorn.popcornPostiveCount.custom,
+                    popcorn.popcornPostiveCount.music,
+                    popcorn.popcornPostiveCount.ost,
+                    popcorn.popcornPostiveCount.writtenByGod,
+                    popcorn.popcornPostiveCount.topicIsGood,
+                    popcorn.popcornPostiveCount.linesAreGood,
+                    popcorn.popcornPostiveCount.endingIsGood,
+                    popcorn.popcornPostiveCount.castingIsGood,
+                    popcorn.popcornPostiveCount.actingIsGood,
+                    popcorn.popcornPostiveCount.chemistryIsGood,
+                    popcorn.popcornNegativeCount.iffy,
+                    popcorn.popcornNegativeCount.badEditing,
+                    popcorn.popcornNegativeCount.badAngle,
+                    popcorn.popcornNegativeCount.badDetail,
+                    popcorn.popcornNegativeCount.badColor,
+                    popcorn.popcornNegativeCount.badCustom,
+                    popcorn.popcornNegativeCount.badMusic,
+                    popcorn.popcornNegativeCount.badSound,
+                    popcorn.popcornNegativeCount.badEnding,
+                    popcorn.popcornNegativeCount.endingLoose,
+                    popcorn.popcornNegativeCount.noDetail,
+                    popcorn.popcornNegativeCount.badTopic,
+                    popcorn.popcornNegativeCount.badActing,
+                    popcorn.popcornNegativeCount.badCasting
+            ))
+            .from(popcorn)
+            .where(popcorn.id.eq(popcornId))
+            .fetchOne();
+
+
+    return resultList;
+
+
+//                .where(popcorn.id.eq(popcornId))
+//            .orderBy(popcorn.popcornPostiveCount.desc())
+//            .limit(3)
+}
 }

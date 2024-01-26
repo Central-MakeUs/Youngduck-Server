@@ -8,4 +8,8 @@ import java.util.Optional;
 
 public interface PopcornUserRepository extends JpaRepository<PopcornUser, Long> {
     List<PopcornUser> findAllByPopcornId(Long id);
+
+    List<PopcornUser> findAllByPopcornIdAndUserId(Long popcornId, Long userId);
+
+    List<PopcornUser> findAllByUserId(Long userId);
 }

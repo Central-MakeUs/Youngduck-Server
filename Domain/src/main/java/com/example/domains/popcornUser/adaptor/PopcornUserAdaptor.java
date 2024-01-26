@@ -10,6 +10,8 @@ import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Adaptor
 @RequiredArgsConstructor
 public class PopcornUserAdaptor {
@@ -29,6 +31,18 @@ public class PopcornUserAdaptor {
                 .where(qpopcorn.id.eq(popcorn.getId()))
                 .execute();
 
+    }
+
+    public List<PopcornUser> findAllByPopcornId(Long popcornId) {
+        return popcornUserRepository.findAllByPopcornId(popcornId);
+    }
+
+    public List<PopcornUser> findAllByPopcornIdAndUserId(Long popcornId, Long userId) {
+        return popcornUserRepository.findAllByPopcornIdAndUserId(popcornId,userId);
+    }
+
+    public List<PopcornUser> findAllByUserId(Long userId) {
+        return popcornUserRepository.findAllByUserId(userId);
     }
 //    int total = popcornUserRepository.findAllByPopcornId(popcorn.getId()).size();
 }
