@@ -17,14 +17,12 @@ public class RecommendedPopcornUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private boolean isAgreed;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
     @ManyToOne
     @JoinColumn(name = "recommended_popcorn_id")
     private RecommendedPopcorn recommendedPopcorn;
-
     @Builder
     private RecommendedPopcornUser(boolean isAgreed, User user, RecommendedPopcorn recommendedPopcorn) {
         this.isAgreed = isAgreed;

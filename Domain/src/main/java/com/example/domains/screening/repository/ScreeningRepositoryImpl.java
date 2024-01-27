@@ -26,7 +26,7 @@ public class ScreeningRepositoryImpl implements ScreeningRepositoryCustom {
                 )
                 .orderBy(QScreening.screening.createdAt.asc()) // Adjust the sorting as needed
                 .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
+                .limit(pageable.getPageSize()+1)
                 .fetch();
 
         return SliceResponse.of(SliceUtil.toSlice(query, pageable));
@@ -41,7 +41,7 @@ public class ScreeningRepositoryImpl implements ScreeningRepositoryCustom {
                 )
                 .orderBy(QScreening.screening.screeningStartDate.asc()) // Adjust the sorting as needed
                 .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
+                .limit(pageable.getPageSize()+1)
                 .fetch();
 
         return SliceResponse.of(SliceUtil.toSlice(query, pageable));
