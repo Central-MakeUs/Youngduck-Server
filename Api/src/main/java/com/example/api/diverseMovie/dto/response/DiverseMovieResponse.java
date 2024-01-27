@@ -8,6 +8,8 @@ import lombok.Getter;
 
 @Getter
 public class DiverseMovieResponse {
+    @Schema(defaultValue = "1", description = "독립영화")
+    private Long movieId;
     @Schema(defaultValue = "괴물", description = "영화제목")
     private String movieTitle;
 
@@ -18,17 +20,18 @@ public class DiverseMovieResponse {
     private String rank;
 
     @Builder
-    public DiverseMovieResponse(String movieTitle,String imageUrl, String rank){
+    public DiverseMovieResponse(Long movieId,String movieTitle,String imageUrl, String rank){
+        this.movieId=movieId;
         this.movieTitle=movieTitle;
         this.imageUrl=imageUrl;
         this.rank=rank;
     }
     public static DiverseMovieResponse from(DiverseMovieResponseDto diverseMovieResponseDto){
         return DiverseMovieResponse.builder()
+                .movieId(diverseMovieResponseDto.getMovieId())
                 .movieTitle(diverseMovieResponseDto.getMovieTitle())
                 .imageUrl(diverseMovieResponseDto.getMovieImgUrl())
                 .rank(diverseMovieResponseDto.getMovieRank())
                 .build();
-
     }
 }

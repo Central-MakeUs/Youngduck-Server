@@ -7,12 +7,14 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class DiverseMovieResponseDto {
+    private Long movieId;
     private String movieTitle;
     private String movieImgUrl;
     private String movieRank;
 
     @QueryProjection
-    public DiverseMovieResponseDto (String movieTitle, String movieImgUrl, String movieRank) {
+    public DiverseMovieResponseDto (Long movieId,String movieTitle, String movieImgUrl, String movieRank) {
+        this.movieId = movieId;
         this.movieTitle = movieTitle;
         this.movieImgUrl=movieImgUrl;
         this.movieRank=movieRank;
