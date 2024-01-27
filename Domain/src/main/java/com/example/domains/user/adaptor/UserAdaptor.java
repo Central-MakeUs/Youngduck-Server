@@ -40,4 +40,6 @@ public class UserAdaptor {
         return userRepository.existsById(userId);
     }
 
+//    public Boolean existsbyNickname(String )
+
 }

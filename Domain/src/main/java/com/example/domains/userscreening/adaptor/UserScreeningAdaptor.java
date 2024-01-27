@@ -81,6 +81,7 @@ public class UserScreeningAdaptor {
                 .join(userScreening).on(userScreening.screening.eq(screening)) // Join with Screening entity
                 .where(
                         userScreening.isHost.eq(false),
+                        userScreening.isBookmarked.eq(true),
                         userScreening.user.id.eq(userId)
                 )
                 .fetch();
@@ -114,5 +115,9 @@ public class UserScreeningAdaptor {
 
     public List<UserScreening> findByScreeningId(Long screeningId) {
         return userScreeningRepository.findByScreeningId(screeningId);
+    }
+
+    public boolean existsByUserAndScreening(Long userId, Long screeningId) {
+       return userScreeningRepository.existsByUserIdAndScreeningId(userId, screeningId);
     }
 }

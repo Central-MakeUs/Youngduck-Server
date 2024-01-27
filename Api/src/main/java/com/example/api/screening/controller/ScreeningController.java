@@ -57,6 +57,7 @@ public class ScreeningController {
     private final ScreeningAdaptor screeningAdaptor;
     private final ReviewAdaptor reviewAdaptor;
     private final GetBookMarkedScreeningsUseCase getBookMarkedScreeningUseCase;
+    private final GetPastScreeningListUseCase getPastScreeningListUseCase;
 
 
     @Operation(description = "모임 대표 이미지")
@@ -80,8 +81,8 @@ public class ScreeningController {
     }
 
     @Operation(summary = "스크리닝 id별로 가져오기", description = "screening id가져와서 요청하기")
-    @PostMapping("/{screeningId}")
-    public Screening getScreening(@PathVariable("screeningId") Long screeningId) {
+    @GetMapping("/{screeningId}")
+    public ScreeningInfoResponse getScreening(@PathVariable("screeningId") Long screeningId) {
         return getScreeningUseCase.execute(screeningId);
     }
 
@@ -201,8 +202,7 @@ public class ScreeningController {
     //TODO 관람예정(찜하기 한 것 중에서 날짜 지난거) - private 0
     @GetMapping("/screenings/past")
     public List<Screening> getPassedScreenings() {
-        Long userId = SecurityUtil.getCurrentUserId();
-        return screeningAdaptor.getBookmarkedScreenings(userId);
+        return getPastScreeningListUseCase.execute();
     }
 
     //TODO 관람예정(찜하기 한 것 중에서 날짜 안지난거) -> try해봐야함() - private 0

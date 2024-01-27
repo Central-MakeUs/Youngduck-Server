@@ -1,7 +1,10 @@
 package com.example.api.config;
 
 
+import com.example.api.config.security.AccessDeniedFilter;
 import com.example.api.config.security.FilterConfig;
+import com.example.api.config.security.JwtExceptionFilter;
+import com.example.api.config.security.JwtTokenFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +13,10 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @RequiredArgsConstructor
@@ -22,6 +28,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final FilterConfig filterConfig;
+    private final JwtTokenFilter jwtTokenFilter;
+    private final JwtExceptionFilter jwtExceptionFilter;
+    private final AccessDeniedFilter accessDeniedFilter;
 
 
     @Bean
@@ -41,18 +50,23 @@ public class SecurityConfig {
 
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.authorizeRequests().expressionHandler(expressionHandler());
 
         http.authorizeRequests()
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers( "/","/api/swagger-ui/**", "/api/v3/api-docs/**").permitAll()
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Preflight Request 허용해주기
+                .requestMatchers( "/api/swagger-ui/**", "/api/v3/api-docs/**").permitAll()
                 .requestMatchers("/api/**").authenticated();
 
         http.apply(filterConfig);
 
 
-
-
         return http.build();
+    }
+
+    @Bean
+    public DefaultWebSecurityExpressionHandler expressionHandler() {
+        DefaultWebSecurityExpressionHandler expressionHandler =
+                new DefaultWebSecurityExpressionHandler();
+        return expressionHandler;
     }
 }

@@ -88,7 +88,7 @@ public class ScreeningAdaptor {
                         QScreening.screening.isPrivate.eq(false)
                 )
                 .groupBy(QScreening.screening.id, QUserScreening.userScreening.id)
-                .orderBy(QScreening.screening.screeningStartDate.asc())
+                .orderBy(QScreening.screening.screeningStartDate.desc())
                 .limit(3)
                 .fetch();
     }
@@ -164,6 +164,7 @@ public class ScreeningAdaptor {
     }
 
     public List<Screening> getBookmarkedScreenings(Long userId) {
+        //찜한 스크리닝 중에서 날짜 지난 걸 가져오고, userId, screeningId를 가지고 userScreening를 가져와서 screeningReview에 review가 있는지에 대한 여부도 같이 넘겨주는 로직
         LocalDateTime currentDateTime = LocalDateTime.now();
 
         List<Screening> bookmarkedScreenings = jpaQueryFactory

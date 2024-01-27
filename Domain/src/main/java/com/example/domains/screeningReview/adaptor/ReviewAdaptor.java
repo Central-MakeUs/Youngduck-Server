@@ -124,4 +124,7 @@ public class ReviewAdaptor {
                 .execute();
     }
 
+    public boolean checkIfExists(Long id) {
+        return screeningReviewRepository.existsById(id);
+    }
 }

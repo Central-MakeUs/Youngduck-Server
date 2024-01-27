@@ -1,8 +1,12 @@
 package com.example.api.user.controller;
 
 import com.example.api.config.security.SecurityUtil;
+import com.example.api.user.model.dto.DuplicateCheckResponse;
 import com.example.api.user.model.dto.GetUserInfoResponse;
+import com.example.api.user.model.dto.UpdateUserInfoRequest;
+import com.example.api.user.service.CheckDuplicateUseCase;
 import com.example.api.user.service.GetUserInfoUseCase;
+import com.example.api.user.service.PatchUserInfoUseCase;
 import com.example.domains.user.enums.Genre;
 import com.example.domains.user.exception.exceptions.UserNotFoundException;
 import com.example.domains.user.service.UserService;
@@ -12,10 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,6 +28,8 @@ import java.util.List;
 public class UserController {
     private final GetUserInfoUseCase getUserInfoUseCase;
     private final UserService userService;
+    private final PatchUserInfoUseCase patchUserInfoUseCase;
+    private final CheckDuplicateUseCase checkDuplicateUseCase;
 
     @Operation(summary = "내 정보를 가져옵니다.")
     @GetMapping(value = "/info")
@@ -45,5 +48,15 @@ public class UserController {
             // Handle the case where the user is not found
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+
+    @PatchMapping
+    public void updateUserNickname(@RequestBody UpdateUserInfoRequest request) {
+        patchUserInfoUseCase.execute(request);
+    }
+
+    @PostMapping("/check")
+    public DuplicateCheckResponse checkDuplicate(@RequestBody UpdateUserInfoRequest request) {
+        return checkDuplicateUseCase.execute(request);
     }
 }
