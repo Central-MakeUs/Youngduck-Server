@@ -71,14 +71,14 @@ public class ScheduleService {
 //        }
 //    }
 //}
-
-    private void sendNotifications(List<NotificationRequest> requests) {
-        for (NotificationRequest notificationRequest : requests) {
-            // FCM을 사용하여 알림을 보내는 로직
-            fcmService.sendMessageByToken(notificationRequest);
-        }
-
-    }
+//
+//    private void sendNotifications(List<NotificationRequest> requests) {
+//        for (NotificationRequest notificationRequest : requests) {
+//            // FCM을 사용하여 알림을 보내는 로직
+//            fcmService.sendMessageByToken(notificationRequest);
+//        }
+//
+//    }
 
 
 }

@@ -81,7 +81,7 @@ public class ScreeningController {
     }
 
     @Operation(summary = "스크리닝 id별로 가져오기", description = "screening id가져와서 요청하기")
-    @PostMapping("/{screeningId}")
+    @GetMapping("/{screeningId}")
     public ScreeningInfoResponse getScreening(@PathVariable("screeningId") Long screeningId) {
         return getScreeningUseCase.execute(screeningId);
     }

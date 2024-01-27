@@ -111,12 +111,11 @@ public class User extends BaseTimeEntity {
         }
     }
 
-    public void updateInfo(String name, List<Genre> genres) {
+    public void updateInfo(String name) {
         if (!UserState.ACTIVE.equals(this.userState)) {
             throw ServerForbiddenException.EXCEPTION;
         }
-        this.nickname = nickname;
-        this.genres = genres;
+        this.nickname = name;
     }
 
 

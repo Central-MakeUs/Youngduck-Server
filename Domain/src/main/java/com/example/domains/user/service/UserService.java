@@ -62,6 +62,11 @@ public class UserService {
     }
 
 
+    public void updateUserById(Long userId,String name) {
+        User user = userAdaptor.findById(userId);
+        user.updateInfo(name);
+    }
+
 
     public List<Genre> getUserGenres(Long userId) {
         // Retrieve the user from the repository
