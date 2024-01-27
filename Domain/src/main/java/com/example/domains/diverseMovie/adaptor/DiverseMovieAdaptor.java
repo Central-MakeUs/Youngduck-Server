@@ -26,6 +26,7 @@ public class DiverseMovieAdaptor {
     public List<DiverseMovieResponseDto> findTop5ByOrderByCreatedAtDesc() {
         return jpaQueryFactory
                 .select(new QDiverseMovieResponseDto(
+                        diverseMovie.id,
                         diverseMovie.movieTitle,
                         diverseMovie.movieImgUrl,
                         diverseMovie.movieRank
