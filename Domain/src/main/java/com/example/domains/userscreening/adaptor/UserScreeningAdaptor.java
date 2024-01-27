@@ -116,4 +116,8 @@ public class UserScreeningAdaptor {
     public List<UserScreening> findByScreeningId(Long screeningId) {
         return userScreeningRepository.findByScreeningId(screeningId);
     }
+
+    public boolean existsByUserAndScreening(Long userId, Long screeningId) {
+       return userScreeningRepository.existsByUserIdAndScreeningId(userId, screeningId);
+    }
 }

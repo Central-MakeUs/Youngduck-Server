@@ -15,4 +15,6 @@ public interface UserScreeningRepository extends JpaRepository<UserScreening, Lo
     List<UserScreening> findByIsBookmarked(boolean b);
 
     List<UserScreening> findByScreeningId(Long screeningId);
+
+    boolean existsByUserIdAndScreeningId(Long userId, Long screeningId);
 }

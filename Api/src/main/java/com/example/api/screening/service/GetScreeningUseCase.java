@@ -2,10 +2,14 @@ package com.example.api.screening.service;
 
 import com.example.adaptor.UseCase;
 import com.example.api.config.security.SecurityUtil;
+import com.example.api.screening.dto.response.ScreeningInfoResponse;
 import com.example.api.screening.dto.response.ScreeningResponse;
 import com.example.api.screening.dto.response.ScreeningUploadResponse;
 import com.example.domains.screening.adaptor.ScreeningAdaptor;
 import com.example.domains.screening.entity.Screening;
+import com.example.domains.screeningReview.adaptor.ReviewAdaptor;
+import com.example.domains.screeningReview.entity.ScreeningReview;
+import com.example.domains.user.entity.User;
 import com.example.domains.user.validator.UserValidator;
 import com.example.domains.userscreening.adaptor.UserScreeningAdaptor;
 import com.example.domains.userscreening.entity.UserScreening;
@@ -19,12 +23,34 @@ public class GetScreeningUseCase {
     private final UserValidator userValidator;
     private final ScreeningAdaptor screeningAdaptor;
     private final UserScreeningAdaptor userScreeningAdaptor;
+    private final ReviewAdaptor screeningReviewAdaptor;
+    boolean isReviewed = false;
+    boolean isBookMarked = false;
 
-    public Screening execute(Long screeningId) {
+    public ScreeningInfoResponse execute(Long screeningId) {
         Long userId = SecurityUtil.getCurrentUserId();
         validateExecution(userId);
         Screening screening = screeningAdaptor.findById(screeningId);
-        return screening;
+
+        if(!validateUserScreening(userId,screeningId)){
+            isReviewed = false;
+            isBookMarked = false;
+        } else {
+            UserScreening userScreening = userScreeningAdaptor.findByUserAndScreening(userId,screeningId);
+            isReviewed = validateScreeningReview(userScreening.getId());
+            isBookMarked = userScreening.isBookmarked();
+        };
+
+
+        return ScreeningInfoResponse.from(screening,isReviewed,isBookMarked);
+    }
+
+    private boolean validateUserScreening(Long userId, Long screeningId) {
+        return userScreeningAdaptor.existsByUserAndScreening(userId,screeningId);
+    }
+
+    private boolean validateScreeningReview(Long id) {
+        return screeningReviewAdaptor.checkIfExists(id);
     }
 
     private void validateExecution(Long userId) {
