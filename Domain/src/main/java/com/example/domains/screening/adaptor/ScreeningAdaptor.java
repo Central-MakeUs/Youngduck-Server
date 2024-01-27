@@ -88,7 +88,7 @@ public class ScreeningAdaptor {
                         QScreening.screening.isPrivate.eq(false)
                 )
                 .groupBy(QScreening.screening.id, QUserScreening.userScreening.id)
-                .orderBy(QScreening.screening.screeningStartDate.asc())
+                .orderBy(QScreening.screening.screeningStartDate.desc())
                 .limit(3)
                 .fetch();
     }

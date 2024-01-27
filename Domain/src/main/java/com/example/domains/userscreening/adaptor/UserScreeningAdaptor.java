@@ -81,6 +81,7 @@ public class UserScreeningAdaptor {
                 .join(userScreening).on(userScreening.screening.eq(screening)) // Join with Screening entity
                 .where(
                         userScreening.isHost.eq(false),
+                        userScreening.isBookmarked.eq(true),
                         userScreening.user.id.eq(userId)
                 )
                 .fetch();

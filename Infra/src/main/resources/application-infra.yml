@@ -49,5 +49,5 @@ cloud:
       auto: false
 
 app:
-  firebase-configuration-file: popcornmateprod-firebase-adminsdk-yvb81-02b4302a03.json
+  firebase-configuration-file: popcornmate-d7ca1-firebase-adminsdk-svbpw-343677f710.json
 ---
