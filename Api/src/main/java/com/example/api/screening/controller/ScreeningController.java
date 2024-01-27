@@ -231,6 +231,4 @@ public class ScreeningController {
     public List<ScreeningResponse> getBookmarkedScreenings(){
         return getBookMarkedScreeningUseCase.execute();
     }
-
-
 }
