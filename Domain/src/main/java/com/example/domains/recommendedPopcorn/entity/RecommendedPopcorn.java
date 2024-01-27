@@ -26,12 +26,13 @@ public class RecommendedPopcorn extends BaseTimeEntity {
     private String movieDirector;
 
     @Builder
-    private RecommendedPopcorn(String movieId, String movieTitle, String imageUrl, String  movieDetail, String movieDirector, String recommendationReason) {
+    private RecommendedPopcorn(String movieId, String movieTitle, String imageUrl, String  movieDetail, String movieDirector, int recommendationCount,String recommendationReason) {
         this.movieId = movieId;
         this.movieTitle = movieTitle;
         this.imageUrl = imageUrl;
         this.movieDetail = movieDetail;
         this.movieDirector = movieDirector;
+        this.recommendationCount = recommendationCount;
         this.recommendationReason=recommendationReason;
     }
 

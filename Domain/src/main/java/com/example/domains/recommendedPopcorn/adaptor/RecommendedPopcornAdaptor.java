@@ -4,6 +4,7 @@ import com.example.adaptor.Adaptor;
 import com.example.domains.recommendedPopcorn.entity.QRecommendedPopcorn;
 import com.example.domains.recommendedPopcorn.entity.RecommendedPopcorn;
 import com.example.domains.recommendedPopcorn.exceptions.DuplicateMovieId;
+import com.example.domains.recommendedPopcorn.exceptions.NoRecommendedPopcorn;
 import com.example.domains.recommendedPopcorn.repository.RecommendedPopcornRepository;
 import com.example.domains.screening.entity.QScreening;
 import com.example.domains.screening.entity.Screening;
@@ -12,7 +13,7 @@ import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.*;
 
 @Adaptor
 @RequiredArgsConstructor
@@ -44,4 +45,42 @@ public class RecommendedPopcornAdaptor {
                 .where(qRecommendedPopcorn.id.eq(recommendedPopcorn))
                 .execute();
     }
+
+    public List<RecommendedPopcorn> findByThreeIds() {
+        List<RecommendedPopcorn> result = new ArrayList<>();
+        if(recommendedPopcornRepository.findAll().size()<=3) {
+            return recommendedPopcornRepository.findAll();
+        }
+        Set<Long> numberArray = generate();
+        for (Long number : numberArray) {
+            Optional<RecommendedPopcorn> foundItem = recommendedPopcornRepository.findById(number);
+
+            // findById에서 가져온 값이 존재할 경우에만 result에 추가
+            foundItem.ifPresent(result::add);
+        }
+        return result;
+    }
+    public Set<Long> generate() {
+        Set<Long> arr = new HashSet<>();
+        Random random = new Random();
+        while (arr.size()!=3) {
+            Long randomIndex = random.nextLong(1,recommendedPopcornRepository.findAll().size()+1);
+            arr.add(randomIndex);
+        }
+        return arr;
+    }
+
+    //TODO 로직 다시
+    private void validateNumber(Long randomIndex, List<Long> arr) {
+        if(arr.contains(randomIndex)) {
+            throw NoRecommendedPopcorn.EXCEPTION;
+        }
+    }
+
+
+//    private void validateRecommendedPopcorn() {
+//        if(recommendedPopcornRepository.findAll().size() == 0) {
+//            throw NoRecommendedPopcorn.EXCEPTION;
+//        }
+//    }
 }
