@@ -58,6 +58,7 @@ public class ScreeningController {
     private final ReviewAdaptor reviewAdaptor;
     private final GetBookMarkedScreeningsUseCase getBookMarkedScreeningUseCase;
     private final GetPastScreeningListUseCase getPastScreeningListUseCase;
+    private final GetScreeningStatisticsUseCase getScreeningStatisticsUseCase;
 
 
     @Operation(description = "모임 대표 이미지")
@@ -231,4 +232,8 @@ public class ScreeningController {
     public List<ScreeningResponse> getBookmarkedScreenings(){
         return getBookMarkedScreeningUseCase.execute();
     }
+
+    //TODO 나의 스크리닝 상세보기에서 통계 탭에 필요한 API
+    @GetMapping("/my/statistics/{screeningId}")
+    public ScreeningStatisticsResponse getStatistics(@PathVariable("screeningId") Long screeningId) {return getScreeningStatisticsUseCase.execute(screeningId); }
 }
