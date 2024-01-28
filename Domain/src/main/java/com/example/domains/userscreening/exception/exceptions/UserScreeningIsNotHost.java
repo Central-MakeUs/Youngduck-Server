@@ -7,6 +7,6 @@ public class UserScreeningIsNotHost extends BaseErrorException {
     public static final BaseErrorException EXCEPTION = new  UserScreeningIsNotHost();
 
     private UserScreeningIsNotHost() {
-        super(UserScreeningErrorCode.USER_SCREENING_IS_HOST);
+        super(UserScreeningErrorCode.USER_SCREENING_IS_NOT_HOST);
     }
 }
