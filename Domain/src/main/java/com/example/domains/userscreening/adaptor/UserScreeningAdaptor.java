@@ -90,7 +90,7 @@ public class UserScreeningAdaptor {
 
 
     @Transactional
-    public List<ScreeningReviewResponseDto> getReviewListByScreening(Long userId, Long screeningId) {
+    public List<ScreeningReviewResponseDto> getReviewListByScreening(Long screeningId) {
         // Use QueryDSL to perform the projection
         List<ScreeningReviewResponseDto> reviewResponseDtos = queryFactory
                 .select(Projections.constructor(
@@ -99,13 +99,16 @@ public class UserScreeningAdaptor {
                         QScreeningReview.screeningReview.afterScreening,
                         QScreeningReview.screeningReview.createdAt,
                         QScreeningReview.screeningReview.userScreening.screening.id,
-                        QScreeningReview.screeningReview.review
+                        QScreeningReview.screeningReview.review,
+                        userScreening.user.id,
+                        userScreening.user.nickname,
+                        userScreening.user.profileImgNum
                 ))
                 .from(QScreeningReview.screeningReview)
                 .join(userScreening)
                 .on(userScreening.id.eq(QScreeningReview.screeningReview.userScreening.id)
                         .and(userScreening.isHost.eq(false))
-                        .and(userScreening.user.id.eq(userId)))
+                        )
                 .where(userScreening.screening.id.eq(screeningId))
                 .fetch();
 

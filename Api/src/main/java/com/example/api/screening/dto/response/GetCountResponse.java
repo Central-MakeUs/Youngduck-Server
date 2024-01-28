@@ -7,19 +7,19 @@ import lombok.Getter;
 
 @Getter
 public class GetCountResponse {
-    @Schema(defaultValue = "홍익대학교 졸업전시회", description = "상영회 제목")
+    @Schema(defaultValue = "0", description = "영화에 대해 부정적")
     private int movieReviewCountNeg;
-    @Schema(defaultValue = "홍익대학교 졸업전시회", description = "상영회 제목")
+    @Schema(defaultValue = "0", description = "영화에 대해 긍정적")
     private int movieReviewCountPos;
-    @Schema(defaultValue = "홍익대학교 졸업전시회", description = "상영회 제목")
+    @Schema(defaultValue = "0", description = "장소 부정적")
     private int locationCountNeg;
-    @Schema(defaultValue = "홍익대학교 졸업전시회", description = "상영회 제목")
+    @Schema(defaultValue = "0", description = "장소 긍정적")
     private int locationCountPos;
-    @Schema(defaultValue = "홍익대학교 졸업전시회", description = "상영회 제목")
+    @Schema(defaultValue = "0", description = "서비스 부정적")
     private int serviceCountNeg;
-    @Schema(defaultValue = "홍익대학교 졸업전시회", description = "상영회 제목")
+    @Schema(defaultValue = "0", description = "서비스 긍정적")
     private int serviceCountPos;
-    @Schema(defaultValue = "홍익대학교 졸업전시회", description = "상영회 제목")
+    @Schema(defaultValue = "0", description = "상영지수")
     private Long screeningRate;
 
     @Builder

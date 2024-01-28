@@ -9,6 +9,14 @@ import lombok.Getter;
 
 @Getter
 public class PopcornReviewResponse {
+    @Schema(defaultValue = "1", description = "유저 id")
+    private Long userId;
+    @Schema(defaultValue = "닉네임", description = "유저 닉네임")
+    private String nickName;
+    @Schema(defaultValue = "5", description = "프로필 이미지")
+    private int profileImgNum;
+    @Schema(defaultValue = "2",description = "팝콘작 id")
+    private Long popcornId;
     @Schema(defaultValue = "true", description = "관람 여부")
     private boolean hasWatched;
     @Schema(defaultValue = "true", description = "관람 전 만족도")
@@ -28,7 +36,11 @@ public class PopcornReviewResponse {
 
 
     @Builder
-    public PopcornReviewResponse(boolean hasWatched, boolean beforeScreening, boolean afterScreening, String review, boolean hasAgreed, PopcornPositive popcornPositive, PopcornNegative popcornNegative) {
+    public PopcornReviewResponse(Long userId,String nickName,int profileImgNum,Long popcornId,boolean hasWatched, boolean beforeScreening, boolean afterScreening, String review, boolean hasAgreed, PopcornPositive popcornPositive, PopcornNegative popcornNegative) {
+        this.userId=userId;
+        this.nickName=nickName;
+        this.profileImgNum=profileImgNum;
+        this.popcornId=popcornId;
         this.hasWatched=hasWatched;
         this.beforeScreening = beforeScreening;
         this.afterScreening = afterScreening;
@@ -40,6 +52,10 @@ public class PopcornReviewResponse {
 
     public static PopcornReviewResponse from(PopcornUser popcornUser) {
         return PopcornReviewResponse.builder()
+                .userId(popcornUser.getUser().getId())
+                .nickName(popcornUser.getUser().getNickname())
+                .profileImgNum(popcornUser.getUser().getProfileImgNum())
+                .popcornId(popcornUser.getPopcorn().getId())
                 .hasWatched(popcornUser.isHasWatched())
                 .beforeScreening(popcornUser.isBeforeScreening())
                 .afterScreening(popcornUser.isAfterScreening())

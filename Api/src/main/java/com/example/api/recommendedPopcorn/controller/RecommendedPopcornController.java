@@ -8,6 +8,7 @@ import com.example.api.recommendedPopcorn.service.PostRecommendPopcornUseCase;
 import com.example.api.recommendedPopcorn.service.PostVoteRecommendedPopcorn;
 import com.example.domains.recommendedPopcorn.entity.RecommendedPopcorn;
 import com.example.domains.recommendedPopcornUser.entity.RecommendedPopcornUser;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -28,20 +29,26 @@ public class RecommendedPopcornController {
     private final GetRecommendedPopocornUseCase getRecommendedPopocornUseCase;
     private final PostVoteRecommendedPopcorn postVoteRecommendedPopcorn;
     private final GetRecommendedRandomPopcornUseCase getRecommendedRandomPopcornUseCase;
+
+    @Operation(summary = "영화 추천하기", description = "영화 추천하기")
     @PostMapping
     public void postRecommendPopcorn(@RequestBody RecommendedPopcornRequest request) throws IOException {
         recommendedPopcornUseCase.execute(request);
     }
 
+    @Operation(summary = "다음주 상영작 중 랜덤으로 세개 반환", description = "다음주 상영작 중 랜덤으로 세개 반환")
     @GetMapping
     public List<RecommendedPopcorn> getRandomThree() {
         return getRecommendedRandomPopcornUseCase.execute();
     }
+
+    @Operation(summary = "모든 상영작 반환", description = "모든 상영작 반환")
     @GetMapping("/all")
     public List<RecommendedPopcorn> getRecommendPopcornList() {
         return getRecommendedPopocornUseCase.execute();
     }
     //TODO 4. 예비 팝콘작 투표하기
+    @Operation(summary = " 예비 팝콘작 투표하기", description = "예비 팝콘작 투표하기")
     @PostMapping("/vote")
     public void voteByIdRecommendPopcorn(@RequestParam("recommendedPopcorn") Long recommendedPopcorn) {
         postVoteRecommendedPopcorn.execute(recommendedPopcorn);

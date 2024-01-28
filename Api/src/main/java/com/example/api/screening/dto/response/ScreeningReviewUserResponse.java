@@ -47,16 +47,16 @@ public class ScreeningReviewUserResponse implements Serializable {
         this.nickname = nickname;
         this.profileImageNumber = profileImageNumber;
     }
-    public static ScreeningReviewUserResponse from(ScreeningReviewResponseDto screeningReview,User user) {
+    public static ScreeningReviewUserResponse from(ScreeningReviewResponseDto screeningReview) {
         return  ScreeningReviewUserResponse.builder()
                 .reviewId(screeningReview.getReviewId())
                 .afterScreening(screeningReview.isAfterScreening())
                 .review(screeningReview.getReview())
                 .createdAt(screeningReview.getCreatedAt())
                 .screeningId(screeningReview.getScreeningId())
-                .userId(user.getId())
-                .nickname(user.getNickname())
-                .profileImageNumber(5)
+                .userId(screeningReview.getUserId())
+                .nickname(screeningReview.getNickname())
+                .profileImageNumber(screeningReview.getProfileImgNumber())
                 .build();
     }
 }

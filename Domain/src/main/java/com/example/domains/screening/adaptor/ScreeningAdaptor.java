@@ -59,7 +59,7 @@ public class ScreeningAdaptor {
         ZonedDateTime now = ZonedDateTime.now();
         LocalDate startOfWeek = now.toLocalDate().with(java.time.temporal.TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY));
         LocalDate endOfWeek = startOfWeek.plusDays(6); // Assuming Sunday is the last day of the week
-        return jpaQueryFactory.select(new QScreeningResponseDto(
+        return jpaQueryFactory.selectDistinct(new QScreeningResponseDto(
                 QScreening.screening.id,
                         QScreening.screening.title,
                         QScreening.screening.posterImgUrl,
@@ -135,7 +135,7 @@ public class ScreeningAdaptor {
     public List<ScreeningResponseDto> getMostReviewed() {
         //review에 있는userScreening join까지 해서 특정 스크리닝에 있는 리뷰 수 중에서 top3반환해주게 짜줘
         return jpaQueryFactory
-                .select(new QScreeningResponseDto(
+                .selectDistinct(new QScreeningResponseDto(
                         QScreening.screening.id,
                         QScreening.screening.title,
                         QScreening.screening.posterImgUrl,
