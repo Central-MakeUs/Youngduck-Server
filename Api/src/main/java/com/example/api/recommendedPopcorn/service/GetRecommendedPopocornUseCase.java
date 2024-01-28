@@ -13,6 +13,6 @@ import java.util.List;
 public class GetRecommendedPopocornUseCase {
     private final RecommendedPopcornAdaptor recommendedPopcornAdaptor;
     public List<RecommendedPopcorn> execute() {
-            return recommendedPopcornAdaptor.findAll();
+            return recommendedPopcornAdaptor.findAllThisWeek();
     }
 }

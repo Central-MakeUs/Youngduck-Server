@@ -24,4 +24,14 @@ public class GetPopcornUseCase {
         return response;
     }
 
+    public List<PopcornResponse> testExecute() {
+        List<Popcorn> popcornList = popcornAdaptor.findPastHoursPopcorns();
+        List<PopcornResponse> response = new ArrayList<>();
+
+        for(Popcorn popcorn : popcornList) {
+            final PopcornResponse popcornResponse = PopcornResponse.from(popcorn);
+            response.add(popcornResponse);
+        }
+        return response;
+    }
 }
