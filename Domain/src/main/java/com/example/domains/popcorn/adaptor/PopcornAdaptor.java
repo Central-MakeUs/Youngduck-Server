@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Field;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
@@ -56,8 +57,32 @@ public class PopcornAdaptor {
     public List<RecommendedPopcorn> findTopThree() {
         QRecommendedPopcorn recommendedPopcorn = QRecommendedPopcorn.recommendedPopcorn;
 
+        LocalDate today = LocalDate.now();
+        LocalDate startOfLastWeek = today.minusDays(today.getDayOfWeek().getValue() + 6); // 지난 주의 월요일
+        LocalDate endOfLastWeek = startOfLastWeek.plusDays(6); // 지난 주의 일요일
+
         return jpaQueryFactory
                 .selectFrom(recommendedPopcorn)
+                .where(recommendedPopcorn.createdAt.between(startOfLastWeek.atStartOfDay(), endOfLastWeek.atTime(23, 59, 59)))
+                .orderBy(
+                        recommendedPopcorn.recommendationCount.desc(),
+                        recommendedPopcorn.createdAt.desc()
+                )
+                .limit(3)
+                .fetch();
+    }
+
+    public List<RecommendedPopcorn> findTopThreeTest() {
+        QRecommendedPopcorn recommendedPopcorn = QRecommendedPopcorn.recommendedPopcorn;
+
+        LocalDateTime tenMinutesAgo = LocalDateTime.now().minusMinutes(10);
+
+        return jpaQueryFactory
+                .selectFrom(recommendedPopcorn)
+                .where(
+                        recommendedPopcorn.createdAt.after(tenMinutesAgo),
+                        recommendedPopcorn.recommendationCount.gt(0)
+                )
                 .orderBy(
                         recommendedPopcorn.recommendationCount.desc(),
                         recommendedPopcorn.createdAt.desc()
@@ -437,4 +462,31 @@ public PopcornKeywordResponseDto getTopRatedCounts(Long popcornId) {
 //            .orderBy(popcorn.popcornPostiveCount.desc())
 //            .limit(3)
 }
+
+    public List<Popcorn> findPastHoursPopcorns() {
+        QPopcorn popcorn = QPopcorn.popcorn;
+
+        LocalDateTime oneHourAgo = LocalDateTime.now().minusHours(1);
+
+        return jpaQueryFactory
+                .selectFrom(popcorn)
+                .where(
+                        popcorn.createdAt.after(oneHourAgo),
+                        popcorn.recommendationCount.gt(0)
+                )
+                .orderBy(
+                        popcorn.recommendationCount.desc(),
+                        popcorn.createdAt.desc()
+                )
+                .limit(3)
+                .fetch();
+    }
+
+    public void saveToPopcornTest() {
+        List<RecommendedPopcorn> listRecommendedPopcorn = findTopThreeTest();
+        for (RecommendedPopcorn rp : listRecommendedPopcorn) {
+            Popcorn movie = convertToPopcorn(rp);
+            save(movie);
+        }
+    }
 }

@@ -15,4 +15,7 @@ public class PopcornService {
     public void getTopRecommended() {
         popcornAdaptor.saveToPopcorn();
     }
+    public void getTopRecommendedTest(){
+        popcornAdaptor.saveToPopcornTest();
+    }
 }

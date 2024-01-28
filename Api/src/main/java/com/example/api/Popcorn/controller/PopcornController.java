@@ -36,6 +36,12 @@ public class PopcornController {
         return getPopcornUseCase.execute();
     }
 
+    @Operation(summary = "지난 10분 간 만들어진 것들 중에서, 투표수 가장 높았던 3개 반환. 이번 주 상영작임", description = "이번 주 상영작 3개 가져오기")
+    @GetMapping("/test")
+    public List<PopcornResponse> getPopcornTest() {
+        return getPopcornUseCase.testExecute();
+    }
+
     //TODO 5. 팝콘작 리뷰하기, 중복 금지
     @Operation(summary = "특정 팝콘작에에 리뷰 달기", description = "popcorn id가져와서 리뷰하기")
     @PostMapping("/review/{popcornId}")
