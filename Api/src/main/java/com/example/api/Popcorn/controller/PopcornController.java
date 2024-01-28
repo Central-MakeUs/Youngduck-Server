@@ -67,7 +67,7 @@ public class PopcornController {
 
 
     //TODO 8: 팝콘 키워드 Top3 GET
-    @Operation(summary = "팝콘작들에 대한 나의 리뷰 반환", description = "popcornId 가져와서 요청하기")
+    @Operation(summary = "팝콘 키워드 Top3 반환", description = "popcornId 가져와서 요청하기")
     @GetMapping("/top-keywords/{popcornId}")
     public  List<Map.Entry<String, Integer>> reviewMyResponseList(@PathVariable("popcornId") Long popcornId){
         return getTopRatedPopcornKeyword.execute(popcornId);
