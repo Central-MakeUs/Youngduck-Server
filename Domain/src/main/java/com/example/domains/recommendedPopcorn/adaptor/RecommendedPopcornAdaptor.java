@@ -13,6 +13,8 @@ import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.*;
 
 @Adaptor
@@ -31,8 +33,22 @@ public class RecommendedPopcornAdaptor {
             throw DuplicateMovieId.EXCEPTION;
         };
     }
-    public List<RecommendedPopcorn> findAll() {
-        return recommendedPopcornRepository.findAll();
+    public List<RecommendedPopcorn> findAllThisWeek() {
+        QRecommendedPopcorn recommendedPopcorn = QRecommendedPopcorn.recommendedPopcorn;
+
+        LocalDate today = LocalDate.now();
+        LocalDate startOfThisWeek = today.with(DayOfWeek.MONDAY);
+        LocalDate endOfThisWeek = today.with(DayOfWeek.SUNDAY);
+
+        return jpaQueryFactory
+                .selectFrom(recommendedPopcorn)
+                .where(
+                        recommendedPopcorn.createdAt.between(startOfThisWeek.atStartOfDay(), endOfThisWeek.atTime(23, 59, 59))
+                )
+                .orderBy(
+                        recommendedPopcorn.createdAt.asc()
+                )
+                .fetch();
     }
 
     @Transactional
