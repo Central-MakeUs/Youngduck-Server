@@ -5,4 +5,5 @@ import com.example.domains.userscreening.entity.UserScreening;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ScreeningReviewRepository extends JpaRepository<ScreeningReview, Long> {
+    boolean existsByUserScreeningId(Long id);
 }

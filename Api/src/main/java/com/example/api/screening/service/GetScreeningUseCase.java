@@ -41,16 +41,19 @@ public class GetScreeningUseCase {
             isBookMarked = userScreening.isBookmarked();
         };
 
+        System.out.println(isBookMarked);
 
-        return ScreeningInfoResponse.from(screening,isReviewed,isBookMarked);
+
+        return ScreeningInfoResponse.from(screening,isBookMarked,isReviewed);
     }
+
 
     private boolean validateUserScreening(Long userId, Long screeningId) {
         return userScreeningAdaptor.existsByUserAndScreening(userId,screeningId);
     }
 
-    private boolean validateScreeningReview(Long id) {
-        return screeningReviewAdaptor.checkIfExists(id);
+    private boolean validateScreeningReview(Long userScreeningId) {
+        return screeningReviewAdaptor.checkIfExists(userScreeningId);
     }
 
     private void validateExecution(Long userId) {
