@@ -34,4 +34,8 @@ public class FCMToken {
                 .fcmToken(fcmToken)
                 .build();
     }
+
+    public void updateToken(String fcmToken) {
+        this.fcmToken = fcmToken;
+    }
 }

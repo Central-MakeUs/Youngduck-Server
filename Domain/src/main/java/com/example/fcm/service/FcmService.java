@@ -14,6 +14,9 @@ import com.google.firebase.messaging.Notification;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -22,12 +25,22 @@ public class FcmService {
     private final FirebaseMessaging firebaseMessaging;
     private final UserRepository userRepository;
     private final FcmRepository fcmRepository;
+    @Transactional
     public void registerFCMToken(Long userId, FcmRegistrationRequest request) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
-        FCMToken fcmToken = FCMToken.createFCMToken(user, request.getFcmToken());
 
-        fcmRepository.save(fcmToken);
+        // 이미 등록된 FCMToken이 있는지 확인
+        Optional<FCMToken> existingToken = fcmRepository.findByUserId(userId);
+
+        if (existingToken.isPresent()) {
+            // 이미 등록된 FCMToken이 있는 경우 값을 업데이트
+            existingToken.get().updateToken(request.getFcmToken());
+        } else {
+            // 등록된 FCMToken이 없는 경우 새로 생성하여 저장
+            FCMToken newToken = FCMToken.createFCMToken(user, request.getFcmToken());
+            fcmRepository.save(newToken);
+        }
     }
 
 
