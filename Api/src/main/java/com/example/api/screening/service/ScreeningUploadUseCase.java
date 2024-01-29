@@ -36,7 +36,7 @@ public class ScreeningUploadUseCase {
     public Screening execute(PostScreeningRequest request) {
         Long userId = SecurityUtil.getCurrentUserId();
         validateExecution(userId);
-        System.out.println(request.getHostName());
+
         final HostInfo hostInfo = HostInfo.of(
                 request.getHostName(),
                 request.getHostPhoneNumber(),
@@ -55,7 +55,7 @@ public class ScreeningUploadUseCase {
                 request.isHasAgreed(),
                 request.getCategory()
         );
-        System.out.print("finished");
+
         Screening screen = screeningAdaptor.save(newScreening);
         process(screen,userId);
 

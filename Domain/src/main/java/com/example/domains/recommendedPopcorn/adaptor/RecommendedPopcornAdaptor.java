@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Adaptor
 @RequiredArgsConstructor
@@ -83,7 +84,7 @@ public class RecommendedPopcornAdaptor {
         Set<Long> arr = new HashSet<>();
         Random random = new Random();
         while (arr.size()!=3) {
-            Long randomIndex = random.nextLong(thisWeekList.get(0).getId(),recommendedPopcornRepository.findAll().size()+1);
+            long randomIndex = ThreadLocalRandom.current().nextLong(thisWeekList.get(0).getId(), recommendedPopcornRepository.findAll().size() + 1);
             arr.add(randomIndex);
         }
         return arr;

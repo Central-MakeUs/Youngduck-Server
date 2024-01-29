@@ -8,6 +8,9 @@ import com.example.domains.diverseMovie.entity.dto.QDiverseMovieResponseDto;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.WeekFields;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,17 +27,23 @@ public class DiverseMovieAdaptor {
     }
 
     public List<DiverseMovieResponseDto> findTop5ByOrderByCreatedAtDesc() {
+        LocalDateTime now = LocalDateTime.now();
+
+        // Get the start and end of the current week
+        LocalDateTime startOfWeek = LocalDate.now().with(WeekFields.ISO.dayOfWeek(), 1).atStartOfDay();
+        LocalDateTime endOfWeek = now;
+
         return jpaQueryFactory
                 .select(new QDiverseMovieResponseDto(
                         diverseMovie.id,
                         diverseMovie.movieTitle,
                         diverseMovie.movieImgUrl,
                         diverseMovie.movieRank
-                        )) // Change "SomeRank" to your actual rank logic
+                ))
                 .from(diverseMovie)
-                .orderBy(diverseMovie.createdAt.desc())
+                .where(diverseMovie.createdAt.between(startOfWeek, endOfWeek)) // Filter movies created within the current week
+                .orderBy(diverseMovie.createdAt.asc())
                 .limit(5)
                 .fetch();
     }
-
 }
