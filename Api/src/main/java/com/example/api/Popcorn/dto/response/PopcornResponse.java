@@ -19,13 +19,16 @@ public class PopcornResponse {
     @Schema(defaultValue = "gfhffgvgvghdfhdchj.jpg", description = "영화포스터 이미지")
     private String imageUrl;
 
+    @Schema(defaultValue = "너무 좋아요", description = "영화 추천 이유")
+    private String reason;
 
     @Builder
-    public PopcornResponse(Long popcornId,String movieTitle,String directorName,String imageUrl){
+    public PopcornResponse(Long popcornId,String movieTitle,String directorName,String imageUrl,String reason){
         this.popcornId = popcornId;
         this.movieTitle=movieTitle;
         this.directorName=directorName;
         this.imageUrl = imageUrl;
+        this.reason = reason;
     }
     public static PopcornResponse from(Popcorn popcorn){
         return PopcornResponse.builder()
@@ -33,6 +36,7 @@ public class PopcornResponse {
                 .movieTitle(popcorn.getMovieTitle())
                 .directorName(popcorn.getDirectorName())
                 .imageUrl(popcorn.getImageUrl())
+                .reason(popcorn.getRecommendationReason())
                 .build();
 
     }
