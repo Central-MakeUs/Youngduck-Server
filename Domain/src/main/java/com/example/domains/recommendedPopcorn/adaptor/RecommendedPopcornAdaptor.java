@@ -64,10 +64,12 @@ public class RecommendedPopcornAdaptor {
 
     public List<RecommendedPopcorn> findByThreeIds() {
         List<RecommendedPopcorn> result = new ArrayList<>();
-        if(recommendedPopcornRepository.findAll().size()<=3) {
+        List<RecommendedPopcorn> thisWeekList = findAllThisWeek();
+
+        if(thisWeekList.size()<=3) {
             return recommendedPopcornRepository.findAll();
         }
-        Set<Long> numberArray = generate();
+        Set<Long> numberArray = generate(thisWeekList);
         for (Long number : numberArray) {
             Optional<RecommendedPopcorn> foundItem = recommendedPopcornRepository.findById(number);
 
@@ -76,11 +78,11 @@ public class RecommendedPopcornAdaptor {
         }
         return result;
     }
-    public Set<Long> generate() {
+    public Set<Long> generate(List<RecommendedPopcorn> thisWeekList) {
         Set<Long> arr = new HashSet<>();
         Random random = new Random();
         while (arr.size()!=3) {
-            Long randomIndex = random.nextLong(1,recommendedPopcornRepository.findAll().size()+1);
+            Long randomIndex = random.nextLong(thisWeekList.get(0).getId(),recommendedPopcornRepository.findAll().size()+1);
             arr.add(randomIndex);
         }
         return arr;

@@ -1,12 +1,10 @@
 package com.example.api.Popcorn.controller;
 
 import com.example.api.Popcorn.dto.request.PostPopcornReviewRequest;
+import com.example.api.Popcorn.dto.response.PopcornDetailResponse;
 import com.example.api.Popcorn.dto.response.PopcornResponse;
 import com.example.api.Popcorn.dto.response.PopcornReviewResponse;
-import com.example.api.Popcorn.service.GetPopcornReviewUseCase;
-import com.example.api.Popcorn.service.GetPopcornUseCase;
-import com.example.api.Popcorn.service.GetTopRatedPopcornKeyword;
-import com.example.api.Popcorn.service.PostPopcornReviewUseCase;
+import com.example.api.Popcorn.service.*;
 import com.example.api.screening.dto.request.PostReviewRequest;
 import com.example.domains.popcorn.entity.Popcorn;
 import com.example.domains.popcorn.entity.dto.PopcornKeywordResponseDto;
@@ -30,10 +28,17 @@ public class PopcornController {
     private final GetPopcornReviewUseCase getPopcornReviewUseCase;
 
     private final GetTopRatedPopcornKeyword getTopRatedPopcornKeyword;
+    private final GetPopcornDetailUseCase getPopcornDetailUseCase;
     @Operation(summary = "지난주 투표수 가장 높았던 3개 반환. 이번 주 상영작임", description = "이번 주 상영작 3개 가져오기")
     @GetMapping
     public List<PopcornResponse> getPopcorn() {
         return getPopcornUseCase.execute();
+    }
+
+    @Operation(summary = "이번 주 팝콘작 상세보기", description = "popcornId로 요청하기")
+    @GetMapping("/{popcornId}")
+    public PopcornDetailResponse getPopcornDetail(@PathVariable("popcornId") Long popcornId) {
+        return getPopcornDetailUseCase.execute(popcornId);
     }
 
     @Operation(summary = "지난 10분 간 만들어진 것들 중에서, 투표수 가장 높았던 3개 반환. 이번 주 상영작임", description = "이번 주 상영작 3개 가져오기")
