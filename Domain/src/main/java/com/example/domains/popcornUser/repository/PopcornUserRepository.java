@@ -12,4 +12,6 @@ public interface PopcornUserRepository extends JpaRepository<PopcornUser, Long> 
     List<PopcornUser> findAllByPopcornIdAndUserId(Long popcornId, Long userId);
 
     List<PopcornUser> findAllByUserId(Long userId);
+
+    Optional<PopcornUser> findById(Long id);
 }

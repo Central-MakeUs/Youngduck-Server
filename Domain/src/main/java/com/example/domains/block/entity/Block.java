@@ -22,18 +22,21 @@ public class Block extends BaseTimeEntity {
 
     private Long blockedUserId;
     private Long screeningReviewId;
+    private Long popcornReviewId;
 
     @Builder
-    public Block(Long userId, Long blockedUserId,Long screeningReviewId){
+    public Block(Long userId, Long blockedUserId,Long screeningReviewId,Long popcornReviewId){
         this.userId=userId;
         this.blockedUserId=blockedUserId;
         this.screeningReviewId = screeningReviewId;
+        this.popcornReviewId = popcornReviewId;
     }
-    public static Block of(Long userId, Long blockedUserId,Long screeningReviewId) {
+    public static Block of(Long userId, Long blockedUserId,Long screeningReviewId,Long popcornReviewId) {
         return Block.builder()
                 .userId(userId)
                 .blockedUserId(blockedUserId)
                 .screeningReviewId(screeningReviewId)
+                .popcornReviewId(popcornReviewId)
                 .build();
     }
 }

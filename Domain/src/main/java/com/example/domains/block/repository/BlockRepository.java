@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BlockRepository extends JpaRepository<Block,Long> {
     boolean existsByUserIdAndScreeningReviewId(Long userId, Long screeningReviewId);
+
+    boolean existsByUserIdAndPopcornReviewId(Long userId, Long popcornReviewId);
 }

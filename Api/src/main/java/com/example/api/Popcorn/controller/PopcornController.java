@@ -6,6 +6,7 @@ import com.example.api.Popcorn.dto.response.PopcornResponse;
 import com.example.api.Popcorn.dto.response.PopcornReviewResponse;
 import com.example.api.Popcorn.service.*;
 import com.example.api.screening.dto.request.PostReviewRequest;
+import com.example.api.screening.dto.response.ScreeningReviewUserResponse;
 import com.example.domains.popcorn.entity.Popcorn;
 import com.example.domains.popcorn.entity.dto.PopcornKeywordResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,6 +30,7 @@ public class PopcornController {
 
     private final GetTopRatedPopcornKeyword getTopRatedPopcornKeyword;
     private final GetPopcornDetailUseCase getPopcornDetailUseCase;
+    private final PostPopcornReviewComplainUseCase postPopcornReviewComplainUseCase;
     @Operation(summary = "지난주 투표수 가장 높았던 3개 반환. 이번 주 상영작임", description = "이번 주 상영작 3개 가져오기")
     @GetMapping
     public List<PopcornResponse> getPopcorn() {
@@ -68,6 +70,15 @@ public class PopcornController {
     public List<PopcornReviewResponse> reviewResponseList(@PathVariable("popcornId") Long popcornId) {
         return getPopcornReviewUseCase.execute(popcornId);
     }
+
+    //TODO 팝콘작 리뷰
+    @Operation(summary = "팝콘작 리뷰 신고하기", description = "팝콘작 리뷰 신고하기")
+    @GetMapping("/review/complain/{popcornUserId}")
+    public void reviewsFromPopcorn(@PathVariable("popcornUserId") Long popcornUserId)
+    {
+        postPopcornReviewComplainUseCase.execute(popcornUserId);
+    }
+
 
     //TODO 내가 쓴 팝콘작 리뷰
     @Operation(summary = "팝콘작들에 대한 나의 리뷰 반환", description = "popcornId 가져와서 요청하기")
