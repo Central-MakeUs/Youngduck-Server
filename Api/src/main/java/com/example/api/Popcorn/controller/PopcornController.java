@@ -71,7 +71,7 @@ public class PopcornController {
 
     //TODO 팝콘작 리뷰
     @Operation(summary = "팝콘작 리뷰 신고하기", description = "팝콘작 리뷰 신고하기")
-    @GetMapping("/review/complain/{popcornUserId}")
+    @PostMapping("/review/complain/{popcornUserId}")
     public void reviewsFromPopcorn(@PathVariable("popcornUserId") Long popcornUserId)
     {
         postPopcornReviewComplainUseCase.execute(popcornUserId);
