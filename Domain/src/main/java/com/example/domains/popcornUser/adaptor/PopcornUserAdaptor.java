@@ -19,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.example.domains.popcorn.entity.QPopcorn.popcorn;
+
 @Adaptor
 @RequiredArgsConstructor
 public class PopcornUserAdaptor {
@@ -110,6 +112,14 @@ public class PopcornUserAdaptor {
                 .set(qPopcornUser.complaintCount, qPopcornUser.complaintCount.add(1))
                 .where(qPopcornUser.id.eq(popcornUser.getId()))
                 .execute();
+    }
+
+    public int getParticipatedCount(Long popcornId) {
+        return popcornUserRepository.countByPopcornId(popcornId);
+    }
+
+    public int getParticipatedUserCount(Long popcornId) {
+        return popcornUserRepository.countDistinctUserIdByPopcornId(popcornId);
     }
 //    int total = popcornUserRepository.findAllByPopcornId(popcorn.getId()).size();
 }

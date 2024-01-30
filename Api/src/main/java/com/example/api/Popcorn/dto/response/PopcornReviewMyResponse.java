@@ -6,12 +6,9 @@ import com.example.domains.popcornUser.entity.enums.PopcornPositive;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.cglib.core.Local;
-
-import java.time.LocalDateTime;
 
 @Getter
-public class PopcornReviewResponse {
+public class PopcornReviewMyResponse {
     @Schema(defaultValue = "1", description = "유저 id")
     private Long userId;
     @Schema(defaultValue = "닉네임", description = "유저 닉네임")
@@ -32,11 +29,14 @@ public class PopcornReviewResponse {
     @Schema(defaultValue = "true", description = "정책 약관")
     private boolean hasAgreed;
 
-    @Schema(defaultValue = "2024-01-31", description = "리뷰 등록 일자")
-    private LocalDateTime createdAt;
+    @Schema(description = "Positive attributes")
+    private PopcornPositive popcornPositive;
+    @Schema(description = "Negative attributes")
+    private PopcornNegative popcornNegative;
+
 
     @Builder
-    public PopcornReviewResponse(Long userId, String nickName, int profileImgNum, Long popcornId, boolean hasWatched, boolean beforeScreening, boolean afterScreening, String review, boolean hasAgreed, LocalDateTime createdAt) {
+    public PopcornReviewMyResponse(Long userId,String nickName,int profileImgNum,Long popcornId,boolean hasWatched, boolean beforeScreening, boolean afterScreening, String review, boolean hasAgreed, PopcornPositive popcornPositive, PopcornNegative popcornNegative) {
         this.userId=userId;
         this.nickName=nickName;
         this.profileImgNum=profileImgNum;
@@ -46,11 +46,12 @@ public class PopcornReviewResponse {
         this.afterScreening = afterScreening;
         this.review = review;
         this.hasAgreed =hasAgreed;
-        this.createdAt = createdAt;
+        this.popcornPositive = popcornPositive;
+        this.popcornNegative = popcornNegative;
     }
 
-    public static PopcornReviewResponse from(PopcornUser popcornUser) {
-        return PopcornReviewResponse.builder()
+    public static PopcornReviewMyResponse from(PopcornUser popcornUser) {
+        return PopcornReviewMyResponse.builder()
                 .userId(popcornUser.getUser().getId())
                 .nickName(popcornUser.getUser().getNickname())
                 .profileImgNum(popcornUser.getUser().getProfileImgNum())
@@ -59,7 +60,8 @@ public class PopcornReviewResponse {
                 .beforeScreening(popcornUser.isBeforeScreening())
                 .afterScreening(popcornUser.isAfterScreening())
                 .review(popcornUser.getReview())
-                .createdAt(popcornUser.getCreatedAt())
+                .popcornPositive(popcornUser.getPopcornPositive())
+                .popcornNegative(popcornUser.getPopcornNegative())
                 .build();
     }
 }

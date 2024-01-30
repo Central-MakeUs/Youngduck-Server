@@ -1,9 +1,7 @@
 package com.example.api.Popcorn.controller;
 
 import com.example.api.Popcorn.dto.request.PostPopcornReviewRequest;
-import com.example.api.Popcorn.dto.response.PopcornDetailResponse;
-import com.example.api.Popcorn.dto.response.PopcornResponse;
-import com.example.api.Popcorn.dto.response.PopcornReviewResponse;
+import com.example.api.Popcorn.dto.response.*;
 import com.example.api.Popcorn.service.*;
 import com.example.api.screening.dto.request.PostReviewRequest;
 import com.example.api.screening.dto.response.ScreeningReviewUserResponse;
@@ -83,7 +81,7 @@ public class PopcornController {
     //TODO 내가 쓴 팝콘작 리뷰
     @Operation(summary = "팝콘작들에 대한 나의 리뷰 반환", description = "popcornId 가져와서 요청하기")
     @GetMapping("/my/reviews")
-    public List<PopcornReviewResponse> reviewMyResponseList() {
+    public List<PopcornReviewMyResponse> reviewMyResponseList() {
         return getPopcornReviewUseCase.getMyReviews();
     }
 
@@ -91,7 +89,7 @@ public class PopcornController {
     //TODO 8: 팝콘 키워드 Top3 GET
     @Operation(summary = "팝콘 키워드 Top3 반환", description = "popcornId 가져와서 요청하기")
     @GetMapping("/top-keywords/{popcornId}")
-    public  List<Map.Entry<String, Integer>> reviewMyResponseList(@PathVariable("popcornId") Long popcornId){
+    public PopcornKeywordResponse reviewMyResponseList(@PathVariable("popcornId") Long popcornId){
         return getTopRatedPopcornKeyword.execute(popcornId);
     }
 
