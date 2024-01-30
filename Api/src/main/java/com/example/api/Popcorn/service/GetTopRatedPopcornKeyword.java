@@ -1,8 +1,11 @@
 package com.example.api.Popcorn.service;
 
 import com.example.adaptor.UseCase;
+import com.example.api.Popcorn.dto.response.PopcornKeywordResponse;
 import com.example.domains.popcorn.adaptor.PopcornAdaptor;
 import com.example.domains.popcorn.entity.dto.PopcornKeywordResponseDto;
+import com.example.domains.popcornUser.adaptor.PopcornUserAdaptor;
+import com.example.domains.popcornUser.entity.PopcornUser;
 import lombok.RequiredArgsConstructor;
 
 import java.util.*;
@@ -12,7 +15,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class GetTopRatedPopcornKeyword {
     private final PopcornAdaptor popcornAdaptor;
-    public  List<Map.Entry<String, Integer>> execute(Long popcornId) {
+    private final PopcornUserAdaptor popcornUserAdaptor;
+    public PopcornKeywordResponse execute(Long popcornId) {
         PopcornKeywordResponseDto keywordList = popcornAdaptor.getTopRatedCounts(popcornId);
 
         Map<String, Integer> newList = addingToList(keywordList);
@@ -24,8 +28,11 @@ public class GetTopRatedPopcornKeyword {
                 .limit(3)
                 .collect(Collectors.toList());
 
+        int participationCount = popcornUserAdaptor.getParticipatedCount(popcornId);
+        int participatedUserCount = popcornUserAdaptor.getParticipatedUserCount(popcornId);
 
-        return sortedList;
+
+        return PopcornKeywordResponse.from(sortedList,participationCount,participatedUserCount);
     }
 
     private Map<String, Integer> addingToList(PopcornKeywordResponseDto keywordList) {
