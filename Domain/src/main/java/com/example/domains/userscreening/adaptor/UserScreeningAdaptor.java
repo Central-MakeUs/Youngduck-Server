@@ -109,7 +109,7 @@ public class UserScreeningAdaptor {
                 .on(userScreening.id.eq(QScreeningReview.screeningReview.userScreening.id)
                         .and(userScreening.isHost.eq(false))
                         )
-                .where(userScreening.screening.id.eq(screeningId))
+                .where(userScreening.screening.id.eq(screeningId),QScreeningReview.screeningReview.isBlind.eq(false))
                 .fetch();
 
 

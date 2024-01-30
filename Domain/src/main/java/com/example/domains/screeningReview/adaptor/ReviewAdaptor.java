@@ -77,7 +77,7 @@ public class ReviewAdaptor {
     public void postComplain(Long reviewId,Long userId) {
         ScreeningReview screeningReview = findById(reviewId);
 
-        blockAdaptor.save(userId,screeningReview.getUserScreening().getUser().getId(),reviewId);
+        blockAdaptor.save(userId,screeningReview.getUserScreening().getUser().getId(),reviewId,null);
 
         int complainCount = screeningReview.getComplaintCount();
         if (complainCount == 4) {

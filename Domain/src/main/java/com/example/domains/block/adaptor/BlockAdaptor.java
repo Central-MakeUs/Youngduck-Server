@@ -10,14 +10,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BlockAdaptor {
     private final BlockRepository blockRepository;
-    public void save(Long userId,Long reportedUserId, Long reviewId){
-        validateUser(userId,reviewId);
-        final Block result = Block.of(userId,reportedUserId,reviewId);
+    public void save(Long userId,Long reportedUserId, Long reviewId,Long popcornReviewId){
+        validateUser(userId,reviewId,popcornReviewId);
+        final Block result = Block.of(userId,reportedUserId,reviewId,popcornReviewId);
         blockRepository.save(result);
     }
 
-    private void validateUser(Long userId, Long reviewId) {
-        if(blockRepository.existsByUserIdAndScreeningReviewId(userId,reviewId)) {
+    private void validateUser(Long userId, Long reviewId,Long popcornReviewId) {
+        if(blockRepository.existsByUserIdAndScreeningReviewId(userId,reviewId)||blockRepository.existsByUserIdAndPopcornReviewId(userId,popcornReviewId)) {
             throw DuplicateBlockRequest.EXCEPTION;
         }
     }
