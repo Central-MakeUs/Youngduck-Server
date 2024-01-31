@@ -24,7 +24,7 @@ public class ScreeningRepositoryImpl implements ScreeningRepositoryCustom {
                         hasCategory(category),
                         QScreening.screening.isPrivate.eq(false)
                 )
-                .orderBy(QScreening.screening.createdAt.asc()) // Adjust the sorting as needed
+                .orderBy(QScreening.screening.createdAt.desc()) // Adjust the sorting as needed
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize()+1)
                 .fetch();
