@@ -202,7 +202,7 @@ public class ScreeningController {
 
     //TODO 관람예정(찜하기 한 것 중에서 날짜 지난거) - private 0
     @GetMapping("/screenings/past")
-    public List<Screening> getPassedScreenings() {
+    public List<ScreeningResponse> getPassedScreenings() {
         return getPastScreeningListUseCase.execute();
     }
 
