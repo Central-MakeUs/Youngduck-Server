@@ -2,7 +2,7 @@
 auth:
   jwt:
     secret-key: ${JWT_SECRET_KEY}
-    access-exp: ${JWT_ACCESS_EXP:180}
+    access-exp: ${JWT_ACCESS_EXP:3600}
     refresh-exp: ${JWT_REFRESH_TOKEN_EXP}
 
 oauth:

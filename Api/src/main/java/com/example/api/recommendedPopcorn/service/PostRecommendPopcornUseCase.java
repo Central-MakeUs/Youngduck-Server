@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import io.swagger.v3.core.util.Json;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -47,9 +48,9 @@ public class PostRecommendPopcornUseCase {
         System.out.println(tmdb);
         JsonParser parser = new JsonParser();
         JsonElement jsonObject = parser.parse(request.getMovieId());
+        String movieTypeWithoutQuotes = request.getMovieType().replaceAll("\"", "");
 
-        System.out.println(jsonObject);
-        getApi(jsonObject,request);
+        getApi(jsonObject,request,movieTypeWithoutQuotes);
         //RecommendedPopcorn.of(request.getMovieId(),request.getReason())
     }
 
@@ -58,13 +59,13 @@ public class PostRecommendPopcornUseCase {
     }
 
     private void getApi(
-            JsonElement movieId,RecommendedPopcornRequest popcornRequest) throws IOException {
+            JsonElement movieId, RecommendedPopcornRequest popcornRequest, String movieType) throws IOException {
 
         OkHttpClient client = new OkHttpClient();
 
 
         Request request = new Request.Builder()
-                .url("http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&movieSeq=" + movieId + "&detail=Y&ServiceKey=" + tmdb)
+                .url("http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&movieId=" + movieType + "&movieSeq=" + movieId + "&detail=Y&ServiceKey=" + tmdb)
                 .get()
                 .addHeader("accept", "application/json")
                 .addHeader("Authorization", "Bearer " + tmdb)

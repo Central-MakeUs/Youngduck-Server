@@ -133,6 +133,7 @@ public class ScreeningAdaptor {
     }
 
     public List<ScreeningResponseDto> getMostReviewed() {
+        System.out.println(QScreeningReview.screeningReview.count());
         //review에 있는userScreening join까지 해서 특정 스크리닝에 있는 리뷰 수 중에서 top3반환해주게 짜줘
         return jpaQueryFactory
                 .selectDistinct(new QScreeningResponseDto(
