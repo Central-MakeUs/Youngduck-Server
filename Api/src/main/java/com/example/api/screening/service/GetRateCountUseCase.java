@@ -40,6 +40,7 @@ public class GetRateCountUseCase {
     private Long getScreeningRate(Screening screening) {
         List<UserScreening> userScreenings = userScreeningAdaptor.findByScreeningId(screening.getId());
         int count = screening.getScreeningRate();
+        System.out.println(count);
         int total = userScreenings.size() - 1;
         if(total==0){
             return (long) 0.0;

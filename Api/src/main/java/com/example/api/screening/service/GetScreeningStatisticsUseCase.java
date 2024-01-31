@@ -11,6 +11,8 @@ import com.example.domains.userscreening.entity.UserScreening;
 import com.example.domains.userscreening.exception.exceptions.UserScreeningIsNotHost;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @UseCase
 @RequiredArgsConstructor
 public class GetScreeningStatisticsUseCase {
@@ -20,8 +22,14 @@ public class GetScreeningStatisticsUseCase {
         Long userId = SecurityUtil.getCurrentUserId();
         Screening screening = screeningAdaptor.findById(screeningId);
         validateScreeningAuthority(userId,screening);
+        int totalCount = getCountFromUserScreening(screening);
 
-        return ScreeningStatisticsResponse.from(screening);
+        return ScreeningStatisticsResponse.from(screening,totalCount);
+    }
+
+    private int getCountFromUserScreening(Screening screening) {
+        int count = userScreeningAdaptor.findByScreeningId(screening.getId()).size() - 1;
+        return count;
     }
 
     private void validateScreeningAuthority(Long userId, Screening screening) {
