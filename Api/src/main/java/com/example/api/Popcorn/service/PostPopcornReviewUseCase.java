@@ -12,6 +12,7 @@ import com.example.domains.popcornUser.adaptor.PopcornUserAdaptor;
 import com.example.domains.popcornUser.entity.PopcornUser;
 import com.example.domains.popcornUser.entity.enums.PopcornNegative;
 import com.example.domains.popcornUser.entity.enums.PopcornPositive;
+import com.example.domains.popcornUser.exceptions.NoPopcornReview;
 import com.example.domains.screening.adaptor.ScreeningAdaptor;
 import com.example.domains.screening.entity.Screening;
 import com.example.domains.screening.validator.ScreeningValidator;
@@ -40,9 +41,21 @@ public class PostPopcornReviewUseCase {
     public PopcornReviewResponse execute(Long popcornId, PostPopcornReviewRequest request) {
         Long userId = SecurityUtil.getCurrentUserId();
         User user = userAdaptor.findById(userId);
+        validatePopcorn(popcornId);
         Popcorn popcorn = popcornAdaptor.findById(popcornId);
-        return reviewUpload(popcorn, user,request);
+        validateDuplicate(user,popcorn);
+        return reviewUpload(popcorn,user,request);
         //save, userScreenId
+    }
+
+    private void validatePopcorn(Long id) {
+        if(!popcornAdaptor.checkIfExists(id).isPresent()){
+            throw NoPopcornReview.EXCEPTION;
+        };
+    }
+
+    private void validateDuplicate(User user, Popcorn popcorn) {
+        popcornUserAdaptor.checkIfExists(user.getId(),popcorn.getId());
     }
 
 
