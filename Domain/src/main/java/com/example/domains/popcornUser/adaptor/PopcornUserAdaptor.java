@@ -6,6 +6,7 @@ import com.example.domains.popcorn.entity.Popcorn;
 import com.example.domains.popcorn.entity.QPopcorn;
 import com.example.domains.popcornUser.entity.PopcornUser;
 import com.example.domains.popcornUser.entity.QPopcornUser;
+import com.example.domains.popcornUser.exceptions.DuplicatePopcorn;
 import com.example.domains.popcornUser.repository.PopcornUserRepository;
 import com.example.domains.screeningReview.entity.QScreeningReview;
 import com.example.domains.screeningReview.entity.ScreeningReview;
@@ -120,6 +121,12 @@ public class PopcornUserAdaptor {
 
     public int getParticipatedUserCount(Long popcornId) {
         return popcornUserRepository.countDistinctUserIdByPopcornId(popcornId);
+    }
+
+    public void checkIfExists(Long id, Long popcornId) {
+        if(popcornUserRepository.existsByUserIdAndPopcornId(id,popcornId)==true){
+            throw DuplicatePopcorn.EXCEPTION;
+        }
     }
 //    int total = popcornUserRepository.findAllByPopcornId(popcorn.getId()).size();
 }

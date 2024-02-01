@@ -24,6 +24,7 @@ import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.example.domains.diverseMovie.entity.QDiverseMovie.diverseMovie;
@@ -111,6 +112,9 @@ public class PopcornAdaptor {
 
     public Popcorn findById(Long popcornId){
       return popcornRepository.findById(popcornId).get();
+    }
+    public Optional<Popcorn> checkIfExists(Long popcornId){
+        return popcornRepository.findById(popcornId);
     }
 
     @Transactional
@@ -489,5 +493,6 @@ public PopcornKeywordResponseDto getTopRatedCounts(Long popcornId) {
             save(movie);
         }
     }
+
 
 }

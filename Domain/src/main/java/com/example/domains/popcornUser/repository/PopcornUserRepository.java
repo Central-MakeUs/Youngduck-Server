@@ -21,4 +21,6 @@ public interface PopcornUserRepository extends JpaRepository<PopcornUser, Long> 
     // 특정 popcornId에 해당하는 distinct한 userId 개수 조회
     @Query("SELECT COUNT(DISTINCT p.user.id) FROM PopcornUser p WHERE p.popcorn.id = :popcornId")
     int countDistinctUserIdByPopcornId(@Param("popcornId") Long popcornId);
+
+    boolean existsByUserIdAndPopcornId(Long userId, Long popcornId);
 }
