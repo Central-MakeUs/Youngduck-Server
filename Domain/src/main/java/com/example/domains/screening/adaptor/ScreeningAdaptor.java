@@ -133,11 +133,9 @@ public class ScreeningAdaptor {
     }
 
     public List<ScreeningResponseDto> getMostReviewed() {
-        System.out.println(QScreeningReview.screeningReview.count());
-        //review에 있는userScreening join까지 해서 특정 스크리닝에 있는 리뷰 수 중에서 top3반환해주게 짜줘
         return jpaQueryFactory
                 .selectDistinct(new QScreeningResponseDto(
-                        QScreening.screening.id,
+                        QUserScreening.userScreening.screening.id,
                         QScreening.screening.title,
                         QScreening.screening.posterImgUrl,
                         QScreening.screening.hostInfo.hostName,
@@ -152,17 +150,36 @@ public class ScreeningAdaptor {
                         QScreening.screening.screeningEndDate,
                         QScreening.screening.screeningStartTime,
                         QScreening.screening.isPrivate,
-                        QScreeningReview.screeningReview.count()
+                        QUserScreening.userScreening.count()
                 ))
-                .from(QScreening.screening)
-                .leftJoin(QUserScreening.userScreening).on(QScreening.screening.eq(QUserScreening.userScreening.screening))
-                .leftJoin(QScreeningReview.screeningReview).on(QUserScreening.userScreening.eq(QScreeningReview.screeningReview.userScreening))
-                .where(QScreening.screening.isPrivate.eq(false))
-                .groupBy(QScreening.screening.id, QUserScreening.userScreening.id)
+                .from(QUserScreening.userScreening)
+                .leftJoin(QScreening.screening).on(QUserScreening.userScreening.screening.id.eq(QScreening.screening.id))
+                .leftJoin(QScreeningReview.screeningReview).on(QUserScreening.userScreening.id.eq(QScreeningReview.screeningReview.userScreening.id))
+                .where(QScreening.screening.isPrivate.eq(false)
+                        .and(QUserScreening.userScreening.isHost.eq(false))
+                        .and(QUserScreening.userScreening.isBookmarked.eq(true))
+                )
+                .groupBy(QUserScreening.userScreening.screening.id,
+                        QScreening.screening.title,
+                        QScreening.screening.posterImgUrl,
+                        QScreening.screening.hostInfo.hostName,
+                        QScreening.screening.hostInfo.hostEmail,
+                        QScreening.screening.hostInfo.hostPhoneNumber,
+                        QScreening.screening.location,
+                        QScreening.screening.participationUrl,
+                        QScreening.screening.information,
+                        QScreening.screening.hasAgreed,
+                        QScreening.screening.category,
+                        QScreening.screening.screeningStartDate,
+                        QScreening.screening.screeningEndDate,
+                        QScreening.screening.screeningStartTime,
+                        QScreening.screening.isPrivate
+                )
                 .orderBy(QScreeningReview.screeningReview.count().desc())
                 .limit(3)
                 .fetch();
     }
+
 
     public List<Screening> getBookmarkedScreenings(Long userId) {
         //찜한 스크리닝 중에서 날짜 지난 걸 가져오고, userId, screeningId를 가지고 userScreening를 가져와서 screeningReview에 review가 있는지에 대한 여부도 같이 넘겨주는 로직
