@@ -19,6 +19,7 @@ dependencies {
     implementation project(':Domain')
     implementation project(':Core')
     implementation project(':Infra')
+    testImplementation 'junit:junit:4.13.1'
 }
 
 test {
