@@ -1,5 +1,6 @@
 package com.example.api.Popcorn.dto.response;
 
+import com.example.domains.popcorn.entity.Popcorn;
 import com.example.domains.popcornUser.entity.PopcornUser;
 import com.example.domains.popcornUser.entity.enums.PopcornNegative;
 import com.example.domains.popcornUser.entity.enums.PopcornPositive;
@@ -16,7 +17,7 @@ public class PopcornReviewMyResponse {
     @Schema(defaultValue = "5", description = "프로필 이미지")
     private int profileImgNum;
     @Schema(defaultValue = "2",description = "팝콘작 id")
-    private Long popcornId;
+    private Popcorn popcorn;
     @Schema(defaultValue = "true", description = "관람 여부")
     private boolean hasWatched;
     @Schema(defaultValue = "true", description = "관람 전 만족도")
@@ -36,11 +37,11 @@ public class PopcornReviewMyResponse {
 
 
     @Builder
-    public PopcornReviewMyResponse(Long userId,String nickName,int profileImgNum,Long popcornId,boolean hasWatched, boolean beforeScreening, boolean afterScreening, String review, boolean hasAgreed, PopcornPositive popcornPositive, PopcornNegative popcornNegative) {
+    public PopcornReviewMyResponse(Long userId,String nickName,int profileImgNum,Popcorn popcorn,boolean hasWatched, boolean beforeScreening, boolean afterScreening, String review, boolean hasAgreed, PopcornPositive popcornPositive, PopcornNegative popcornNegative) {
         this.userId=userId;
         this.nickName=nickName;
         this.profileImgNum=profileImgNum;
-        this.popcornId=popcornId;
+        this.popcorn=popcorn;
         this.hasWatched=hasWatched;
         this.beforeScreening = beforeScreening;
         this.afterScreening = afterScreening;
@@ -55,7 +56,7 @@ public class PopcornReviewMyResponse {
                 .userId(popcornUser.getUser().getId())
                 .nickName(popcornUser.getUser().getNickname())
                 .profileImgNum(popcornUser.getUser().getProfileImgNum())
-                .popcornId(popcornUser.getPopcorn().getId())
+                .popcorn(popcornUser.getPopcorn())
                 .hasWatched(popcornUser.isHasWatched())
                 .beforeScreening(popcornUser.isBeforeScreening())
                 .afterScreening(popcornUser.isAfterScreening())

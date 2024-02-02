@@ -87,6 +87,7 @@ public class PostRecommendPopcornUseCase {
 
             // Extracting specific information
             String title = movieData.path("title").asText();
+            title = title.trim();
             String directorNm = movieData.path("directors").path("director").path(0).path("directorNm").asText();
             String plotText = movieData.path("plots").path("plot").path(0).path("plotText").asText();
             String firstPosterUrl = movieData.path("posters").asText().split("\\|")[0];

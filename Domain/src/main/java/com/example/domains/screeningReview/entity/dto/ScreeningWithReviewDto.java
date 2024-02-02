@@ -34,12 +34,12 @@ public class ScreeningWithReviewDto {
     private String screeningTitle;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private String profileImg;
+    private String posterImgUrl;
 
     @Builder
     public ScreeningWithReviewDto (boolean afterScreening, boolean screeningReview,
                              boolean locationReview, boolean serviceReview, String review, boolean hasAgreed, Long screeningId,
-                             String screeningTitle,LocalDateTime startDate, LocalDateTime endDate, String profileImg) {
+                             String screeningTitle,LocalDateTime startDate, LocalDateTime endDate, String posterImgUrl) {
         this.afterScreening = afterScreening;
         this.screeningReview = screeningReview;
         this.locationReview = locationReview;
@@ -50,7 +50,7 @@ public class ScreeningWithReviewDto {
         this.screeningTitle = screeningTitle;
         this.startDate = startDate;
         this.endDate =endDate;
-        this.profileImg = profileImg;
+        this.posterImgUrl  = posterImgUrl ;
     }
     public static ScreeningWithReviewDto  from(ScreeningReview screeningReview) {
         return  ScreeningWithReviewDto .builder()
@@ -64,7 +64,7 @@ public class ScreeningWithReviewDto {
                 .screeningTitle(screeningReview.getUserScreening().getScreening().getTitle())
                 .startDate(screeningReview.getUserScreening().getScreening().getScreeningStartDate())
                 .endDate(screeningReview.getUserScreening().getScreening().getScreeningEndDate())
-                .profileImg(screeningReview.getUserScreening().getScreening().getPosterImgUrl())
+                .posterImgUrl(screeningReview.getUserScreening().getScreening().getPosterImgUrl())
                 .build();
     }
 }
