@@ -75,7 +75,8 @@ public class ScreeningAdaptor {
                         QScreening.screening.screeningEndDate,
                         QScreening.screening.screeningStartTime,
                         QScreening.screening.isPrivate,
-                QScreeningReview.screeningReview.count()
+                QScreeningReview.screeningReview.count(),
+                        QScreening.screening.createdAt
                 ))
                 .from(QScreening.screening)
                 .leftJoin(QUserScreening.userScreening).on(QScreening.screening.eq(QUserScreening.userScreening.screening))
@@ -111,7 +112,8 @@ public class ScreeningAdaptor {
                         QScreening.screening.screeningEndDate,
                         QScreening.screening.screeningStartTime,
                         QScreening.screening.isPrivate,
-                        QScreeningReview.screeningReview.count()
+                        QScreeningReview.screeningReview.count(),
+                        QScreening.screening.createdAt
                 ))
                 .from(QScreening.screening)
                 .leftJoin(QUserScreening.userScreening).on(QScreening.screening.eq(QUserScreening.userScreening.screening))
@@ -150,7 +152,8 @@ public class ScreeningAdaptor {
                         QScreening.screening.screeningEndDate,
                         QScreening.screening.screeningStartTime,
                         QScreening.screening.isPrivate,
-                        QUserScreening.userScreening.count()
+                        QUserScreening.userScreening.count(),
+                        QScreening.screening.createdAt
                 ))
                 .from(QUserScreening.userScreening)
                 .leftJoin(QScreening.screening).on(QUserScreening.userScreening.screening.id.eq(QScreening.screening.id))
