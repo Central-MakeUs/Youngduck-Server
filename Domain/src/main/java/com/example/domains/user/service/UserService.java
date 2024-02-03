@@ -26,6 +26,7 @@ public class UserService {
     public User registerUser(
             String nickname,
             boolean lawAgreement,
+            boolean marketingAgreement,
             List<Genre> genres,
             String email,
             String name,
@@ -36,6 +37,7 @@ public class UserService {
                 User.of(
                         nickname,
                         lawAgreement,
+                        marketingAgreement,
                         genres,
                         email,
                         name,
@@ -50,6 +52,11 @@ public class UserService {
         User user = userAdaptor.findByOauthInfo(oauthInfo.getOid());
         user.login();
         return user;
+    }
+    @Transactional
+    public void turnMarketingState(Long userId) {
+        User user = userAdaptor.findById(userId);
+        user.turnmarketingAgreement(user.isMarketingAgreement());
     }
     public Boolean checkUserCanLogin(String oid) {
         return userAdaptor.exist(oid);

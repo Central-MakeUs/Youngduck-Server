@@ -66,6 +66,7 @@ public class OauthRegisterUseCase {
                 return userDomainService.registerUser(
                         request.getNickname(),
                         request.isLawAgreement(),
+                        request.isMarketingAgreement(),
                         request.getGenres(),
                         request.getEmail(),
                         request.getName(),
@@ -75,6 +76,7 @@ public class OauthRegisterUseCase {
                 return userDomainService.registerUser(
                         request.getNickname(),
                         request.isLawAgreement(),
+                        request.isMarketingAgreement(),
                         request.getGenres(),
                         "",
                         request.getName(),

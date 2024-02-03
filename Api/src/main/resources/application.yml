@@ -12,6 +12,10 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
 
 springdoc:
   default-consumes-media-type: application/json

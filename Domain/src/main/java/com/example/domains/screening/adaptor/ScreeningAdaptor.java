@@ -26,6 +26,8 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+import static com.example.domains.screening.entity.QScreening.screening;
+
 @Adaptor
 @RequiredArgsConstructor
 public class ScreeningAdaptor {
@@ -60,67 +62,65 @@ public class ScreeningAdaptor {
         LocalDate startOfWeek = now.toLocalDate().with(java.time.temporal.TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY));
         LocalDate endOfWeek = startOfWeek.plusDays(6); // Assuming Sunday is the last day of the week
         return jpaQueryFactory.selectDistinct(new QScreeningResponseDto(
-                QScreening.screening.id,
-                        QScreening.screening.title,
-                        QScreening.screening.posterImgUrl,
-                        QScreening.screening.hostInfo.hostName,
-                        QScreening.screening.hostInfo.hostEmail,
-                        QScreening.screening.hostInfo.hostPhoneNumber,
-                        QScreening.screening.location,
-                        QScreening.screening.participationUrl,
-                        QScreening.screening.information,
-                        QScreening.screening.hasAgreed,
-                        QScreening.screening.category,
-                        QScreening.screening.screeningStartDate,
-                        QScreening.screening.screeningEndDate,
-                        QScreening.screening.screeningStartTime,
-                        QScreening.screening.isPrivate,
-                QScreeningReview.screeningReview.count(),
-                        QScreening.screening.createdAt
+                screening.id,
+                        screening.title,
+                        screening.posterImgUrl,
+                        screening.hostInfo.hostName,
+                        screening.hostInfo.hostEmail,
+                        screening.hostInfo.hostPhoneNumber,
+                        screening.location,
+                        screening.participationUrl,
+                        screening.information,
+                        screening.hasAgreed,
+                        screening.category,
+                        screening.screeningStartDate,
+                        screening.screeningEndDate,
+                        screening.screeningStartTime,
+                        screening.isPrivate,
+                        QScreeningReview.screeningReview.count(),
+                        screening.createdAt
                 ))
-                .from(QScreening.screening)
-                .leftJoin(QUserScreening.userScreening).on(QScreening.screening.eq(QUserScreening.userScreening.screening))
+                .from(screening)
+                .leftJoin(QUserScreening.userScreening).on(screening.eq(QUserScreening.userScreening.screening))
                 .leftJoin(QScreeningReview.screeningReview).on(QUserScreening.userScreening.eq(QScreeningReview.screeningReview.userScreening))
                 .where(
-                        QScreening.screening.screeningStartDate.between(
+                        screening.screeningStartDate.between(
                                 startOfWeek.atStartOfDay(),
                                 endOfWeek.atTime(23, 59, 59)
                         ),
-                        QScreening.screening.isPrivate.eq(false)
+                        screening.isPrivate.eq(false)
                 )
-                .groupBy(QScreening.screening.id, QUserScreening.userScreening.id)
-                .orderBy(QScreening.screening.screeningStartDate.desc())
+                .groupBy(screening.id)
+                .orderBy(screening.screeningStartDate.desc())
                 .limit(3)
                 .fetch();
     }
 //
     public List<ScreeningResponseDto> getMostRecentScreening() {
-        return jpaQueryFactory
-                .selectDistinct(new QScreeningResponseDto(
-                        QScreening.screening.id,
-                        QScreening.screening.title,
-                        QScreening.screening.posterImgUrl,
-                        QScreening.screening.hostInfo.hostName,
-                        QScreening.screening.hostInfo.hostEmail,
-                        QScreening.screening.hostInfo.hostPhoneNumber,
-                        QScreening.screening.location,
-                        QScreening.screening.participationUrl,
-                        QScreening.screening.information,
-                        QScreening.screening.hasAgreed,
-                        QScreening.screening.category,
-                        QScreening.screening.screeningStartDate,
-                        QScreening.screening.screeningEndDate,
-                        QScreening.screening.screeningStartTime,
-                        QScreening.screening.isPrivate,
-                        QScreeningReview.screeningReview.count(),
-                        QScreening.screening.createdAt
+        return jpaQueryFactory.selectDistinct(new QScreeningResponseDto(
+                        screening.id,
+                        screening.title,
+                        screening.posterImgUrl,
+                        screening.hostInfo.hostName,
+                        screening.hostInfo.hostEmail,
+                        screening.hostInfo.hostPhoneNumber,
+                        screening.location,
+                        screening.participationUrl,
+                        screening.information,
+                        screening.hasAgreed,
+                        screening.category,
+                        screening.screeningStartDate,
+                        screening.screeningEndDate,
+                        screening.screeningStartTime,
+                        screening.isPrivate,
+                        screening.count(),
+                        screening.createdAt
                 ))
-                .from(QScreening.screening)
-                .leftJoin(QUserScreening.userScreening).on(QScreening.screening.eq(QUserScreening.userScreening.screening))
-                .leftJoin(QScreeningReview.screeningReview).on(QUserScreening.userScreening.eq(QScreeningReview.screeningReview.userScreening))
-                .where(QScreening.screening.isPrivate.eq(false))
-                .groupBy(QScreening.screening.id, QUserScreening.userScreening.id)
-                .orderBy(QScreening.screening.createdAt.desc())
+                .from(screening)
+                .leftJoin(QUserScreening.userScreening).on(screening.eq(QUserScreening.userScreening.screening))
+                .where(screening.isPrivate.eq(false))
+                .groupBy(screening.id, QUserScreening.userScreening.id)
+                .orderBy(screening.createdAt.desc())
                 .limit(3)
                 .fetch();
     }
@@ -138,45 +138,45 @@ public class ScreeningAdaptor {
         return jpaQueryFactory
                 .selectDistinct(new QScreeningResponseDto(
                         QUserScreening.userScreening.screening.id,
-                        QScreening.screening.title,
-                        QScreening.screening.posterImgUrl,
-                        QScreening.screening.hostInfo.hostName,
-                        QScreening.screening.hostInfo.hostEmail,
-                        QScreening.screening.hostInfo.hostPhoneNumber,
-                        QScreening.screening.location,
-                        QScreening.screening.participationUrl,
-                        QScreening.screening.information,
-                        QScreening.screening.hasAgreed,
-                        QScreening.screening.category,
-                        QScreening.screening.screeningStartDate,
-                        QScreening.screening.screeningEndDate,
-                        QScreening.screening.screeningStartTime,
-                        QScreening.screening.isPrivate,
+                        screening.title,
+                        screening.posterImgUrl,
+                        screening.hostInfo.hostName,
+                        screening.hostInfo.hostEmail,
+                        screening.hostInfo.hostPhoneNumber,
+                        screening.location,
+                        screening.participationUrl,
+                        screening.information,
+                        screening.hasAgreed,
+                        screening.category,
+                        screening.screeningStartDate,
+                        screening.screeningEndDate,
+                        screening.screeningStartTime,
+                        screening.isPrivate,
                         QUserScreening.userScreening.count(),
-                        QScreening.screening.createdAt
+                        screening.createdAt
                 ))
                 .from(QUserScreening.userScreening)
-                .leftJoin(QScreening.screening).on(QUserScreening.userScreening.screening.id.eq(QScreening.screening.id))
+                .leftJoin(screening).on(QUserScreening.userScreening.screening.id.eq(screening.id))
                 .leftJoin(QScreeningReview.screeningReview).on(QUserScreening.userScreening.id.eq(QScreeningReview.screeningReview.userScreening.id))
-                .where(QScreening.screening.isPrivate.eq(false)
+                .where(screening.isPrivate.eq(false)
                         .and(QUserScreening.userScreening.isHost.eq(false))
                         .and(QUserScreening.userScreening.isBookmarked.eq(true))
                 )
                 .groupBy(QUserScreening.userScreening.screening.id,
-                        QScreening.screening.title,
-                        QScreening.screening.posterImgUrl,
-                        QScreening.screening.hostInfo.hostName,
-                        QScreening.screening.hostInfo.hostEmail,
-                        QScreening.screening.hostInfo.hostPhoneNumber,
-                        QScreening.screening.location,
-                        QScreening.screening.participationUrl,
-                        QScreening.screening.information,
-                        QScreening.screening.hasAgreed,
-                        QScreening.screening.category,
-                        QScreening.screening.screeningStartDate,
-                        QScreening.screening.screeningEndDate,
-                        QScreening.screening.screeningStartTime,
-                        QScreening.screening.isPrivate
+                        screening.title,
+                        screening.posterImgUrl,
+                        screening.hostInfo.hostName,
+                        screening.hostInfo.hostEmail,
+                        screening.hostInfo.hostPhoneNumber,
+                        screening.location,
+                        screening.participationUrl,
+                        screening.information,
+                        screening.hasAgreed,
+                        screening.category,
+                        screening.screeningStartDate,
+                        screening.screeningEndDate,
+                        screening.screeningStartTime,
+                        screening.isPrivate
                 )
                 .orderBy(QScreeningReview.screeningReview.count().desc())
                 .limit(3)

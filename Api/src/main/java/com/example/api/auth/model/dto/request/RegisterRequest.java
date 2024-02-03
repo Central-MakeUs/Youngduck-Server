@@ -18,8 +18,11 @@ public class RegisterRequest {
     @NotBlank(message = "닉네임을 입력하세요")
     private String nickname;
 
-    @Schema(defaultValue = "false", description = "마케팅 정보 수신 동의 여부")
+    @Schema(defaultValue = "false", description = "약관정책 동의 여부")
     private boolean lawAgreement;
+
+    @Schema(defaultValue = "false", description = "마케팅 정보 수신 동의 여부")
+    private boolean marketingAgreement;
 
     @ArraySchema(schema = @Schema(description = "좋아하는 영화 장르"))
     private List<@ValidEnum(target = Genre.class) Genre> genres;

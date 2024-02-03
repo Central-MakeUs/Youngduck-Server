@@ -7,6 +7,7 @@ import com.example.api.user.model.dto.UpdateUserInfoRequest;
 import com.example.api.user.service.CheckDuplicateUseCase;
 import com.example.api.user.service.GetUserInfoUseCase;
 import com.example.api.user.service.PatchUserInfoUseCase;
+import com.example.api.user.service.PatchUserMarketingStateUseCase;
 import com.example.domains.user.enums.Genre;
 import com.example.domains.user.exception.exceptions.UserNotFoundException;
 import com.example.domains.user.service.UserService;
@@ -30,6 +31,7 @@ public class UserController {
     private final UserService userService;
     private final PatchUserInfoUseCase patchUserInfoUseCase;
     private final CheckDuplicateUseCase checkDuplicateUseCase;
+    private final PatchUserMarketingStateUseCase patchUserMarketingStateUseCase;
 
     @Operation(summary = "내 정보를 가져옵니다.")
     @GetMapping(value = "/info")
@@ -58,5 +60,10 @@ public class UserController {
     @PostMapping("/check")
     public DuplicateCheckResponse checkDuplicate(@RequestBody UpdateUserInfoRequest request) {
         return checkDuplicateUseCase.execute(request);
+    }
+
+    @PatchMapping("/marketing-agreemnet")
+    public void changeMarketingState(){
+        patchUserMarketingStateUseCase.execute();
     }
 }

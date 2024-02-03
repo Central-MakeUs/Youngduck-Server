@@ -58,10 +58,13 @@ public class User extends BaseTimeEntity {
     @OneToOne(mappedBy = "user")
     private FCMToken fcmToken;
 
+    private boolean marketingAgreement;
+
     @Builder
     private User (
             String nickname,
             boolean lawAgreement,
+            boolean marketingAgreement,
             boolean isVerified,
             String appleEmail,
             String name,
@@ -71,6 +74,7 @@ public class User extends BaseTimeEntity {
             ){
         this.nickname = nickname;
         this.lawAgreement = lawAgreement;
+        this.marketingAgreement = marketingAgreement;
         this.isVerified = isVerified;
         this.oauthInfo = oauthInfo;
         this.appleEmail = appleEmail;
@@ -82,6 +86,7 @@ public class User extends BaseTimeEntity {
     public static User of(
             String nickname,
             boolean lawAgreement,
+            boolean marketingAgreement,
             List<Genre> genres,
             String appleEmail,
             String name,
@@ -91,6 +96,7 @@ public class User extends BaseTimeEntity {
         return User.builder()
                 .nickname(nickname)
                 .lawAgreement(lawAgreement)
+                .marketingAgreement(marketingAgreement)
                 .genres(genres)
                 .appleEmail(appleEmail)
                 .name(name)
@@ -138,5 +144,9 @@ public class User extends BaseTimeEntity {
 
     public void turnBlind() {
         this.userState = UserState.DELETED;
+    }
+
+    public void turnmarketingAgreement(boolean state) {
+        this.marketingAgreement = !state;
     }
 }
