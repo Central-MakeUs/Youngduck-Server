@@ -101,6 +101,7 @@ public class ScreeningInfoResponse {
                 .screeningStartTime(screening.getScreeningStartTime())
                 .category(screening.getCategory())
                 .hostEmail(screening.getHostInfo().getHostEmail())
+                .hostPhoneNumber(screening.getHostInfo().getHostPhoneNumber())
                 .isPrivate(screening.isPrivate())
                 .isBookmarked(isBookmarked)
                 .isReviewed(isReviewed)

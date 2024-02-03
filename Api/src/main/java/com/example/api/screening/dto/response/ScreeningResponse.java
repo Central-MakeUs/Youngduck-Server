@@ -95,6 +95,7 @@ public class ScreeningResponse {
                 .screeningStartTime(screening.getScreeningStartTime())
                 .category(screening.getCategory())
                 .hostEmail(screening.getHostInfo().getHostEmail())
+                .hostPhoneNumber(screening.getHostInfo().getHostPhoneNumber())
                 .isPrivate(screening.isPrivate())
                 .build();
     }
