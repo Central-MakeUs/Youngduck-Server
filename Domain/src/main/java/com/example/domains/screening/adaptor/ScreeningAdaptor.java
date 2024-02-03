@@ -96,7 +96,7 @@ public class ScreeningAdaptor {
 //
     public List<ScreeningResponseDto> getMostRecentScreening() {
         return jpaQueryFactory
-                .select(new QScreeningResponseDto(
+                .selectDistinct(new QScreeningResponseDto(
                         QScreening.screening.id,
                         QScreening.screening.title,
                         QScreening.screening.posterImgUrl,
