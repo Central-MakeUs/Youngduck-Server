@@ -61,11 +61,23 @@ public class ScreeningController {
     private final GetScreeningStatisticsUseCase getScreeningStatisticsUseCase;
 
 
+//    @Operation(description = "모임 대표 이미지")
+//    @PostMapping(value = "/image", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, APPLICATION_JSON_VALUE})
+//    public SuccessResponse<Object> uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
+//        try {
+//            String imageUrl = screeningUploadUseCase.uploadImage(file);
+//            SuccessResponse<Object> successResponse = SuccessResponse.onSuccess(200,imageUrl);
+//            return successResponse;
+//        } catch (IOException e) {
+//            throw  new IllegalArgumentException("오류");
+//        }
+//    }
+
     @Operation(description = "모임 대표 이미지")
-    @PostMapping(value = "/image", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, APPLICATION_JSON_VALUE})
-    public SuccessResponse<Object> uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
+    @GetMapping(value = "/image/{fileName}")
+    public SuccessResponse<Object> uploadImage(@PathVariable("fileName") String fileName) throws IOException {
         try {
-            String imageUrl = screeningUploadUseCase.uploadImage(file);
+            String imageUrl = screeningUploadUseCase.uploadImage("images",fileName);
             SuccessResponse<Object> successResponse = SuccessResponse.onSuccess(200,imageUrl);
             return successResponse;
         } catch (IOException e) {

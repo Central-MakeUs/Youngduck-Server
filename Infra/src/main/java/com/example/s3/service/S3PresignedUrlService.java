@@ -64,16 +64,24 @@ public class S3PresignedUrlService {
     }
 
     /* 3. 파일의 presigned URL 반환 */
-    public String getPreSignedUrl(String bucket, String prefix, String fileName) {
-        if (!prefix.equals("")) {
-            fileName = prefix + "/" + fileName;
+    public String getPreSignedUrl(String prefix, String fileName) {
+        if (!prefix.isEmpty()) {
+            fileName = createPath(prefix, fileName);
         }
-        GeneratePresignedUrlRequest generatePresignedUrlRequest = getGeneratePreSignedUrlRequest(bucket, fileName);
+        GeneratePresignedUrlRequest generatePresignedUrlRequest = getGeneratePreSignedUrlRequest(fileName);
         URL url = amazonS3.generatePresignedUrl(generatePresignedUrlRequest);
         return url.toString();
     }
 
-    private GeneratePresignedUrlRequest getGeneratePreSignedUrlRequest(String bucket, String fileName) {
+    private String createFileId() {
+          return UUID.randomUUID().toString();
+    }
+    private String createPath(String prefix, String fileName) {
+        String fileId = createFileId();
+        return String.format("%s/%s", prefix, fileId + "-" + fileName);
+    }
+
+    private GeneratePresignedUrlRequest getGeneratePreSignedUrlRequest(String fileName) {
         GeneratePresignedUrlRequest generatePresignedUrlRequest =
                 new GeneratePresignedUrlRequest(bucket, fileName)
                         .withMethod(HttpMethod.PUT)

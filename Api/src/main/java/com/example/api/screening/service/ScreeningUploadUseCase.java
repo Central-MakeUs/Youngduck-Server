@@ -27,9 +27,9 @@ public class ScreeningUploadUseCase {
     private final UserAdaptor userAdaptor;
     private final UserScreeningAdaptor userScreeningAdaptor;
     private final S3PresignedUrlService s3UploadService;
-    public String uploadImage(MultipartFile file) throws IOException {
+    public String uploadImage(String prefix, String fileName) throws IOException {
         // S3에 이미지 파일 업로드 및 업로드된 파일의 URL 생성
-        String imageUrl = s3UploadService.upload(file);
+        String imageUrl = s3UploadService.getPreSignedUrl(prefix,fileName);
         return imageUrl;
     }
 
