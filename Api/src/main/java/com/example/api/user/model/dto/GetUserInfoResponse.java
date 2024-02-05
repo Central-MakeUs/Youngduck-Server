@@ -38,18 +38,23 @@ public class GetUserInfoResponse {
     @Schema(defaultValue = "false", description = "마케팅 동의 여부")
     private boolean maeketingAgreement;
 
+    @Schema(defaultValue = "1",description = "유저 id")
+    private Long userId;
+
 
 //    @Schema(description = "좋아하는 영화 장르", implementation = Genre.class, allowableValues = "MELLO, COMEDY, ROCO, ACTION, WEST, GANG, NOIRE, SUSPENSE, THRILLER, HORROR, WAR, SF, DETECTIVE, FANTASY, ADVENTURE")
 //    private List<Genre> genres;
 
     @Builder
     public GetUserInfoResponse(
+            Long userId,
             String email,
             String name,
             String nickname,
             int profileImgNum,
             boolean maeketingAgreement,
             OauthProvider oauthProvider) {
+        this.userId = userId;
         this.email = email;
         this.name = name;
         this.nickname = nickname;
@@ -60,6 +65,7 @@ public class GetUserInfoResponse {
 
     public static GetUserInfoResponse from(User user) {
         return GetUserInfoResponse.builder()
+                .userId(user.getId())
                 .email(user.getOauthInfo().getEmail())
                 .nickname(user.getNickname())
                 .profileImgNum(user.getProfileImgNum())
