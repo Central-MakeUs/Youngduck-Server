@@ -2,6 +2,7 @@ package com.example.domains.screeningReview.entity.dto;
 
 import com.example.domains.screening.entity.Screening;
 import com.example.domains.screeningReview.entity.ScreeningReview;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 public class ScreeningWithReviewDto {
-
+    private String hostName;
 
     private boolean afterScreening;
 
@@ -37,9 +38,11 @@ public class ScreeningWithReviewDto {
     private String posterImgUrl;
 
     @Builder
-    public ScreeningWithReviewDto (boolean afterScreening, boolean screeningReview,
+    @QueryProjection
+    public ScreeningWithReviewDto (String hostName, boolean afterScreening, boolean screeningReview,
                              boolean locationReview, boolean serviceReview, String review, boolean hasAgreed, Long screeningId,
                              String screeningTitle,LocalDateTime startDate, LocalDateTime endDate, String posterImgUrl) {
+        this.hostName = hostName;
         this.afterScreening = afterScreening;
         this.screeningReview = screeningReview;
         this.locationReview = locationReview;
@@ -53,7 +56,8 @@ public class ScreeningWithReviewDto {
         this.posterImgUrl  = posterImgUrl ;
     }
     public static ScreeningWithReviewDto  from(ScreeningReview screeningReview) {
-        return  ScreeningWithReviewDto .builder()
+        return  ScreeningWithReviewDto.builder()
+                .hostName(screeningReview.getUserScreening().getScreening().getHostInfo().getHostName())
                 .afterScreening(screeningReview.isAfterScreening())
                 .screeningReview(screeningReview.isMovieReview())
                 .locationReview(screeningReview.isLocationReview())

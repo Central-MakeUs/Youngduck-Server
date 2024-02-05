@@ -5,6 +5,7 @@ import com.example.domains.block.adaptor.BlockAdaptor;
 import com.example.domains.screening.entity.QScreening;
 import com.example.domains.screeningReview.entity.QScreeningReview;
 import com.example.domains.screeningReview.entity.ScreeningReview;
+import com.example.domains.screeningReview.entity.dto.QScreeningWithReviewDto;
 import com.example.domains.screeningReview.entity.dto.ReviewResponseDto;
 import com.example.domains.screeningReview.entity.dto.ScreeningWithReviewDto;
 import com.example.domains.screeningReview.repository.ScreeningReviewRepository;
@@ -42,12 +43,14 @@ public class ReviewAdaptor {
     //본인이 리뷰한 (host아님) 상영회에 대한 리뷰 반환
     public List<ScreeningWithReviewDto> getPostedScreeningReviews(Long userId) {
         // QUserScreening과 QScreeningReview는 QueryDSL에서 생성된 엔터티 클래스여야 합니다.
+        // TODO 리팩토링!!
+
+
 
         // QUserScreening과 QScreeningReview 간의 조인을 수행하고, 호스트가 아닌 것 및 특정 사용자에 대한 필터링을 수행합니다.
         List<ScreeningWithReviewDto> screeningReviews = queryFactory
-                .select(
-                        Projections.constructor(
-                                ScreeningWithReviewDto.class,
+                .selectDistinct(new QScreeningWithReviewDto(
+                                QUserScreening.userScreening.screening.hostInfo.hostName,
                                 QScreeningReview.screeningReview.afterScreening,
                                 QScreeningReview.screeningReview.movieReview,
                                 QScreeningReview.screeningReview.locationReview,

@@ -38,7 +38,7 @@ public class OauthRegisterUseCase {
     private int makeRandomNumber() {
         Random random = new Random();
 
-        int randomNumber = random.nextInt(5) + 1;
+        int randomNumber = random.nextInt(3) + 1;
 
         return randomNumber;
     }

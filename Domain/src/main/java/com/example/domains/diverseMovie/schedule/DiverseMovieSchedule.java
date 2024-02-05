@@ -10,13 +10,12 @@ import org.springframework.stereotype.Service;
 public class DiverseMovieSchedule {
     private final DiverseMovieService diverseMovieService;
      //매 주 월요일 0시 0분에 실행되도록 cron 설정
-    @Scheduled(cron = "0 0 0 * * MON")
-    public void scheduledMethod() {
-        // 월요일에 실행될 로직을 여기에 작성
-        diverseMovieService.getTopRated();
-        System.out.println("매 주 월요일에 실행되는 작업");
-    }
-
+     @Scheduled(cron = "0 0 1 * * WED")
+     public void scheduledMethod() {
+         // 수요일에 실행될 로직을 여기에 작성
+         diverseMovieService.getTopRated();
+         System.out.println("매 주 수요일 1시에 실행되는 작업");
+     }
 
 //    @Scheduled(cron = "0 * * * * *")
 //    public void scheduledMethodTest() {
