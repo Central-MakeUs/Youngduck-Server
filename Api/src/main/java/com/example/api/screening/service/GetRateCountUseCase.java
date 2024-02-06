@@ -42,10 +42,12 @@ public class GetRateCountUseCase {
         int count = screening.getScreeningRate();
         System.out.println(count);
         int total = userScreenings.size() - 1;
+        System.out.println(total);
         if(total==0){
             return (long) 0.0;
         } {
-            return (long) ((count / total) * 100);
+            System.out.println((long) ((count / (double) total) * 100));
+            return (long) ((count / (double) total) * 100);
         }
     }
 }
