@@ -136,4 +136,8 @@ public class ReviewAdaptor {
     public boolean checkIfExists(Long id) {
         return screeningReviewRepository.existsByUserScreeningId(id);
     }
+
+    public List<ScreeningReview> findAll() {
+        return screeningReviewRepository.findAll();
+    }
 }
