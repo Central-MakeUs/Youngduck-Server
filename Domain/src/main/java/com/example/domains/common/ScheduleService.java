@@ -103,7 +103,7 @@ public class ScheduleService {
         }
     }
 
-    @Scheduled(cron = "0 3 19 * * *")
+    @Scheduled(cron = "0 11/15 19 * * *")
     private void notifyTestReservation() {
         LocalDateTime now = LocalDateTime.now().withSecond(0).withNano(0);
         LocalDateTime reservationTime = now.plusDays(1);
