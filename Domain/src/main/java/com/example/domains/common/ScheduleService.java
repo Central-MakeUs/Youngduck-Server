@@ -6,6 +6,7 @@ import com.example.domains.user.entity.User;
 import com.example.domains.user.repository.UserRepository;
 import com.example.domains.userscreening.adaptor.UserScreeningAdaptor;
 import com.example.domains.userscreening.entity.UserScreening;
+import com.example.fcm.adaptor.FcmTokenAdaptor;
 import com.example.fcm.entity.FCMToken;
 import com.example.fcm.repository.FcmRepository;
 import com.example.fcm.request.NotificationRequest;
@@ -28,6 +29,7 @@ public class ScheduleService {
     private final ScreeningAdaptor screeningAdaptor;
     private final UserRepository userRepository;
     private final FcmRepository fcmRepository;
+    private final FcmTokenAdaptor fcmTokenAdaptor;
 
     private static final String NOTIFICATION_TITLE = "상영회 하루 전 알림";
 //    @Scheduled(cron = "0 0/1 * * * *")
@@ -97,13 +99,15 @@ public class ScheduleService {
             // 오늘이 screeningStartDate의 하루 전인 경우 해당 Screening을 가져옴
             if (screeningStartDate.toLocalDate().isEqual(ChronoLocalDate.from(reservationTime))) {
                 Long userId = userScreening.getUser().getId();
-                NotificationRequest notificationRequests = new NotificationRequest(userScreening.getScreening(), userId, userScreening.getScreening().getTitle());
-                sendNotifications(notificationRequests);
+                if (checkFcmExists(userId)) {
+                    NotificationRequest notificationRequests = new NotificationRequest(userScreening.getScreening(), userId, userScreening.getScreening().getTitle());
+                    sendNotifications(notificationRequests);
+                }
             }
         }
     }
 
-    @Scheduled(cron = "0 11/15 19 * * *")
+    @Scheduled(cron = "0 20 19 * * *")
     private void notifyTestReservation() {
         LocalDateTime now = LocalDateTime.now().withSecond(0).withNano(0);
         LocalDateTime reservationTime = now.plusDays(1);
@@ -121,9 +125,19 @@ public class ScheduleService {
             // 오늘이 screeningStartDate의 하루 전인 경우 해당 Screening을 가져옴
             if (screeningStartDate.toLocalDate().isEqual(ChronoLocalDate.from(reservationTime))) {
                 Long userId = userScreening.getUser().getId();
-                NotificationRequest notificationRequests = new NotificationRequest(userScreening.getScreening(), userId, userScreening.getScreening().getTitle());
-                sendNotifications(notificationRequests);
+                if (checkFcmExists(userId)) {
+                    NotificationRequest notificationRequests = new NotificationRequest(userScreening.getScreening(), userId, userScreening.getScreening().getTitle());
+                    sendNotifications(notificationRequests);
+                }
             }
+        }
+    }
+
+    private boolean checkFcmExists(Long userId) {
+        if (fcmTokenAdaptor.findByUserId(userId)){
+            return true;
+        } else {
+            return false;
         }
     }
 

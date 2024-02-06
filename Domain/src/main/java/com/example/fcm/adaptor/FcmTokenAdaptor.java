@@ -13,4 +13,8 @@ public class FcmTokenAdaptor {
     public void execute(Long userId) {
         fcmRepository.deleteByUserId(userId);
     }
+
+    public boolean findByUserId(Long userId) {
+        return fcmRepository.existsById(userId);
+    }
 }
