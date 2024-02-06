@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 
 @Getter
 public class PopcornReviewResponse {
+    @Schema(defaultValue = "1", description = "PopcornUser id")
+    private Long popcornUserId;
     @Schema(defaultValue = "1", description = "유저 id")
     private Long userId;
     @Schema(defaultValue = "닉네임", description = "유저 닉네임")
@@ -36,7 +38,8 @@ public class PopcornReviewResponse {
     private LocalDateTime createdAt;
 
     @Builder
-    public PopcornReviewResponse(Long userId, String nickName, int profileImgNum, Long popcornId, boolean hasWatched, boolean beforeScreening, boolean afterScreening, String review, boolean hasAgreed, LocalDateTime createdAt) {
+    public PopcornReviewResponse(Long popcornUserId,Long userId, String nickName, int profileImgNum, Long popcornId, boolean hasWatched, boolean beforeScreening, boolean afterScreening, String review, boolean hasAgreed, LocalDateTime createdAt) {
+        this.popcornUserId = popcornUserId;
         this.userId=userId;
         this.nickName=nickName;
         this.profileImgNum=profileImgNum;
@@ -51,6 +54,7 @@ public class PopcornReviewResponse {
 
     public static PopcornReviewResponse from(PopcornUser popcornUser) {
         return PopcornReviewResponse.builder()
+                .popcornUserId(popcornUser.getId())
                 .userId(popcornUser.getUser().getId())
                 .nickName(popcornUser.getUser().getNickname())
                 .profileImgNum(popcornUser.getUser().getProfileImgNum())
