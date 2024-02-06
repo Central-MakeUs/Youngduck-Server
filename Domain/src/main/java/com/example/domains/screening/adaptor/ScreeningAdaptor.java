@@ -197,7 +197,7 @@ public class ScreeningAdaptor {
                         QUserScreening.userScreening.isHost.eq(false),
                         QUserScreening.userScreening.user.id.eq(userId),
                         QUserScreening.userScreening.isBookmarked.eq(true),
-                        QScreeningReview.screeningReview.userScreening.screening.screeningStartDate.before(currentDateTime),
+                        QScreeningReview.screeningReview.userScreening.screening.screeningEndDate.before(currentDateTime),
                         QScreeningReview.screeningReview.userScreening.screening.isPrivate.eq(false)
                 )
                 .fetch();
