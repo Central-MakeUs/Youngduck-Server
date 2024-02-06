@@ -10,6 +10,7 @@ import com.example.domains.user.entity.User;
 import com.example.domains.user.enums.OauthProvider;
 import com.example.domains.user.service.UserService;
 import com.example.error.exception.InvalidOauthProviderException;
+import com.example.fcm.adaptor.FcmTokenAdaptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,10 +21,13 @@ public class WithdrawUseCase {
     private final UserAdaptor userAdaptor;
     private final QuitDomainService quitDomainService;
     private final UserService userService;
+    private final FcmTokenAdaptor fcmTokenAdaptor;
     @Transactional
     public void execute(String appleAccessToken, String referer, Long userId, Reason reason) {
         User user = userAdaptor.findById(userId);
         quitDomainService.save(Quit.of(userId, reason));
+        //Fcm쪽 탈퇴
+        fcmTokenAdaptor.execute(userId);
         // oauth쪽 탈퇴
         withdrawOauth(user.getOauthInfo().getProvider(), appleAccessToken, user, referer);
         // 우리쪽 탈퇴
@@ -38,6 +42,8 @@ public class WithdrawUseCase {
     public void executeDev(String appleAccessToken) {
         Long userId = SecurityUtil.getCurrentUserId();
         User user = userAdaptor.findById(userId);
+        //Fcm쪽 탈퇴
+        fcmTokenAdaptor.execute(userId);
         // oauth쪽 탈퇴
         withdrawOauthDev(user.getOauthInfo().getProvider(), appleAccessToken, user);
         // 우리쪽 탈퇴

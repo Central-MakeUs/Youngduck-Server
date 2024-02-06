@@ -16,13 +16,13 @@ public enum Genre {
     ACTION("액션"),
     WEST("서부극"),
     GANG("갱스터"),
-    NOIRE("누아르"),
+    NOIRE("누와르"),
     SUSPENSE("미스터리"),
     THRILLER("스릴러"),
     HORROR("공포"),
     WAR("전쟁"),
     SF("SF"),
-    DETECTIVE("참정"),
+    DETECTIVE("탐정"),
     FANTASY("판타지"),
     ADVENTURE("모험");
 

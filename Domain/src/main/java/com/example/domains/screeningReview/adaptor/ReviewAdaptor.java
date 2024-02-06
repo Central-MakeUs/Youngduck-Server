@@ -14,6 +14,7 @@ import com.example.domains.user.entity.User;
 import com.example.domains.user.enums.UserState;
 import com.example.domains.userscreening.entity.QUserScreening;
 import com.example.domains.userscreening.entity.UserScreening;
+import com.example.fcm.adaptor.FcmTokenAdaptor;
 import com.google.api.client.util.SecurityUtils;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -31,6 +32,7 @@ public class ReviewAdaptor {
     private final ScreeningReviewRepository screeningReviewRepository;
     private final BlockAdaptor blockAdaptor;
     private final JPAQueryFactory queryFactory;
+    private final FcmTokenAdaptor fcmTokenAdaptor;
 
     public void save(ScreeningReview screeningReview) {
         screeningReviewRepository.save(screeningReview);
@@ -81,18 +83,22 @@ public class ReviewAdaptor {
         ScreeningReview screeningReview = findById(reviewId);
 
         blockAdaptor.save(userId,screeningReview.getUserScreening().getUser().getId(),reviewId,null);
-
+        System.out.println("testing");
         int complainCount = screeningReview.getComplaintCount();
+        System.out.println(complainCount);
         if (complainCount == 4) {
             incrementComplaintCount(screeningReview);
             // Get user from the screeningReview
             User user = screeningReview.getUserScreening().getUser();
 
             deActivateUser(user);
+            //DeviceToken삭제
+            fcmTokenAdaptor.execute(screeningReview.getUserScreening().getUser().getId());
 
             // Delete the screeningReview
             changeBlindStatus(screeningReview);  // Assuming there is a method to delete screeningReview
         } else {
+            System.out.println("test");
             incrementComplaintCount(screeningReview);
         }
     }
