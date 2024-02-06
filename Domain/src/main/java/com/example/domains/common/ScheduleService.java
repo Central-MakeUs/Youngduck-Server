@@ -2,8 +2,12 @@ package com.example.domains.common;
 
 import com.example.domains.screening.adaptor.ScreeningAdaptor;
 import com.example.domains.screening.entity.Screening;
+import com.example.domains.user.entity.User;
+import com.example.domains.user.repository.UserRepository;
 import com.example.domains.userscreening.adaptor.UserScreeningAdaptor;
 import com.example.domains.userscreening.entity.UserScreening;
+import com.example.fcm.entity.FCMToken;
+import com.example.fcm.repository.FcmRepository;
 import com.example.fcm.request.NotificationRequest;
 import com.example.fcm.service.FcmService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +26,8 @@ public class ScheduleService {
 
     private final UserScreeningAdaptor userScreeningAdaptor;
     private final ScreeningAdaptor screeningAdaptor;
+    private final UserRepository userRepository;
+    private final FcmRepository fcmRepository;
 
     private static final String NOTIFICATION_TITLE = "상영회 하루 전 알림";
 //    @Scheduled(cron = "0 0/1 * * * *")
@@ -96,6 +102,31 @@ public class ScheduleService {
             }
         }
     }
+
+    @Scheduled(cron = "0 3 19 * * *")
+    private void notifyTestReservation() {
+        LocalDateTime now = LocalDateTime.now().withSecond(0).withNano(0);
+        LocalDateTime reservationTime = now.plusDays(1);
+
+        System.out.println("test");
+
+        //userScreening에서 isBookMarked인 것들 중에서 user id, screening id가져와서 List<User> List<Screening>
+        //screening에서 startDate가져와서 startDate가 내일이면 알람을 보낼 수 있게 짜봐 fcm이랑 스프링 쓰고 있어
+
+        List<UserScreening> bookmarkedUserScreenings =  userScreeningAdaptor.findByBookMarked();
+
+        for (UserScreening userScreening : bookmarkedUserScreenings) {
+            LocalDateTime screeningStartDate = userScreening.getScreening().getScreeningStartDate();
+
+            // 오늘이 screeningStartDate의 하루 전인 경우 해당 Screening을 가져옴
+            if (screeningStartDate.toLocalDate().isEqual(ChronoLocalDate.from(reservationTime))) {
+                Long userId = userScreening.getUser().getId();
+                NotificationRequest notificationRequests = new NotificationRequest(userScreening.getScreening(), userId, userScreening.getScreening().getTitle());
+                sendNotifications(notificationRequests);
+            }
+        }
+    }
+
 
     private void sendNotifications(NotificationRequest requests) {
         // FCM을 사용하여 알림을 보내는 로직

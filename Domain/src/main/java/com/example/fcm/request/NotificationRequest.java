@@ -14,4 +14,9 @@ public class NotificationRequest {
         this.title = title;
         this.body = screening.getInformation();
     }
+
+    public NotificationRequest( Long user, String title) {
+        this.userId= user;
+        this.title = title;
+    }
 }
