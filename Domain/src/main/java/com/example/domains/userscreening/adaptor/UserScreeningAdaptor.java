@@ -16,6 +16,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -76,14 +77,17 @@ public class UserScreeningAdaptor {
 
     //TODO screeningdate 지나면 x
     public List<Screening> findBookmarkedUserScreening(Long userId) {
+        LocalDateTime today = LocalDateTime.now();
+
         return queryFactory
                 .select(screening)
                 .from(screening)
-                .join(userScreening).on(userScreening.screening.eq(screening)) // Join with Screening entity
+                .join(userScreening).on(userScreening.screening.eq(screening))
                 .where(
                         userScreening.isHost.eq(false),
                         userScreening.isBookmarked.eq(true),
-                        userScreening.user.id.eq(userId)
+                        userScreening.user.id.eq(userId),
+                        screening.screeningEndDate.after(today)
                 )
                 .fetch();
     }
