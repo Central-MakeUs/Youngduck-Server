@@ -8,11 +8,9 @@ import com.example.api.auth.service.OauthLinkUseCase;
 import com.example.api.auth.service.OauthLoginUseCase;
 import com.example.api.auth.service.OauthRegisterUseCase;
 import com.example.domains.user.enums.OauthProvider;
-import com.example.dto.IdTokenDto;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

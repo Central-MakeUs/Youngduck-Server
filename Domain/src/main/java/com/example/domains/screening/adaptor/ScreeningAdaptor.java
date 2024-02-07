@@ -92,7 +92,7 @@ public class ScreeningAdaptor {
                 )
                 .groupBy(screening.id)
                 .orderBy(screening.screeningStartDate.asc())
-                .limit(3)
+                .limit(7)
                 .fetch();
     }
 //
