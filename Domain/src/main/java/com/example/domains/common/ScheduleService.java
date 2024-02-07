@@ -107,31 +107,31 @@ public class ScheduleService {
         }
     }
 
-    @Scheduled(cron = "0 0/3 * * * *")
-    private void notifyTestReservation() {
-        LocalDateTime now = LocalDateTime.now().withSecond(0).withNano(0);
-        LocalDateTime reservationTime = now.plusDays(1);
-
-        System.out.println("test");
-
-        //userScreening에서 isBookMarked인 것들 중에서 user id, screening id가져와서 List<User> List<Screening>
-        //screening에서 startDate가져와서 startDate가 내일이면 알람을 보낼 수 있게 짜봐 fcm이랑 스프링 쓰고 있어
-
-        List<UserScreening> bookmarkedUserScreenings =  userScreeningAdaptor.findByBookMarked();
-
-        for (UserScreening userScreening : bookmarkedUserScreenings) {
-            LocalDateTime screeningStartDate = userScreening.getScreening().getScreeningStartDate();
-
-            // 오늘이 screeningStartDate의 하루 전인 경우 해당 Screening을 가져옴
-            if (screeningStartDate.toLocalDate().isEqual(ChronoLocalDate.from(reservationTime))) {
-                Long userId = userScreening.getUser().getId();
-                if (checkFcmExists(userId)) {
-                    NotificationRequest notificationRequests = new NotificationRequest(userScreening.getScreening(), userId, userScreening.getScreening().getTitle());
-                    sendNotifications(notificationRequests);
-                }
-            }
-        }
-    }
+//    @Scheduled(cron = "0 0/3 * * * *")
+//    private void notifyTestReservation() {
+//        LocalDateTime now = LocalDateTime.now().withSecond(0).withNano(0);
+//        LocalDateTime reservationTime = now.plusDays(1);
+//
+//        System.out.println("test");
+//
+//        //userScreening에서 isBookMarked인 것들 중에서 user id, screening id가져와서 List<User> List<Screening>
+//        //screening에서 startDate가져와서 startDate가 내일이면 알람을 보낼 수 있게 짜봐 fcm이랑 스프링 쓰고 있어
+//
+//        List<UserScreening> bookmarkedUserScreenings =  userScreeningAdaptor.findByBookMarked();
+//
+//        for (UserScreening userScreening : bookmarkedUserScreenings) {
+//            LocalDateTime screeningStartDate = userScreening.getScreening().getScreeningStartDate();
+//
+//            // 오늘이 screeningStartDate의 하루 전인 경우 해당 Screening을 가져옴
+//            if (screeningStartDate.toLocalDate().isEqual(ChronoLocalDate.from(reservationTime))) {
+//                Long userId = userScreening.getUser().getId();
+//                if (checkFcmExists(userId)) {
+//                    NotificationRequest notificationRequests = new NotificationRequest(userScreening.getScreening(), userId, userScreening.getScreening().getTitle());
+//                    sendNotifications(notificationRequests);
+//                }
+//            }
+//        }
+//    }
 
 //    @Scheduled(cron = "0 0/1 * * * *")
 //    private void notifyTestReservation() {
