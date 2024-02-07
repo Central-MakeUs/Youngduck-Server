@@ -74,6 +74,7 @@ public class UserScreeningAdaptor {
                 .fetch();
     }
 
+    //TODO screeningdate 지나면 x
     public List<Screening> findBookmarkedUserScreening(Long userId) {
         return queryFactory
                 .select(screening)
