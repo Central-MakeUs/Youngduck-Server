@@ -13,8 +13,11 @@ import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.file.Path;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -89,6 +92,26 @@ public class RecommendedPopcornAdaptor {
         }
         return arr;
     }
+
+    @Transactional
+    public void deleteLastWeekRecommendations(){// 오늘 날짜를 가져옵니다.
+        // 오늘 날짜를 가져옵니다.
+        LocalDate today = LocalDate.now();
+        // 지난 주의 시작일과 종료일을 계산합니다.
+        LocalDate lastWeekStart = today.minusWeeks(1).with(java.time.temporal.TemporalAdjusters.previous(java.time.DayOfWeek.MONDAY));
+        LocalDate lastWeekEnd = lastWeekStart.plusDays(6); // 지난 주의 시작일에서 6일을 더하여 종료일을 설정합니다.
+
+        // LocalDateTime으로 변환
+        LocalDateTime lastWeekStartDateTime = lastWeekStart.atStartOfDay();
+        LocalDateTime lastWeekEndDateTime = lastWeekEnd.atTime(23, 59, 59);
+
+        // QueryDSL을 사용하여 지난 주에 생성된 것들의 "movieId"를 null로 업데이트합니다.
+        jpaQueryFactory.update(QRecommendedPopcorn.recommendedPopcorn)
+                .where(QRecommendedPopcorn.recommendedPopcorn.createdAt.between(lastWeekStartDateTime, lastWeekEndDateTime))
+                .set(QRecommendedPopcorn.recommendedPopcorn.movieId, "null")
+                .execute();
+    }
+
 
     //TODO 로직 다시
     private void validateNumber(Long randomIndex, List<Long> arr) {
