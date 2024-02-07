@@ -91,7 +91,7 @@ public class ScreeningAdaptor {
                         screening.isPrivate.eq(false)
                 )
                 .groupBy(screening.id)
-                .orderBy(screening.screeningStartDate.desc())
+                .orderBy(screening.screeningStartDate.asc())
                 .limit(3)
                 .fetch();
     }
