@@ -2,7 +2,6 @@ package com.example.domains.screening.entity.dto;
 
 import com.example.domains.screening.enums.Category;
 import com.querydsl.core.annotations.QueryProjection;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

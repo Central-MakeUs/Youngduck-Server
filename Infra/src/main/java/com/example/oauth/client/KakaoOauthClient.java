@@ -3,7 +3,6 @@ package com.example.oauth.client;
 import com.example.oauth.config.KakaoKauthConfig;
 import com.example.oauth.dto.KakaoTokenResponse;
 import com.example.oauth.dto.OIDCPublicKeysResponse;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;

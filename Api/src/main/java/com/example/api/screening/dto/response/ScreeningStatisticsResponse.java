@@ -3,7 +3,6 @@ package com.example.api.screening.dto.response;
 import com.example.domains.screening.entity.Screening;
 import com.example.domains.screening.enums.NegativeCount;
 import com.example.domains.screening.enums.PositiveCount;
-import com.example.domains.screeningReview.entity.enums.Negative;
 import lombok.Builder;
 import lombok.Getter;
 

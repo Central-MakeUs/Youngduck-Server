@@ -3,7 +3,6 @@ package com.example.domains.screeningReview.entity.dto;
 import com.example.domains.user.entity.User;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 

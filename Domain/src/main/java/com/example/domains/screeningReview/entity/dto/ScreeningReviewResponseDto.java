@@ -1,11 +1,8 @@
 package com.example.domains.screeningReview.entity.dto;
 
-import com.example.domains.screeningReview.entity.ScreeningReview;
-import com.example.domains.user.entity.User;
 import com.querydsl.core.annotations.QueryProjection;
-import lombok.*;
+import lombok.Getter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter

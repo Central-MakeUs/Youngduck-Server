@@ -2,7 +2,6 @@ package com.example.domains.user.validator;
 
 import com.example.adaptor.Validator;
 import com.example.domains.user.adaptor.UserAdaptor;
-import com.example.domains.user.enums.OauthInfo;
 import com.example.domains.user.exception.exceptions.AlreadySignUpUserException;
 import com.example.domains.user.exception.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;

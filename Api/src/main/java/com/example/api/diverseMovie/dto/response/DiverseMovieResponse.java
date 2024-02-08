@@ -1,6 +1,5 @@
 package com.example.api.diverseMovie.dto.response;
 
-import com.example.api.screening.dto.response.BookMarkResponse;
 import com.example.domains.diverseMovie.entity.dto.DiverseMovieResponseDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;

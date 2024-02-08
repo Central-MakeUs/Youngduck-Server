@@ -2,16 +2,11 @@ package com.example.api.screening.service;
 
 import com.example.adaptor.UseCase;
 import com.example.api.config.security.SecurityUtil;
-import com.example.domains.screening.entity.Screening;
 import com.example.domains.screeningReview.adaptor.ReviewAdaptor;
-import com.example.domains.screeningReview.entity.ScreeningReview;
-import com.example.domains.screeningReview.entity.dto.ReviewResponseDto;
 import com.example.domains.screeningReview.entity.dto.ScreeningWithReviewDto;
 import com.example.domains.userscreening.adaptor.UserScreeningAdaptor;
-import com.example.domains.userscreening.entity.UserScreening;
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @UseCase

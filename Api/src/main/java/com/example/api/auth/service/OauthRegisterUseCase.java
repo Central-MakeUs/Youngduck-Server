@@ -11,7 +11,6 @@ import com.example.domains.user.enums.OauthInfo;
 import com.example.domains.user.enums.OauthProvider;
 import com.example.domains.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Random;

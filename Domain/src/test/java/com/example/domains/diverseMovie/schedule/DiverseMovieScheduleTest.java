@@ -1,23 +1,5 @@
 package com.example.domains.diverseMovie.schedule;
 
-import com.example.domains.common.config.SchedulingConfig;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.scheduling.annotation.SchedulingConfigurer;
-import org.springframework.scheduling.config.ScheduledTaskRegistrar;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-
-import static org.assertj.core.api.FactoryBasedNavigableListAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-
 //@SpringJUnitConfig(SchedulingConfig.class)
 //@SpringBootTest
 //@AllArgsConstructor

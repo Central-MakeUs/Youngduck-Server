@@ -1,12 +1,9 @@
 package com.example.domains.screeningReview.entity.dto;
 
 import com.example.domains.screeningReview.entity.ScreeningReview;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor

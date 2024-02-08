@@ -8,14 +8,11 @@ import com.example.domains.screening.entity.Screening;
 import com.example.domains.screening.enums.HostInfo;
 import com.example.domains.user.adaptor.UserAdaptor;
 import com.example.domains.user.entity.User;
-import com.example.domains.user.repository.UserRepository;
 import com.example.domains.user.validator.UserValidator;
 import com.example.domains.userscreening.adaptor.UserScreeningAdaptor;
 import com.example.domains.userscreening.entity.UserScreening;
 import com.example.s3.service.S3PresignedUrlService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 

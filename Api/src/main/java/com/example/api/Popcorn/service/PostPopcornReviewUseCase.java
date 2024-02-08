@@ -4,8 +4,6 @@ import com.example.adaptor.UseCase;
 import com.example.api.Popcorn.dto.request.PostPopcornReviewRequest;
 import com.example.api.Popcorn.dto.response.PopcornReviewResponse;
 import com.example.api.config.security.SecurityUtil;
-import com.example.api.screening.dto.request.PostReviewRequest;
-import com.example.api.screening.dto.response.PostReviewResponse;
 import com.example.domains.popcorn.adaptor.PopcornAdaptor;
 import com.example.domains.popcorn.entity.Popcorn;
 import com.example.domains.popcornUser.adaptor.PopcornUserAdaptor;
@@ -13,19 +11,8 @@ import com.example.domains.popcornUser.entity.PopcornUser;
 import com.example.domains.popcornUser.entity.enums.PopcornNegative;
 import com.example.domains.popcornUser.entity.enums.PopcornPositive;
 import com.example.domains.popcornUser.exceptions.NoPopcornReview;
-import com.example.domains.screening.adaptor.ScreeningAdaptor;
-import com.example.domains.screening.entity.Screening;
-import com.example.domains.screening.validator.ScreeningValidator;
-import com.example.domains.screeningReview.adaptor.ReviewAdaptor;
-import com.example.domains.screeningReview.entity.ScreeningReview;
-import com.example.domains.screeningReview.entity.enums.Negative;
-import com.example.domains.screeningReview.entity.enums.Positive;
-import com.example.domains.screeningReview.validator.ReviewValidator;
 import com.example.domains.user.adaptor.UserAdaptor;
 import com.example.domains.user.entity.User;
-import com.example.domains.user.validator.UserValidator;
-import com.example.domains.userscreening.adaptor.UserScreeningAdaptor;
-import com.example.domains.userscreening.entity.UserScreening;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class PostPopcornReviewUseCase {
 
     private final UserAdaptor userAdaptor;
-    private final ScreeningAdaptor screeningAdaptor;
     private final PopcornUserAdaptor popcornUserAdaptor;
     private final PopcornAdaptor popcornAdaptor;
 
@@ -76,8 +62,6 @@ public class PostPopcornReviewUseCase {
         incrementNegative(request.getPopcornNegative(),popcorn);
         incrementPositive(request.getPopcornPositive(),popcorn);
 
-
-
         //save
         popcornUserAdaptor.save(newPopcornUser);
         //screeningAdaptor.save(screening);
@@ -95,8 +79,7 @@ public class PostPopcornReviewUseCase {
             popcornUserAdaptor.incrementPopcornRate(popcorn,0);
         }
     }
-
-
+    //TODO 더 좋은 방법이 없을까?
     @Transactional
     public void incrementPositive(PopcornPositive positive, Popcorn popcorn) {
         if (positive != null) {
@@ -200,7 +183,6 @@ public class PostPopcornReviewUseCase {
             if ( negative.isBadCasting()) {
                 popcornAdaptor.incrementNegativeBadCasting(popcorn);
             }
-            // Add similar checks for other negative attributes
         }
 
     }

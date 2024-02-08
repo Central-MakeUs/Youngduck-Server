@@ -1,12 +1,9 @@
 package com.example.api.Popcorn.dto.response;
 
 import com.example.domains.popcornUser.entity.PopcornUser;
-import com.example.domains.popcornUser.entity.enums.PopcornNegative;
-import com.example.domains.popcornUser.entity.enums.PopcornPositive;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 
@@ -30,10 +27,8 @@ public class PopcornReviewResponse {
     private boolean afterScreening;
     @Schema(defaultValue = "너무 좋았습니다", description = "텍스트 리뷰")
     private String review;
-
     @Schema(defaultValue = "true", description = "정책 약관")
     private boolean hasAgreed;
-
     @Schema(defaultValue = "2024-01-31", description = "리뷰 등록 일자")
     private LocalDateTime createdAt;
 
@@ -51,7 +46,6 @@ public class PopcornReviewResponse {
         this.hasAgreed =hasAgreed;
         this.createdAt = createdAt;
     }
-
     public static PopcornReviewResponse from(PopcornUser popcornUser) {
         return PopcornReviewResponse.builder()
                 .popcornUserId(popcornUser.getId())

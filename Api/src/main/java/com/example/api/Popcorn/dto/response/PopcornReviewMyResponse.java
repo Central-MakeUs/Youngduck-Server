@@ -26,15 +26,12 @@ public class PopcornReviewMyResponse {
     private boolean afterScreening;
     @Schema(defaultValue = "너무 좋았습니다", description = "텍스트 리뷰")
     private String review;
-
     @Schema(defaultValue = "true", description = "정책 약관")
     private boolean hasAgreed;
-
     @Schema(description = "Positive attributes")
     private PopcornPositive popcornPositive;
     @Schema(description = "Negative attributes")
     private PopcornNegative popcornNegative;
-
 
     @Builder
     public PopcornReviewMyResponse(Long userId,String nickName,int profileImgNum,Popcorn popcorn,boolean hasWatched, boolean beforeScreening, boolean afterScreening, String review, boolean hasAgreed, PopcornPositive popcornPositive, PopcornNegative popcornNegative) {

@@ -8,19 +8,13 @@ import com.example.domains.popcornUser.entity.PopcornUser;
 import com.example.domains.popcornUser.entity.QPopcornUser;
 import com.example.domains.popcornUser.exceptions.DuplicatePopcorn;
 import com.example.domains.popcornUser.repository.PopcornUserRepository;
-import com.example.domains.screeningReview.entity.QScreeningReview;
-import com.example.domains.screeningReview.entity.ScreeningReview;
 import com.example.domains.user.entity.User;
-import com.google.api.client.util.SecurityUtils;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.security.SecurityUtil;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static com.example.domains.popcorn.entity.QPopcorn.popcorn;
 
 @Adaptor
 @RequiredArgsConstructor

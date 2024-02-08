@@ -2,28 +2,19 @@ package com.example.domains.screeningReview.adaptor;
 
 import com.example.adaptor.Adaptor;
 import com.example.domains.block.adaptor.BlockAdaptor;
-import com.example.domains.screening.entity.QScreening;
 import com.example.domains.screeningReview.entity.QScreeningReview;
 import com.example.domains.screeningReview.entity.ScreeningReview;
 import com.example.domains.screeningReview.entity.dto.QScreeningWithReviewDto;
-import com.example.domains.screeningReview.entity.dto.ReviewResponseDto;
 import com.example.domains.screeningReview.entity.dto.ScreeningWithReviewDto;
 import com.example.domains.screeningReview.repository.ScreeningReviewRepository;
-import com.example.domains.user.entity.QUser;
 import com.example.domains.user.entity.User;
-import com.example.domains.user.enums.UserState;
 import com.example.domains.userscreening.entity.QUserScreening;
-import com.example.domains.userscreening.entity.UserScreening;
 import com.example.fcm.adaptor.FcmTokenAdaptor;
-import com.google.api.client.util.SecurityUtils;
-import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.security.SecurityUtil;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 
 @Adaptor

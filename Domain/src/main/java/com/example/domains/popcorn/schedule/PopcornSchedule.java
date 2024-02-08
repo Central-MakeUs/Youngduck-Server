@@ -1,12 +1,9 @@
 package com.example.domains.popcorn.schedule;
 
 import com.example.domains.popcorn.service.PopcornService;
-import com.example.domains.recommendedPopcorn.entity.RecommendedPopcorn;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

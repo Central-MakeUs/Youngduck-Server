@@ -1,22 +1,11 @@
 package com.example.api.user.model.dto;
 
-import com.example.adaptor.ValidEnum;
-import com.example.domains.common.StringListConverter;
 import com.example.domains.user.entity.User;
-import com.example.domains.user.enums.Genre;
 import com.example.domains.user.enums.OauthProvider;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Getter
 @RequiredArgsConstructor

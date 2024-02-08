@@ -1,9 +1,7 @@
 package com.example.api.screening.dto.response;
 
-
 import com.example.domains.screening.entity.Screening;
 import com.example.domains.screening.enums.Category;
-import com.example.domains.screeningReview.entity.ScreeningReview;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
@@ -56,7 +54,6 @@ public class ScreeningResponse {
     @Schema(defaultValue = "false", description = "정책 동의 여부")
     private boolean isPrivate;
 
-
     @Builder
     public ScreeningResponse(Long screeningId,
             String screeningTitle, String posterImgUrl, String hostName, String hostEmail, String hostPhoneNumber , String location, String formUrl,
@@ -99,5 +96,4 @@ public class ScreeningResponse {
                 .isPrivate(screening.isPrivate())
                 .build();
     }
-
 }

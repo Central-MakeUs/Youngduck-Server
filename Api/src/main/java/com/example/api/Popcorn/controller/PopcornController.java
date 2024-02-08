@@ -3,10 +3,6 @@ package com.example.api.Popcorn.controller;
 import com.example.api.Popcorn.dto.request.PostPopcornReviewRequest;
 import com.example.api.Popcorn.dto.response.*;
 import com.example.api.Popcorn.service.*;
-import com.example.api.screening.dto.request.PostReviewRequest;
-import com.example.api.screening.dto.response.ScreeningReviewUserResponse;
-import com.example.domains.popcorn.entity.Popcorn;
-import com.example.domains.popcorn.entity.dto.PopcornKeywordResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
+
 
 @RestController
 @RequestMapping("/popcorn")
@@ -77,7 +73,6 @@ public class PopcornController {
         postPopcornReviewComplainUseCase.execute(popcornUserId);
     }
 
-
     //TODO 내가 쓴 팝콘작 리뷰
     @Operation(summary = "팝콘작들에 대한 나의 리뷰 반환", description = "popcornId 가져와서 요청하기")
     @GetMapping("/my/reviews")
@@ -85,13 +80,10 @@ public class PopcornController {
         return getPopcornReviewUseCase.getMyReviews();
     }
 
-
     //TODO 8: 팝콘 키워드 Top3 GET
     @Operation(summary = "팝콘 키워드 Top3 반환", description = "popcornId 가져와서 요청하기")
     @GetMapping("/top-keywords/{popcornId}")
     public PopcornKeywordResponse reviewMyResponseList(@PathVariable("popcornId") Long popcornId){
         return getTopRatedPopcornKeyword.execute(popcornId);
     }
-
-
 }

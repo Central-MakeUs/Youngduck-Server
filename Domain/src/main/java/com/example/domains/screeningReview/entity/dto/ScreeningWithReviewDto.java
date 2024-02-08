@@ -1,6 +1,5 @@
 package com.example.domains.screeningReview.entity.dto;
 
-import com.example.domains.screening.entity.Screening;
 import com.example.domains.screeningReview.entity.ScreeningReview;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;

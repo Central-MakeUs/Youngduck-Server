@@ -6,7 +6,7 @@ import com.example.error.BaseRunTimeException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import static com.example.consts.PopCornMateConsts.*;
+import static com.example.consts.PopCornMateConsts.BAD_REQUEST;
 
 @Getter
 @AllArgsConstructor

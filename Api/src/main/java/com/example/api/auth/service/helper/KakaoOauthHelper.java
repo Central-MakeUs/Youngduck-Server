@@ -13,9 +13,7 @@ import com.example.oauth.dto.KakaoUnlinkTarget;
 import com.example.oauth.dto.OIDCPublicKeysResponse;
 import com.example.properties.KakaoOAuthProperties;
 import lombok.RequiredArgsConstructor;
-
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 
 import static com.example.consts.PopCornMateConsts.BEARER;
 

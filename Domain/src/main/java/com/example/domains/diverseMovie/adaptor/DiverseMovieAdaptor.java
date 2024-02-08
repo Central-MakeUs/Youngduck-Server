@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.example.domains.diverseMovie.entity.QDiverseMovie.diverseMovie;
 

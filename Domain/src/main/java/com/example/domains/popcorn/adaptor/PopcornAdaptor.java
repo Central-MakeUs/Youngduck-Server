@@ -4,30 +4,20 @@ import com.example.adaptor.Adaptor;
 import com.example.domains.popcorn.entity.Popcorn;
 import com.example.domains.popcorn.entity.QPopcorn;
 import com.example.domains.popcorn.entity.dto.PopcornKeywordResponseDto;
-import com.example.domains.popcorn.entity.dto.PopcornResponseDto;
 import com.example.domains.popcorn.entity.dto.QPopcornKeywordResponseDto;
 import com.example.domains.popcorn.repository.PopcornRepository;
 import com.example.domains.recommendedPopcorn.entity.QRecommendedPopcorn;
 import com.example.domains.recommendedPopcorn.entity.RecommendedPopcorn;
-import com.example.domains.screening.entity.QScreening;
-import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalField;
-import java.time.temporal.WeekFields;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-import static com.example.domains.diverseMovie.entity.QDiverseMovie.diverseMovie;
 import static com.example.domains.popcorn.entity.QPopcorn.popcorn;
 
 @Adaptor

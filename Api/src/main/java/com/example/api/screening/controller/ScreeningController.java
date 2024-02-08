@@ -12,12 +12,7 @@ import com.example.domains.screening.adaptor.ScreeningAdaptor;
 import com.example.domains.screening.entity.Screening;
 import com.example.domains.screening.entity.dto.ScreeningResponseDto;
 import com.example.domains.screening.enums.Category;
-import com.example.domains.screening.service.ScreeningService;
 import com.example.domains.screeningReview.adaptor.ReviewAdaptor;
-import com.example.domains.screeningReview.entity.ScreeningReview;
-import com.example.domains.screeningReview.entity.dto.ReviewResponseDto;
-import com.example.domains.screeningReview.entity.dto.ScreeningReviewResponseDto;
-import com.example.domains.screeningReview.entity.dto.ScreeningReviewUserResponseDto;
 import com.example.domains.screeningReview.entity.dto.ScreeningWithReviewDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -25,17 +20,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/screening")
@@ -59,7 +50,6 @@ public class ScreeningController {
     private final GetBookMarkedScreeningsUseCase getBookMarkedScreeningUseCase;
     private final GetPastScreeningListUseCase getPastScreeningListUseCase;
     private final GetScreeningStatisticsUseCase getScreeningStatisticsUseCase;
-
 
 //    @Operation(description = "모임 대표 이미지")
 //    @PostMapping(value = "/image", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, APPLICATION_JSON_VALUE})

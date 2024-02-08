@@ -1,13 +1,10 @@
 package com.example.domains.common;
 
 import com.example.domains.screening.adaptor.ScreeningAdaptor;
-import com.example.domains.screening.entity.Screening;
-import com.example.domains.user.entity.User;
 import com.example.domains.user.repository.UserRepository;
 import com.example.domains.userscreening.adaptor.UserScreeningAdaptor;
 import com.example.domains.userscreening.entity.UserScreening;
 import com.example.fcm.adaptor.FcmTokenAdaptor;
-import com.example.fcm.entity.FCMToken;
 import com.example.fcm.repository.FcmRepository;
 import com.example.fcm.request.NotificationRequest;
 import com.example.fcm.service.FcmService;

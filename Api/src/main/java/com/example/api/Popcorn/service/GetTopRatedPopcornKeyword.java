@@ -5,10 +5,12 @@ import com.example.api.Popcorn.dto.response.PopcornKeywordResponse;
 import com.example.domains.popcorn.adaptor.PopcornAdaptor;
 import com.example.domains.popcorn.entity.dto.PopcornKeywordResponseDto;
 import com.example.domains.popcornUser.adaptor.PopcornUserAdaptor;
-import com.example.domains.popcornUser.entity.PopcornUser;
 import lombok.RequiredArgsConstructor;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @UseCase
@@ -35,6 +37,7 @@ public class GetTopRatedPopcornKeyword {
         return PopcornKeywordResponse.from(sortedList,participationCount,participatedUserCount);
     }
 
+    //TODO 더 좋은 방법 없을까?
     private Map<String, Integer> addingToList(PopcornKeywordResponseDto keywordList) {
         Map<String, Integer> valueMap = new HashMap<>();
         valueMap.put("cineMaster", keywordList.getCineMaster());

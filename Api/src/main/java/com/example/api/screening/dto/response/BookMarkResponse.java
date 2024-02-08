@@ -1,8 +1,5 @@
 package com.example.api.screening.dto.response;
 
-
-import com.example.api.user.model.dto.GetUserInfoResponse;
-import com.example.domains.user.entity.User;
 import com.example.domains.userscreening.entity.UserScreening;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;

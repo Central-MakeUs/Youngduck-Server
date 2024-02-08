@@ -5,7 +5,6 @@ import com.example.api.config.security.SecurityUtil;
 import com.example.api.screening.dto.response.ScreeningResponse;
 import com.example.domains.screening.entity.Screening;
 import com.example.domains.userscreening.adaptor.UserScreeningAdaptor;
-import com.example.domains.userscreening.entity.UserScreening;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
