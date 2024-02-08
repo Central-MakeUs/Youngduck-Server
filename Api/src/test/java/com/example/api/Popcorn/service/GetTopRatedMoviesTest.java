@@ -12,7 +12,6 @@ public class GetTopRatedMoviesTest {
 //        when(mockHttpClient.newCall(ArgumentMatchers.any(Request.class))).thenReturn(mockCall);
 //        when(mockCall.execute()).thenReturn(mockResponse);
 //        when(mockResponse.isSuccessful()).thenReturn(true);
-//        System.out.println(mockResponse.body());
 //
 //        //GetTopRatedMovies getTopRatedMovies = new GetTopRatedMovies();
 //

@@ -44,15 +44,11 @@ public class GetRateCountUseCase {
     private Long getScreeningRate(Screening screening) {
         List<UserScreening> userScreenings = userScreeningAdaptor.findByScreeningId(screening.getId());
         int count = screening.getScreeningRate();
-        System.out.println(count);
-
         int total = getTotal(userScreenings);
-        //int total = userScreenings.size() - 1;
-        System.out.println(total);
+
         if(total==0){
             return (long) 0.0;
         } {
-            System.out.println((long) ((count / (double) total) * 100));
             return (long) ((count / (double) total) * 100);
         }
     }
@@ -71,7 +67,6 @@ public class GetRateCountUseCase {
                 }
             }
         }
-        System.out.println(reviews1.size());
         return reviews1.size();
     }
 }

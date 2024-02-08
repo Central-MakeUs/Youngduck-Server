@@ -74,9 +74,7 @@ public class ReviewAdaptor {
         ScreeningReview screeningReview = findById(reviewId);
 
         blockAdaptor.save(userId,screeningReview.getUserScreening().getUser().getId(),reviewId,null);
-        System.out.println("testing");
         int complainCount = screeningReview.getComplaintCount();
-        System.out.println(complainCount);
         if (complainCount == 4) {
             incrementComplaintCount(screeningReview);
             // Get user from the screeningReview
@@ -89,7 +87,6 @@ public class ReviewAdaptor {
             // Delete the screeningReview
             changeBlindStatus(screeningReview);  // Assuming there is a method to delete screeningReview
         } else {
-            System.out.println("test");
             incrementComplaintCount(screeningReview);
         }
     }

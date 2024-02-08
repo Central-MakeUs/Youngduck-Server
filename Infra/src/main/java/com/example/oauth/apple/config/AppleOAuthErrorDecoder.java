@@ -25,8 +25,6 @@ public class AppleOAuthErrorDecoder implements ErrorDecoder {
                 jsonNode.get("error_description") == null
                         ? null
                         : jsonNode.get("error_description").asText();
-
-        System.out.println(jsonNode);
         throw new BaseRunTimeException(response.status(), error, errorDescription);
     }
 }

@@ -70,7 +70,6 @@ public class RecommendedPopcornAdaptor {
             return thisWeekList;
         }
         Set<Long> numberArray = generate(thisWeekList);
-        System.out.println(numberArray.size());
         for (Long number : numberArray) {
             Optional<RecommendedPopcorn> foundItem = recommendedPopcornRepository.findById(number);
 

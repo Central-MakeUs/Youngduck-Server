@@ -45,7 +45,6 @@ public class KakaoOauthHelper {
 
     /** token * */
     public KakaoTokenResponse getKakaoOauthToken(String code, String referer) {
-        System.out.println(referer);
         return kakaoOauthClient.kakaoAuth(
                 kakaoOauthProperties.getClientId(),
                 "http://localhost:3000/kakao/callback",
@@ -63,9 +62,7 @@ public class KakaoOauthHelper {
 
     /** idtoken 분석 * */
     public OauthInfo getKakaoOauthInfoByIdToken(String idToken) {
-        System.out.println(idToken);
         OIDCDecodePayload oidcDecodePayload = getOIDCDecodePayload(idToken);
-        System.out.println(oidcDecodePayload.getSub());
         return OauthInfo.of(OauthProvider.KAKAO, oidcDecodePayload.getSub(),oidcDecodePayload.getEmail());
     }
 
@@ -77,7 +74,6 @@ public class KakaoOauthHelper {
     /** oidc decode * */
     public OIDCDecodePayload getOIDCDecodePayload(String token) {
         OIDCPublicKeysResponse oidcPublicKeysResponse = kakaoOauthClient.getKakaoOIDCOpenKeys();
-        System.out.println(oidcPublicKeysResponse);
         return oauthOIDCHelper.getPayloadFromIdToken(
                 token,
                 kakaoOauthProperties.getBaseUrl(),

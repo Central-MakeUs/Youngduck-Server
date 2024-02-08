@@ -23,7 +23,6 @@ public class BookMarkResponse {
         this.canCancel = canCancel;
     }
     public static BookMarkResponse from(UserScreening userScreening) {
-        System.out.println(userScreening.isBookmarked());
         //새로 만들어졌을 경우를 위해 조건 수정해야함
         if (!userScreening.isBookmarked()){
             return BookMarkResponse.builder()

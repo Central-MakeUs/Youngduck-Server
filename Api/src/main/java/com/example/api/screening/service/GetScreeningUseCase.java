@@ -37,9 +37,6 @@ public class GetScreeningUseCase {
             isBookMarked = userScreening.isBookmarked();
         };
 
-        System.out.println(isBookMarked);
-
-
         return ScreeningInfoResponse.from(screening,isBookMarked,isReviewed);
     }
 

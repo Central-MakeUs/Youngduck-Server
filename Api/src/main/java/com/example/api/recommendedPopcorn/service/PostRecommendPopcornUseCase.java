@@ -34,7 +34,6 @@ public class PostRecommendPopcornUseCase {
 
         validateMovieId(request.getMovieId());
 
-        System.out.println(tmdb);
         JsonParser parser = new JsonParser();
         JsonElement jsonObject = parser.parse(request.getMovieId());
         String movieTypeWithoutQuotes = request.getMovieType().replaceAll("\"", "");
@@ -61,7 +60,6 @@ public class PostRecommendPopcornUseCase {
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            System.out.println(response.message());
             if (!response.isSuccessful()) {
                 throw new IOException("Unexpected code " + response);
             }
@@ -80,12 +78,6 @@ public class PostRecommendPopcornUseCase {
             String directorNm = movieData.path("directors").path("director").path(0).path("directorNm").asText();
             String plotText = movieData.path("plots").path("plot").path(0).path("plotText").asText();
             String firstPosterUrl = movieData.path("posters").asText().split("\\|")[0];
-
-            // Displaying the extracted information
-            System.out.println("Title: " + title);
-            System.out.println("Director: " + directorNm);
-            System.out.println("Plot: " + plotText);
-            System.out.println("First Poster URL: " + firstPosterUrl);
 
             postRecommendation(movieId.toString(),title,plotText,firstPosterUrl,directorNm,popcornRequest);
         }

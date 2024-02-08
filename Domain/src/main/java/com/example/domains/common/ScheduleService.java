@@ -83,8 +83,6 @@ public class ScheduleService {
         LocalDateTime now = LocalDateTime.now().withSecond(0).withNano(0);
         LocalDateTime reservationTime = now.plusDays(1);
 
-        System.out.println("test");
-
         //userScreening에서 isBookMarked인 것들 중에서 user id, screening id가져와서 List<User> List<Screening>
         //screening에서 startDate가져와서 startDate가 내일이면 알람을 보낼 수 있게 짜봐 fcm이랑 스프링 쓰고 있어
 
@@ -177,12 +175,9 @@ public class ScheduleService {
 //    }
 
     private boolean checkFcmExists(Long userId) {
-        System.out.println(userId);
         if (fcmRepository.findByUserId(userId).isPresent()){
-            System.out.println("test23 ");
             return true;
         } else {
-            System.out.println("false");
             return false;
         }
     }
@@ -190,7 +185,6 @@ public class ScheduleService {
 
     private void sendNotifications(NotificationRequest requests) {
         // FCM을 사용하여 알림을 보내는 로직
-        System.out.println("test2");
         fcmService.sendMessageByToken(requests);
     }
 
