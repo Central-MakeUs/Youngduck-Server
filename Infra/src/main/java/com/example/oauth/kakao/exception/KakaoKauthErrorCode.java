@@ -1,4 +1,4 @@
-package com.example.oauth.exception;
+package com.example.oauth.kakao.exception;
 
 import com.example.dto.ErrorReason;
 import com.example.error.BaseErrorCode;

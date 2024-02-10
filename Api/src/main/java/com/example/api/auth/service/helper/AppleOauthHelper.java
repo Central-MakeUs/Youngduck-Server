@@ -9,7 +9,7 @@ import com.example.oauth.apple.AppleTokenResponse;
 import com.example.oauth.apple.client.AppleOAuthClient;
 import com.example.oauth.apple.client.AppleOIDCClient;
 import com.example.oauth.apple.helper.AppleLoginUtil;
-import com.example.oauth.dto.OIDCPublicKeysResponse;
+import com.example.oauth.kakao.dto.OIDCPublicKeysResponse;
 import com.example.properties.AppleOAuthProperties;
 import lombok.RequiredArgsConstructor;
 

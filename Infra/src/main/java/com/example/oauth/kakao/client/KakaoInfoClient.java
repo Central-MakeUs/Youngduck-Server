@@ -1,8 +1,8 @@
-package com.example.oauth.client;
+package com.example.oauth.kakao.client;
 
-import com.example.oauth.config.KakaoInfoConfig;
-import com.example.oauth.dto.KakaoInfoResponseDto;
-import com.example.oauth.dto.KakaoUnlinkTarget;
+import com.example.oauth.kakao.config.KakaoInfoConfig;
+import com.example.oauth.kakao.dto.KakaoInfoResponseDto;
+import com.example.oauth.kakao.dto.KakaoUnlinkTarget;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;

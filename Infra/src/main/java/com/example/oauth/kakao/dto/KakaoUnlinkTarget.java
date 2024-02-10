@@ -1,4 +1,4 @@
-package com.example.oauth.dto;
+package com.example.oauth.kakao.dto;
 
 import lombok.Getter;
 

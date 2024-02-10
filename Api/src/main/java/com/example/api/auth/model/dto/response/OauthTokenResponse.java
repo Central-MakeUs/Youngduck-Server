@@ -1,7 +1,7 @@
 package com.example.api.auth.model.dto.response;
 
 import com.example.oauth.apple.AppleTokenResponse;
-import com.example.oauth.dto.KakaoTokenResponse;
+import com.example.oauth.kakao.dto.KakaoTokenResponse;
 import lombok.Builder;
 import lombok.Getter;
 

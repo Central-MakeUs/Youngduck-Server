@@ -25,6 +25,9 @@ import static com.example.domains.popcorn.entity.QPopcorn.popcorn;
 public class PopcornAdaptor {
     private final PopcornRepository popcornRepository;
     private final JPAQueryFactory jpaQueryFactory;
+    private static LocalDate today = LocalDate.now();
+    private static LocalDate startOfLastWeek = today.minusDays(today.getDayOfWeek().getValue() + 6); // 지난 주의 월요일
+    private static LocalDate endOfLastWeek = startOfLastWeek.plusDays(6); // 지난 주의 일요일
 
     @Transactional
     public void save(Popcorn popcorn){
@@ -40,17 +43,13 @@ public class PopcornAdaptor {
         }
     }
 
-    public Popcorn convertToPopcorn(RecommendedPopcorn rp){
-        final Popcorn popcorn = Popcorn.of(rp.getMovieId(),rp.getMovieTitle(),rp.getImageUrl(),rp.getMovieDetail(),rp.getMovieDirector(),rp.getRecommendationReason(),rp.getRecommendationCount());
+    public Popcorn convertToPopcorn(RecommendedPopcorn recommendedPopcorn){
+        final Popcorn popcorn = Popcorn.of(recommendedPopcorn.getMovieId(),recommendedPopcorn.getMovieTitle(),recommendedPopcorn.getImageUrl(),recommendedPopcorn.getMovieDetail(),recommendedPopcorn.getMovieDirector(),recommendedPopcorn.getRecommendationReason(),recommendedPopcorn.getRecommendationCount());
         return popcorn;
     }
 
     public List<RecommendedPopcorn> findTopThree() {
         QRecommendedPopcorn recommendedPopcorn = QRecommendedPopcorn.recommendedPopcorn;
-
-        LocalDate today = LocalDate.now();
-        LocalDate startOfLastWeek = today.minusDays(today.getDayOfWeek().getValue() + 6); // 지난 주의 월요일
-        LocalDate endOfLastWeek = startOfLastWeek.plusDays(6); // 지난 주의 일요일
 
         return jpaQueryFactory
                 .selectFrom(recommendedPopcorn)
@@ -84,10 +83,6 @@ public class PopcornAdaptor {
 
     public List<Popcorn> findLastWeekPopcorns() {
         QPopcorn popcorn = QPopcorn.popcorn;
-
-        LocalDate today = LocalDate.now();
-        LocalDate startOfLastWeek = today.minusDays(today.getDayOfWeek().getValue() + 6); // 지난 주의 월요일
-        LocalDate endOfLastWeek = startOfLastWeek.plusDays(6); // 지난 주의 일요일
 
         return jpaQueryFactory
                 .selectFrom(popcorn)
@@ -451,10 +446,6 @@ public PopcornKeywordResponseDto getTopRatedCounts(Long popcornId) {
 
     return resultList;
 
-
-//                .where(popcorn.id.eq(popcornId))
-//            .orderBy(popcorn.popcornPostiveCount.desc())
-//            .limit(3)
 }
 
     public List<Popcorn> findPastHoursPopcorns() {

@@ -1,4 +1,4 @@
-package com.example.oauth.config;
+package com.example.oauth.kakao.config;
 
 import com.example.error.exception.ServerBadRequestException;
 import com.example.error.exception.ServerExpiredTokenException;
