@@ -4,30 +4,21 @@ import com.example.adaptor.Adaptor;
 import com.example.domains.popcorn.entity.Popcorn;
 import com.example.domains.popcorn.entity.QPopcorn;
 import com.example.domains.popcorn.entity.dto.PopcornKeywordResponseDto;
-import com.example.domains.popcorn.entity.dto.PopcornResponseDto;
 import com.example.domains.popcorn.entity.dto.QPopcornKeywordResponseDto;
 import com.example.domains.popcorn.repository.PopcornRepository;
 import com.example.domains.recommendedPopcorn.entity.QRecommendedPopcorn;
 import com.example.domains.recommendedPopcorn.entity.RecommendedPopcorn;
-import com.example.domains.screening.entity.QScreening;
-import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Field;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalField;
-import java.time.temporal.WeekFields;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-import static com.example.domains.diverseMovie.entity.QDiverseMovie.diverseMovie;
 import static com.example.domains.popcorn.entity.QPopcorn.popcorn;
 
 @Adaptor
@@ -35,6 +26,11 @@ import static com.example.domains.popcorn.entity.QPopcorn.popcorn;
 public class PopcornAdaptor {
     private final PopcornRepository popcornRepository;
     private final JPAQueryFactory jpaQueryFactory;
+    private static LocalDate today = LocalDate.now();
+    private static LocalDate startOfLastWeek = today.minusDays(today.getDayOfWeek().getValue() + 6); // 지난 주의 월요일
+    private static LocalDate endOfLastWeek = startOfLastWeek.plusDays(6); // 지난 주의 일요일
+    private static LocalDate startOfThisWeek = today.with(DayOfWeek.MONDAY);
+    private static LocalDate endOfThisWeek = today.with(DayOfWeek.SATURDAY);
 
     @Transactional
     public void save(Popcorn popcorn){
@@ -50,21 +46,17 @@ public class PopcornAdaptor {
         }
     }
 
-    public Popcorn convertToPopcorn(RecommendedPopcorn rp){
-        final Popcorn popcorn = Popcorn.of(rp.getMovieId(),rp.getMovieTitle(),rp.getImageUrl(),rp.getMovieDetail(),rp.getMovieDirector(),rp.getRecommendationReason(),rp.getRecommendationCount());
+    public Popcorn convertToPopcorn(RecommendedPopcorn recommendedPopcorn){
+        final Popcorn popcorn = Popcorn.of(recommendedPopcorn.getMovieId(),recommendedPopcorn.getMovieTitle(),recommendedPopcorn.getImageUrl(),recommendedPopcorn.getMovieDetail(),recommendedPopcorn.getMovieDirector(),recommendedPopcorn.getRecommendationReason(),recommendedPopcorn.getRecommendationCount());
         return popcorn;
     }
 
     public List<RecommendedPopcorn> findTopThree() {
         QRecommendedPopcorn recommendedPopcorn = QRecommendedPopcorn.recommendedPopcorn;
 
-        LocalDate today = LocalDate.now();
-        LocalDate startOfLastWeek = today.minusDays(today.getDayOfWeek().getValue() + 6); // 지난 주의 월요일
-        LocalDate endOfLastWeek = startOfLastWeek.plusDays(6); // 지난 주의 일요일
-
         return jpaQueryFactory
                 .selectFrom(recommendedPopcorn)
-                .where(recommendedPopcorn.createdAt.between(startOfLastWeek.atStartOfDay(), endOfLastWeek.atTime(23, 59, 59)))
+                .where(recommendedPopcorn.createdAt.between(startOfThisWeek.atStartOfDay(), endOfThisWeek.atTime(23, 59, 59)))
                 .orderBy(
                         recommendedPopcorn.recommendationCount.desc(),
                         recommendedPopcorn.createdAt.desc()
@@ -94,10 +86,6 @@ public class PopcornAdaptor {
 
     public List<Popcorn> findLastWeekPopcorns() {
         QPopcorn popcorn = QPopcorn.popcorn;
-
-        LocalDate today = LocalDate.now();
-        LocalDate startOfLastWeek = today.minusDays(today.getDayOfWeek().getValue() + 6); // 지난 주의 월요일
-        LocalDate endOfLastWeek = startOfLastWeek.plusDays(6); // 지난 주의 일요일
 
         return jpaQueryFactory
                 .selectFrom(popcorn)
@@ -461,10 +449,6 @@ public PopcornKeywordResponseDto getTopRatedCounts(Long popcornId) {
 
     return resultList;
 
-
-//                .where(popcorn.id.eq(popcornId))
-//            .orderBy(popcorn.popcornPostiveCount.desc())
-//            .limit(3)
 }
 
     public List<Popcorn> findPastHoursPopcorns() {

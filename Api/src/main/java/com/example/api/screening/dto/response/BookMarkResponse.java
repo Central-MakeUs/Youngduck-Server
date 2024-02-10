@@ -1,8 +1,5 @@
 package com.example.api.screening.dto.response;
 
-
-import com.example.api.user.model.dto.GetUserInfoResponse;
-import com.example.domains.user.entity.User;
 import com.example.domains.userscreening.entity.UserScreening;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
@@ -26,7 +23,6 @@ public class BookMarkResponse {
         this.canCancel = canCancel;
     }
     public static BookMarkResponse from(UserScreening userScreening) {
-        System.out.println(userScreening.isBookmarked());
         //새로 만들어졌을 경우를 위해 조건 수정해야함
         if (!userScreening.isBookmarked()){
             return BookMarkResponse.builder()

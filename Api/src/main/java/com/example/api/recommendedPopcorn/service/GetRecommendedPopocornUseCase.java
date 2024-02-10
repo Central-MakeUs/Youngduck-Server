@@ -1,7 +1,6 @@
 package com.example.api.recommendedPopcorn.service;
 
 import com.example.adaptor.UseCase;
-import com.example.api.recommendedPopcorn.dto.response.RecommendedPopcornResponse;
 import com.example.domains.recommendedPopcorn.adaptor.RecommendedPopcornAdaptor;
 import com.example.domains.recommendedPopcorn.entity.RecommendedPopcorn;
 import lombok.RequiredArgsConstructor;

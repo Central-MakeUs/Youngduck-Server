@@ -1,20 +1,4 @@
 package com.example.api.Popcorn.service;
-import com.example.api.diverseMovie.service.GetTopRatedMovies;
-import okhttp3.Call;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
-
-import java.io.IOException;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
-
 
 public class GetTopRatedMoviesTest {
 
@@ -28,7 +12,6 @@ public class GetTopRatedMoviesTest {
 //        when(mockHttpClient.newCall(ArgumentMatchers.any(Request.class))).thenReturn(mockCall);
 //        when(mockCall.execute()).thenReturn(mockResponse);
 //        when(mockResponse.isSuccessful()).thenReturn(true);
-//        System.out.println(mockResponse.body());
 //
 //        //GetTopRatedMovies getTopRatedMovies = new GetTopRatedMovies();
 //

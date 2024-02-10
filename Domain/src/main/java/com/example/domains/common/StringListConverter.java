@@ -33,7 +33,6 @@ public class StringListConverter implements AttributeConverter<List<String>, Str
         try {
             return mapper.readValue(dbData, typeReference);
         } catch (IOException e) {
-            System.out.println(e.getMessage());
             throw InternalServerError.EXCEPTION;
         }
     }

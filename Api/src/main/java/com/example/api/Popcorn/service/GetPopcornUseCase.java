@@ -5,7 +5,6 @@ import com.example.api.Popcorn.dto.response.PopcornResponse;
 import com.example.domains.popcorn.adaptor.PopcornAdaptor;
 import com.example.domains.popcorn.entity.Popcorn;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.parameters.P;
 
 import java.util.ArrayList;
 import java.util.List;

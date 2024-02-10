@@ -5,17 +5,15 @@ import com.example.api.auth.model.dto.OauthUserInfoDto;
 import com.example.domains.user.enums.OauthInfo;
 import com.example.domains.user.enums.OauthProvider;
 import com.example.dto.OIDCDecodePayload;
-import com.example.oauth.client.KakaoInfoClient;
-import com.example.oauth.client.KakaoOauthClient;
-import com.example.oauth.dto.KakaoInfoResponseDto;
-import com.example.oauth.dto.KakaoTokenResponse;
-import com.example.oauth.dto.KakaoUnlinkTarget;
-import com.example.oauth.dto.OIDCPublicKeysResponse;
+import com.example.oauth.kakao.client.KakaoInfoClient;
+import com.example.oauth.kakao.client.KakaoOauthClient;
+import com.example.oauth.kakao.dto.KakaoInfoResponseDto;
+import com.example.oauth.kakao.dto.KakaoTokenResponse;
+import com.example.oauth.kakao.dto.KakaoUnlinkTarget;
+import com.example.oauth.kakao.dto.OIDCPublicKeysResponse;
 import com.example.properties.KakaoOAuthProperties;
 import lombok.RequiredArgsConstructor;
-
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 
 import static com.example.consts.PopCornMateConsts.BEARER;
 
@@ -47,7 +45,6 @@ public class KakaoOauthHelper {
 
     /** token * */
     public KakaoTokenResponse getKakaoOauthToken(String code, String referer) {
-        System.out.println(referer);
         return kakaoOauthClient.kakaoAuth(
                 kakaoOauthProperties.getClientId(),
                 "http://localhost:3000/kakao/callback",
@@ -65,9 +62,7 @@ public class KakaoOauthHelper {
 
     /** idtoken 분석 * */
     public OauthInfo getKakaoOauthInfoByIdToken(String idToken) {
-        System.out.println(idToken);
         OIDCDecodePayload oidcDecodePayload = getOIDCDecodePayload(idToken);
-        System.out.println(oidcDecodePayload.getSub());
         return OauthInfo.of(OauthProvider.KAKAO, oidcDecodePayload.getSub(),oidcDecodePayload.getEmail());
     }
 
@@ -79,7 +74,6 @@ public class KakaoOauthHelper {
     /** oidc decode * */
     public OIDCDecodePayload getOIDCDecodePayload(String token) {
         OIDCPublicKeysResponse oidcPublicKeysResponse = kakaoOauthClient.getKakaoOIDCOpenKeys();
-        System.out.println(oidcPublicKeysResponse);
         return oauthOIDCHelper.getPayloadFromIdToken(
                 token,
                 kakaoOauthProperties.getBaseUrl(),

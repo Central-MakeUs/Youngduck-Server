@@ -1,6 +1,5 @@
 package com.example.domains.screening.enums;
 
-import com.example.domains.user.enums.OauthProvider;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,8 +1,5 @@
 package com.example.domains.screening.enums;
 
-import com.example.domains.common.model.BaseTimeEntity;
-import com.example.domains.user.enums.OauthInfo;
-import com.example.domains.user.enums.OauthProvider;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package com.example.oauth.exception;
+package com.example.oauth.kakao.exception;
 
 import com.example.dto.ErrorReason;
 import com.example.error.BaseErrorCode;
@@ -6,7 +6,7 @@ import com.example.error.BaseRunTimeException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import static com.example.consts.PopCornMateConsts.*;
+import static com.example.consts.PopCornMateConsts.BAD_REQUEST;
 
 @Getter
 @AllArgsConstructor

@@ -1,11 +1,6 @@
 package com.example.api.screening.dto.request;
 
-import com.example.api.user.model.dto.GetUserInfoResponse;
-import com.example.domains.screening.entity.Screening;
 import com.example.domains.screening.enums.Category;
-import com.example.domains.screening.enums.HostInfo;
-import com.example.domains.user.entity.User;
-import com.example.domains.user.enums.OauthProvider;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
@@ -73,8 +68,4 @@ public class PostScreeningRequest {
         this.hostEmail = hostEmail;
         this.hostPhoneNumber = hostPhoneNumber;
     }
-
-//    public static PostScreeningRequest from(Screening screening) {
-//        return
-//    }
 }

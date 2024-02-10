@@ -5,7 +5,6 @@ import com.example.domains.common.util.SliceResponse;
 import com.example.domains.screening.entity.QScreening;
 import com.example.domains.screening.entity.Screening;
 import com.example.domains.screening.entity.dto.QScreeningResponseDto;
-import com.example.domains.screening.entity.dto.ScreeningCountDto;
 import com.example.domains.screening.entity.dto.ScreeningResponseDto;
 import com.example.domains.screening.enums.Category;
 import com.example.domains.screening.repository.ScreeningRepository;
@@ -18,7 +17,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;

@@ -2,12 +2,9 @@ package com.example.domains.user.adaptor;
 
 import com.example.adaptor.Adaptor;
 import com.example.domains.user.entity.User;
-import com.example.domains.user.enums.OauthInfo;
 import com.example.domains.user.exception.exceptions.UserNotFoundException;
 import com.example.domains.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
 
 @Adaptor
 @RequiredArgsConstructor

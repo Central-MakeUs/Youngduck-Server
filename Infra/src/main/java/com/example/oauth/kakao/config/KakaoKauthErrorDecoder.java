@@ -1,7 +1,7 @@
-package com.example.oauth.config;
+package com.example.oauth.kakao.config;
 
-import com.example.oauth.dto.KakaoKauthErrorResponse;
-import com.example.oauth.exception.KakaoKauthErrorCode;
+import com.example.oauth.kakao.dto.KakaoKauthErrorResponse;
+import com.example.oauth.kakao.exception.KakaoKauthErrorCode;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 

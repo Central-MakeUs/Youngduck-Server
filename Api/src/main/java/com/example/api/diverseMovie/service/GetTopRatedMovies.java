@@ -42,8 +42,6 @@ public class GetTopRatedMovies {
 
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
-                System.out.println("Response Data:");
-                System.out.println(responseData);
                 saveMovie(responseData);
             } else {
                 System.out.println("Request failed with code: " + response.code());
@@ -78,18 +76,6 @@ public class GetTopRatedMovies {
 
     }
 
-//    public void getImages(String responseData) {
-//        // JSON 데이터를 BoxOfficeResult 객체로 매핑
-//        BoxOfficeResult boxOfficeResult = parseJson(responseData);
-//
-//        // "movieNm" 속성을 가져와서 리스트로 만들기
-//        List<String> movieNames = extractMovieNames(boxOfficeResult);
-//
-//        // 결과 출력
-//        System.out.println("Movie Names: " + movieNames);
-//        getImageUrl(movieNames);
-//    }
-
     private static String getCurrentDate() {
         // 현재 날짜를 문자열로 변환
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -117,27 +103,4 @@ public class GetTopRatedMovies {
         }
         return responseList;
     }
-
-//    private static BoxOfficeResult parseJson(String jsonString) {
-//        try {
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            return objectMapper.readValue(jsonString, BoxOfficeResult.class);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-//
-//    private static List<String> extractMovieNames(BoxOfficeResult boxOfficeResult) {
-//        List<String> movieNames = new ArrayList<>();
-//        if (boxOfficeResult != null && boxOfficeResult.getBoxOfficeResult() != null
-//                && boxOfficeResult.getBoxOfficeResult().getDailyBoxOfficeList() != null) {
-//            for (DailyBoxOffice dailyBoxOffice : boxOfficeResult.getBoxOfficeResult().getDailyBoxOfficeList()) {
-//                if (dailyBoxOffice != null && dailyBoxOffice.getMovieNm() != null) {
-//                    movieNames.add(dailyBoxOffice.getMovieNm());
-//                }
-//            }
-//        }
-//        return movieNames;
-//    }
 }

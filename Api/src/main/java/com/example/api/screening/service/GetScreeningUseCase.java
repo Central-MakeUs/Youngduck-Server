@@ -4,16 +4,12 @@ import com.example.adaptor.UseCase;
 import com.example.api.config.security.SecurityUtil;
 import com.example.api.screening.dto.response.ScreeningInfoResponse;
 import com.example.api.screening.dto.response.ScreeningResponse;
-import com.example.api.screening.dto.response.ScreeningUploadResponse;
 import com.example.domains.screening.adaptor.ScreeningAdaptor;
 import com.example.domains.screening.entity.Screening;
 import com.example.domains.screeningReview.adaptor.ReviewAdaptor;
-import com.example.domains.screeningReview.entity.ScreeningReview;
-import com.example.domains.user.entity.User;
 import com.example.domains.user.validator.UserValidator;
 import com.example.domains.userscreening.adaptor.UserScreeningAdaptor;
 import com.example.domains.userscreening.entity.UserScreening;
-import com.example.domains.userscreening.exception.exceptions.UserScreeningIsHost;
 import com.example.domains.userscreening.exception.exceptions.UserScreeningIsNotHost;
 import lombok.RequiredArgsConstructor;
 
@@ -41,9 +37,6 @@ public class GetScreeningUseCase {
             isBookMarked = userScreening.isBookmarked();
         };
 
-        System.out.println(isBookMarked);
-
-
         return ScreeningInfoResponse.from(screening,isBookMarked,isReviewed);
     }
 
@@ -60,14 +53,5 @@ public class GetScreeningUseCase {
         userValidator.validateUserStatusNormal(userId);
     }
 
-    public ScreeningResponse getMyScreening(Long screeningId) {
-        Long userId = SecurityUtil.getCurrentUserId();
-        validateExecution(userId);
-        UserScreening userScreening = userScreeningAdaptor.findByUserAndScreening(userId,screeningId);
-        Screening screening = screeningAdaptor.findById(screeningId);
-        if (!userScreening.isHost()) {
-            throw UserScreeningIsNotHost.EXCEPTION;
-        }
-        return ScreeningResponse.from(screening);
-    }
+
 }

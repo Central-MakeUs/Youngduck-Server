@@ -1,7 +1,5 @@
 package com.example.domains.userscreening.exception.exceptions;
 
-import com.example.domains.user.exception.UserErrorCode;
-import com.example.domains.user.exception.exceptions.AlreadySignUpUserException;
 import com.example.domains.userscreening.exception.UserScreeningErrorCode;
 import com.example.error.BaseErrorException;
 

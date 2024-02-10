@@ -6,13 +6,10 @@ import com.example.api.config.security.SecurityUtil;
 import com.example.api.user.model.dto.GetUserInfoResponse;
 import com.example.domains.user.adaptor.UserAdaptor;
 import com.example.domains.user.entity.User;
-import com.example.domains.user.enums.Genre;
 import com.example.domains.user.service.UserService;
 import com.example.domains.user.validator.UserValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @UseCase
 @RequiredArgsConstructor

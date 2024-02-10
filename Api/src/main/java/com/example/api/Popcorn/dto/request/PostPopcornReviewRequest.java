@@ -1,11 +1,7 @@
 package com.example.api.Popcorn.dto.request;
 
-import com.example.domains.popcorn.entity.Popcorn;
 import com.example.domains.popcornUser.entity.enums.PopcornNegative;
 import com.example.domains.popcornUser.entity.enums.PopcornPositive;
-import com.example.domains.screeningReview.entity.enums.Negative;
-import com.example.domains.screeningReview.entity.enums.Positive;
-import com.example.domains.user.entity.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,7 +26,6 @@ public class PostPopcornReviewRequest {
     private PopcornPositive popcornPositive;
     @Schema(description = "Negative attributes")
     private PopcornNegative popcornNegative;
-
 
     @Builder
     public PostPopcornReviewRequest(boolean hasWatched, boolean beforeScreening, boolean afterScreening, String review, boolean hasAgreed, PopcornPositive popcornPositive, PopcornNegative popcornNegative) {

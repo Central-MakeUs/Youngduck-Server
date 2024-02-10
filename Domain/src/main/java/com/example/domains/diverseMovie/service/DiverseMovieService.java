@@ -42,8 +42,6 @@ public class DiverseMovieService {
 
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
-                System.out.println("Response Data:");
-                System.out.println(responseData);
                 saveMovie(responseData);
             } else {
                 System.out.println("Request failed with code: " + response.code());

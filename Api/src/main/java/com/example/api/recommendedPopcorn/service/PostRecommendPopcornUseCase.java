@@ -3,32 +3,21 @@ package com.example.api.recommendedPopcorn.service;
 import com.example.adaptor.UseCase;
 import com.example.api.config.security.SecurityUtil;
 import com.example.api.recommendedPopcorn.dto.request.RecommendedPopcornRequest;
-import com.example.api.recommendedPopcorn.dto.response.RecommendedPopcornResponse;
 import com.example.domains.recommendedPopcorn.adaptor.RecommendedPopcornAdaptor;
 import com.example.domains.recommendedPopcorn.entity.RecommendedPopcorn;
 import com.example.domains.recommendedPopcornUser.adaptor.RecommendedPopcornUserAdaptor;
 import com.example.domains.recommendedPopcornUser.entity.RecommendedPopcornUser;
 import com.example.domains.user.adaptor.UserAdaptor;
 import com.example.domains.user.entity.User;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import io.swagger.v3.core.util.Json;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
-import org.apache.tomcat.util.json.JSONParser;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
-import org.springframework.core.env.Environment;
 
 import java.io.IOException;
 
@@ -45,7 +34,6 @@ public class PostRecommendPopcornUseCase {
 
         validateMovieId(request.getMovieId());
 
-        System.out.println(tmdb);
         JsonParser parser = new JsonParser();
         JsonElement jsonObject = parser.parse(request.getMovieId());
         String movieTypeWithoutQuotes = request.getMovieType().replaceAll("\"", "");
@@ -72,7 +60,6 @@ public class PostRecommendPopcornUseCase {
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            System.out.println(response.message());
             if (!response.isSuccessful()) {
                 throw new IOException("Unexpected code " + response);
             }
@@ -91,12 +78,6 @@ public class PostRecommendPopcornUseCase {
             String directorNm = movieData.path("directors").path("director").path(0).path("directorNm").asText();
             String plotText = movieData.path("plots").path("plot").path(0).path("plotText").asText();
             String firstPosterUrl = movieData.path("posters").asText().split("\\|")[0];
-
-            // Displaying the extracted information
-            System.out.println("Title: " + title);
-            System.out.println("Director: " + directorNm);
-            System.out.println("Plot: " + plotText);
-            System.out.println("First Poster URL: " + firstPosterUrl);
 
             postRecommendation(movieId.toString(),title,plotText,firstPosterUrl,directorNm,popcornRequest);
         }

@@ -1,11 +1,10 @@
 package com.example.api.Popcorn.service;
 
 import com.example.adaptor.UseCase;
-import com.example.api.Popcorn.dto.response.PopcornReviewMyResponse;
+import com.example.api.Popcorn.dto.response.PopcornMyReviewResponse;
 import com.example.api.Popcorn.dto.response.PopcornReviewResponse;
 import com.example.api.config.security.SecurityUtil;
 import com.example.domains.popcorn.adaptor.PopcornAdaptor;
-import com.example.domains.popcorn.entity.Popcorn;
 import com.example.domains.popcornUser.adaptor.PopcornUserAdaptor;
 import com.example.domains.popcornUser.entity.PopcornUser;
 import lombok.RequiredArgsConstructor;
@@ -28,13 +27,13 @@ public class GetPopcornReviewUseCase {
         return popcornReviewResponses;
     }
 
-    public List<PopcornReviewMyResponse> getMyReviews() {
+    public List<PopcornMyReviewResponse> getMyReviews() {
         Long userId = SecurityUtil.getCurrentUserId();
         List<PopcornUser> popcornUserList = popcornUserAdaptor.findAllByUserId(userId);
-        List<PopcornReviewMyResponse> popcornReviewResponses = new ArrayList<>();
+        List<PopcornMyReviewResponse> popcornReviewResponses = new ArrayList<>();
 
         for (PopcornUser popcornUser : popcornUserList) {
-            final PopcornReviewMyResponse newPopcornReview = PopcornReviewMyResponse.from(popcornUser);
+            final PopcornMyReviewResponse newPopcornReview = PopcornMyReviewResponse.from(popcornUser);
             popcornReviewResponses.add(newPopcornReview);
         }
         return popcornReviewResponses;
@@ -45,14 +44,10 @@ public class GetPopcornReviewUseCase {
         int length = popcornUsers.size();
 
         if (length == 0) {
-            // Handle the case where there are no users to avoid division by zero
-            return 0; // Or you can choose a default value or throw an exception
+            return 0;
         }
-
         int totalNumber = popcornAdaptor.findById(popcornId).getPopcornRate();
 
-        // Perform rounding and return the result
         return Math.round((float) totalNumber / length);
-
     }
 }

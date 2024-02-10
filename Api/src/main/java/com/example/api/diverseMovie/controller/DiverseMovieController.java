@@ -22,9 +22,6 @@ public class DiverseMovieController {
         getTopRatedMovies.getTopRated();
     }
 
-
-    //TODO 1. 독립영화 Top5 매 주 월요일 저장 - 스케쥴링 - 완료
-
     @GetMapping("/toprated")
     public List<DiverseMovieResponse> getDiverseMovies() {
         return getTopRatedMovies.getTopratedList();

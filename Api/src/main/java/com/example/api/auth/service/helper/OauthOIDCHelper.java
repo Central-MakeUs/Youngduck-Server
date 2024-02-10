@@ -4,8 +4,8 @@ package com.example.api.auth.service.helper;
 import com.example.adaptor.Helper;
 import com.example.dto.OIDCDecodePayload;
 import com.example.jwt.JwtOIDCProvider;
-import com.example.oauth.dto.OIDCPublicKeyDto;
-import com.example.oauth.dto.OIDCPublicKeysResponse;
+import com.example.oauth.kakao.dto.OIDCPublicKeyDto;
+import com.example.oauth.kakao.dto.OIDCPublicKeysResponse;
 import lombok.RequiredArgsConstructor;
 
 @Helper

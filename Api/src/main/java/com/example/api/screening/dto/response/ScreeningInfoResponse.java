@@ -107,5 +107,4 @@ public class ScreeningInfoResponse {
                 .isReviewed(isReviewed)
                 .build();
     }
-
 }

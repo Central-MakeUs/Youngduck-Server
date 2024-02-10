@@ -1,4 +1,4 @@
-package com.example.oauth.config;
+package com.example.oauth.kakao.config;
 
 import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
@@ -6,13 +6,13 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
-@Import(KakaoInfoErrorDecoder.class)
-public class KakaoInfoConfig {
+@Import(KakaoKauthErrorDecoder.class)
+public class KakaoKauthConfig {
 
     @Bean
     @ConditionalOnMissingBean(value = ErrorDecoder.class)
-    public KakaoInfoErrorDecoder commonFeignErrorDecoder() {
-        return new KakaoInfoErrorDecoder();
+    public KakaoKauthErrorDecoder commonFeignErrorDecoder() {
+        return new KakaoKauthErrorDecoder();
     }
 
     @Bean

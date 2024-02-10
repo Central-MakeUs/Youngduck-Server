@@ -5,8 +5,6 @@ import com.example.error.BaseErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import static com.example.consts.PopCornMateConsts.NOT_FOUND;
-
 
 @Getter
 @AllArgsConstructor

@@ -1,7 +1,6 @@
 package com.example.domains.screening.enums;
 
 import jakarta.persistence.Embeddable;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,7 +1,6 @@
 package com.example.domains.recommendedPopcornUser.entity;
 
 import com.example.domains.recommendedPopcorn.entity.RecommendedPopcorn;
-import com.example.domains.screening.entity.Screening;
 import com.example.domains.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

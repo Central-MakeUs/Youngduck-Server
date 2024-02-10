@@ -2,7 +2,7 @@ package com.example.oauth.apple.client;
 
 
 import com.example.oauth.apple.config.AppleOAuthConfig;
-import com.example.oauth.dto.OIDCPublicKeysResponse;
+import com.example.oauth.kakao.dto.OIDCPublicKeysResponse;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

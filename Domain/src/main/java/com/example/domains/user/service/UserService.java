@@ -5,14 +5,12 @@ import com.example.domains.user.adaptor.UserAdaptor;
 import com.example.domains.user.entity.User;
 import com.example.domains.user.enums.Genre;
 import com.example.domains.user.enums.OauthInfo;
-import com.example.domains.user.exception.exceptions.UserNotFoundException;
 import com.example.domains.user.repository.UserRepository;
 import com.example.domains.user.validator.UserValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.logging.Level;
 
 @DomainService
 @RequiredArgsConstructor

@@ -2,15 +2,11 @@ package com.example.api.screening.service;
 
 import com.example.adaptor.UseCase;
 import com.example.api.screening.dto.request.PostScreeningRequest;
-import com.example.api.screening.dto.response.ScreeningUploadResponse;
 import com.example.domains.screening.adaptor.ScreeningAdaptor;
 import com.example.domains.screening.entity.Screening;
 import com.example.domains.screening.enums.HostInfo;
-import com.example.domains.screening.repository.ScreeningRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @UseCase
 @RequiredArgsConstructor

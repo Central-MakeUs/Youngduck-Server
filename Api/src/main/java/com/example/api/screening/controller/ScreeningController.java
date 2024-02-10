@@ -12,12 +12,7 @@ import com.example.domains.screening.adaptor.ScreeningAdaptor;
 import com.example.domains.screening.entity.Screening;
 import com.example.domains.screening.entity.dto.ScreeningResponseDto;
 import com.example.domains.screening.enums.Category;
-import com.example.domains.screening.service.ScreeningService;
 import com.example.domains.screeningReview.adaptor.ReviewAdaptor;
-import com.example.domains.screeningReview.entity.ScreeningReview;
-import com.example.domains.screeningReview.entity.dto.ReviewResponseDto;
-import com.example.domains.screeningReview.entity.dto.ScreeningReviewResponseDto;
-import com.example.domains.screeningReview.entity.dto.ScreeningReviewUserResponseDto;
 import com.example.domains.screeningReview.entity.dto.ScreeningWithReviewDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -25,17 +20,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/screening")
@@ -46,7 +37,7 @@ public class ScreeningController {
     private final GetRateCountUseCase getRateCountUseCase;
     private final ScreeningUploadUseCase screeningUploadUseCase;
     private final GetScreeningUseCase getScreeningUseCase;
-    private final ReviewUseCase reviewUseCase;
+    private final PostReviewUseCase postReviewUseCase;
     private final BookMarkScreeningUseCase bookMarkScreeningUseCase;
     private final GetScreeningListUseCase getScreeningListUseCase;
     private final GetScreeningReviewListUseCase getScreeningReviewListUseCase;
@@ -59,7 +50,12 @@ public class ScreeningController {
     private final GetBookMarkedScreeningsUseCase getBookMarkedScreeningUseCase;
     private final GetPastScreeningListUseCase getPastScreeningListUseCase;
     private final GetScreeningStatisticsUseCase getScreeningStatisticsUseCase;
-
+    private final GetMyScreeningUseCase getMyScreeningUseCase;
+    private final GetMostReviewedUseCase getMostReviewedUseCase;
+    private final GetThisWeekScreeningsUseCase getThisWeekScreeningsUseCase;
+    private final GetMostRecentScreeningUseCase getMostRecentScreeningUseCase;
+    private final GetBookmarkedUpcomingScreeningsUseCase getBookmarkedUpcomingScreeningsUseCase;
+    private final PostReviewComplainUseCase postReviewComplainUseCase;
 
 //    @Operation(description = "모임 대표 이미지")
 //    @PostMapping(value = "/image", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, APPLICATION_JSON_VALUE})
@@ -122,7 +118,7 @@ public class ScreeningController {
     @PostMapping("/review/{screeningId}")
     public void reviewOnScreening(@PathVariable("screeningId")Long screeningId, @RequestBody PostReviewRequest request)
     {
-        reviewUseCase.execute(screeningId,request);
+        postReviewUseCase.execute(screeningId,request);
     }
 
     @Operation(summary = "특정 스크리닝에 리뷰 리스트 가져오기", description = "screening id로 리뷰리스트 가져오기")
@@ -144,7 +140,8 @@ public class ScreeningController {
     @Operation(summary = "나의 스크리닝 id별로 가져오기", description = "screening id가져와서 요청하기")
     @GetMapping("/myScreening/{screeningId}")
     public ScreeningResponse getMyScreening(@PathVariable("screeningId") Long screeningId) {
-        return getScreeningUseCase.getMyScreening(screeningId);
+        //getMyScreeningUseCase
+        return getMyScreeningUseCase.execute(screeningId);
     }
 
     @Operation(summary = "나의 스크리닝 비공개 on/off하기", description = "screening id가져와서 요청하기")
@@ -192,16 +189,16 @@ public class ScreeningController {
 
 
     //TODO 댓글 많은 수 Top3 반환- private0
-    @Operation(summary = "댓글 많은 수 Top3 반환", description = "댓글 많은 수 Top3 반환")
+    @Operation(summary = "댓글 많은 수 Top3 반환", description = "좋아요 많은 수 Top3 반환")
     @GetMapping("/most-reviewed")
     public List<ScreeningResponseDto> getMostReviewed() {
-        return screeningAdaptor.getMostReviewed();
+        return getMostReviewedUseCase.execute();
     }
 
     @Operation(summary = "현재시점에서 이번주 상영작 3개 반환", description = "현재시점에서 다음주 상영작 3개 반환")
     @GetMapping("/upcoming-Screening")
     public List<ScreeningResponseDto> getTopThreeScreening() {
-        return screeningAdaptor.getTopThree();
+        return getThisWeekScreeningsUseCase.execute();
     }
 
 
@@ -209,7 +206,7 @@ public class ScreeningController {
     @Operation(summary = "현재시점에서 가장 치근에 올라온 3개 반환", description = "현재시점에서 가장 치근에 올라온 3개 반환")
     @GetMapping("/recent-Screening")
     public List<ScreeningResponseDto> getRecentScreening() {
-        return screeningAdaptor.getMostRecentScreening();
+        return getMostRecentScreeningUseCase.execute();
     }
 
     //TODO 관람예정(찜하기 한 것 중에서 날짜 지난거) - private 0
@@ -221,16 +218,13 @@ public class ScreeningController {
     //TODO 관람예정(찜하기 한 것 중에서 날짜 안지난거) -> try해봐야함() - private 0
     @GetMapping("/screenings/upcoming")
     public List<Screening> getPastScreenings() {
-        Long userId = SecurityUtil.getCurrentUserId();
-        return screeningAdaptor.getUpcomingScreenings(userId);
+        return getBookmarkedUpcomingScreeningsUseCase.execute();
     }
 
     //TODO duplicate 없애기
     @PostMapping("/review/complain/{reviewId}")
     public void postReviewComplain(@RequestParam("reviewId") Long reviewId) {
-
-        Long userId = SecurityUtil.getCurrentUserId();
-        reviewAdaptor.postComplain(reviewId,userId);
+        postReviewComplainUseCase.execute(reviewId);
     }
 
     //TODO 스크리닝 장소, 운영, 감상 개수 pos, neg,스크리닝지수 마다 반환 (0)

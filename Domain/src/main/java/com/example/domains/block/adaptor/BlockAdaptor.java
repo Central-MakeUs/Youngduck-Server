@@ -20,7 +20,6 @@ public class BlockAdaptor {
     }
 
     private void validateUser(Long userId, Long reviewId,Long popcornReviewId) {
-        System.out.println(blockRepository.existsByUserIdAndPopcornReviewId(userId,popcornReviewId));;
         if (reviewId == null) {
             if(blockRepository.existsByUserIdAndPopcornReviewId(userId,popcornReviewId)) {
                 throw DuplicateBlockRequest.EXCEPTION;

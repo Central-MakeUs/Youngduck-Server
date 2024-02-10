@@ -1,10 +1,6 @@
 package com.example.api.screening.dto.response;
 
 import com.example.domains.screeningReview.entity.dto.ScreeningReviewResponseDto;
-import com.example.domains.user.entity.User;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;

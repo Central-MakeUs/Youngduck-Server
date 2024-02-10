@@ -1,6 +1,5 @@
 package com.example.api.screening.dto.request;
 
-import com.example.domains.screening.enums.Category;
 import com.example.domains.screeningReview.entity.enums.Negative;
 import com.example.domains.screeningReview.entity.enums.Positive;
 import io.swagger.v3.oas.annotations.media.Schema;

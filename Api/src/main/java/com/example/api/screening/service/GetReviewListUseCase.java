@@ -3,7 +3,6 @@ package com.example.api.screening.service;
 import com.example.adaptor.UseCase;
 import com.example.api.screening.dto.response.ScreeningReviewUserResponse;
 import com.example.domains.screeningReview.entity.dto.ScreeningReviewResponseDto;
-import com.example.domains.user.adaptor.UserAdaptor;
 import com.example.domains.user.validator.UserValidator;
 import com.example.domains.userscreening.adaptor.UserScreeningAdaptor;
 import lombok.RequiredArgsConstructor;
@@ -16,13 +15,11 @@ import java.util.List;
 public class GetReviewListUseCase {
     private final UserValidator userValidator;
     private final UserScreeningAdaptor userScreeningAdaptor;
-    private final UserAdaptor userAdaptor;
 
     public List<ScreeningReviewUserResponse> execute(Long screeningId) {
         List<ScreeningReviewResponseDto> reviewResponseDtoList = userScreeningAdaptor.getReviewListByScreening(screeningId);
 
         List<ScreeningReviewUserResponse> result = proceed(reviewResponseDtoList);
-
 
         return result;
     }
@@ -31,10 +28,8 @@ public class GetReviewListUseCase {
         List<ScreeningReviewUserResponse> screeningReviewResponseDtoList = new ArrayList<>();
 
         for (ScreeningReviewResponseDto reviewResponseDto : reviewResponseDtoList) {
-            //System.out.println(reviewResponseDto.getReview());
             screeningReviewResponseDtoList.add(ScreeningReviewUserResponse.from(reviewResponseDto));
         }
-        //System.out.println(screeningReviewResponseDtoList.get(0).isAfterScreening());
         return screeningReviewResponseDtoList;
     }
 

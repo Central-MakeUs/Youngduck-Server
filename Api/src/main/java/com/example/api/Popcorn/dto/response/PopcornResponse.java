@@ -1,7 +1,5 @@
 package com.example.api.Popcorn.dto.response;
 
-import com.example.api.diverseMovie.dto.response.DiverseMovieResponse;
-import com.example.domains.diverseMovie.entity.dto.DiverseMovieResponseDto;
 import com.example.domains.popcorn.entity.Popcorn;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;

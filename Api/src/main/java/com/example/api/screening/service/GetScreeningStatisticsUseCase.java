@@ -5,13 +5,10 @@ import com.example.api.config.security.SecurityUtil;
 import com.example.api.screening.dto.response.ScreeningStatisticsResponse;
 import com.example.domains.screening.adaptor.ScreeningAdaptor;
 import com.example.domains.screening.entity.Screening;
-import com.example.domains.user.entity.User;
 import com.example.domains.userscreening.adaptor.UserScreeningAdaptor;
 import com.example.domains.userscreening.entity.UserScreening;
 import com.example.domains.userscreening.exception.exceptions.UserScreeningIsNotHost;
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
 
 @UseCase
 @RequiredArgsConstructor

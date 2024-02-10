@@ -1,11 +1,8 @@
 package com.example.domains.screeningReview.entity;
 
 import com.example.domains.common.model.BaseTimeEntity;
-import com.example.domains.screening.entity.Screening;
-import com.example.domains.screening.enums.PositiveCount;
 import com.example.domains.screeningReview.entity.enums.Negative;
 import com.example.domains.screeningReview.entity.enums.Positive;
-import com.example.domains.user.entity.User;
 import com.example.domains.userscreening.entity.UserScreening;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

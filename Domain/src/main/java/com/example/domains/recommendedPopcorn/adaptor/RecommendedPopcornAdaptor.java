@@ -6,18 +6,14 @@ import com.example.domains.recommendedPopcorn.entity.RecommendedPopcorn;
 import com.example.domains.recommendedPopcorn.exceptions.DuplicateMovieId;
 import com.example.domains.recommendedPopcorn.exceptions.NoRecommendedPopcorn;
 import com.example.domains.recommendedPopcorn.repository.RecommendedPopcornRepository;
-import com.example.domains.screening.entity.QScreening;
-import com.example.domains.screening.entity.Screening;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.nio.file.Path;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -74,7 +70,6 @@ public class RecommendedPopcornAdaptor {
             return thisWeekList;
         }
         Set<Long> numberArray = generate(thisWeekList);
-        System.out.println(numberArray.size());
         for (Long number : numberArray) {
             Optional<RecommendedPopcorn> foundItem = recommendedPopcornRepository.findById(number);
 

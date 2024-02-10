@@ -1,7 +1,7 @@
 package com.example.api.auth.model.dto;
 
 import com.example.domains.user.enums.OauthProvider;
-import com.example.oauth.dto.KakaoInfoResponseDto;
+import com.example.oauth.kakao.dto.KakaoInfoResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 

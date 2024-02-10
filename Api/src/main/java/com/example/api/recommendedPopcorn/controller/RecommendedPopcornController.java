@@ -1,16 +1,13 @@
 package com.example.api.recommendedPopcorn.controller;
 
 import com.example.api.recommendedPopcorn.dto.request.RecommendedPopcornRequest;
-import com.example.api.recommendedPopcorn.dto.response.RecommendedPopcornResponse;
 import com.example.api.recommendedPopcorn.service.GetRecommendedPopocornUseCase;
 import com.example.api.recommendedPopcorn.service.GetRecommendedRandomPopcornUseCase;
 import com.example.api.recommendedPopcorn.service.PostRecommendPopcornUseCase;
 import com.example.api.recommendedPopcorn.service.PostVoteRecommendedPopcorn;
 import com.example.domains.recommendedPopcorn.entity.RecommendedPopcorn;
-import com.example.domains.recommendedPopcornUser.entity.RecommendedPopcornUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -47,11 +44,11 @@ public class RecommendedPopcornController {
     public List<RecommendedPopcorn> getRecommendPopcornList() {
         return getRecommendedPopocornUseCase.execute();
     }
+
     //TODO 4. 예비 팝콘작 투표하기
     @Operation(summary = " 예비 팝콘작 투표하기", description = "예비 팝콘작 투표하기")
     @PostMapping("/vote")
     public void voteByIdRecommendPopcorn(@RequestParam("recommendedPopcorn") Long recommendedPopcorn) {
         postVoteRecommendedPopcorn.execute(recommendedPopcorn);
     }
-
 }

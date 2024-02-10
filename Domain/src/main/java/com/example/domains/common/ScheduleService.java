@@ -1,13 +1,10 @@
 package com.example.domains.common;
 
 import com.example.domains.screening.adaptor.ScreeningAdaptor;
-import com.example.domains.screening.entity.Screening;
-import com.example.domains.user.entity.User;
 import com.example.domains.user.repository.UserRepository;
 import com.example.domains.userscreening.adaptor.UserScreeningAdaptor;
 import com.example.domains.userscreening.entity.UserScreening;
 import com.example.fcm.adaptor.FcmTokenAdaptor;
-import com.example.fcm.entity.FCMToken;
 import com.example.fcm.repository.FcmRepository;
 import com.example.fcm.request.NotificationRequest;
 import com.example.fcm.service.FcmService;
@@ -85,8 +82,6 @@ public class ScheduleService {
     private void notifyReservation() {
         LocalDateTime now = LocalDateTime.now().withSecond(0).withNano(0);
         LocalDateTime reservationTime = now.plusDays(1);
-
-        System.out.println("test");
 
         //userScreening에서 isBookMarked인 것들 중에서 user id, screening id가져와서 List<User> List<Screening>
         //screening에서 startDate가져와서 startDate가 내일이면 알람을 보낼 수 있게 짜봐 fcm이랑 스프링 쓰고 있어
@@ -180,12 +175,9 @@ public class ScheduleService {
 //    }
 
     private boolean checkFcmExists(Long userId) {
-        System.out.println(userId);
         if (fcmRepository.findByUserId(userId).isPresent()){
-            System.out.println("test23 ");
             return true;
         } else {
-            System.out.println("false");
             return false;
         }
     }
@@ -193,7 +185,6 @@ public class ScheduleService {
 
     private void sendNotifications(NotificationRequest requests) {
         // FCM을 사용하여 알림을 보내는 로직
-        System.out.println("test2");
         fcmService.sendMessageByToken(requests);
     }
 
