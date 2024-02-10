@@ -38,7 +38,7 @@ public class RecommendedPopcornAdaptor {
 
         LocalDate today = LocalDate.now();
         LocalDate startOfThisWeek = today.with(DayOfWeek.MONDAY);
-        LocalDate endOfThisWeek = today.with(DayOfWeek.SUNDAY);
+        LocalDate endOfThisWeek = today.with(DayOfWeek.SATURDAY);
 
         return jpaQueryFactory
                 .selectFrom(recommendedPopcorn)

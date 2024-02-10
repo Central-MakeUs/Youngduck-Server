@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RecommendedPopcornSchedule {
     private final RecommendedPopcornService recommendedPopcornService;
-    @Scheduled(cron = "0 0 1 * * MON")
+    @Scheduled(cron = "0 0 1 * * SUN")
     public void clearRecommendedMovies(){
         recommendedPopcornService.deleteLastWeekMovies();
     }
