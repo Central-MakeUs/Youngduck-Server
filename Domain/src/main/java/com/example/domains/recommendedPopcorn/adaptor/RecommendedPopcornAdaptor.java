@@ -37,7 +37,7 @@ public class RecommendedPopcornAdaptor {
         QRecommendedPopcorn recommendedPopcorn = QRecommendedPopcorn.recommendedPopcorn;
 
         LocalDate today = LocalDate.now().plusDays(1);
-        LocalDate startOfThisWeek = today.with(DayOfWeek.MONDAY);
+        LocalDate startOfThisWeek = today.with(DayOfWeek.SUNDAY);
         LocalDate endOfThisWeek = today.with(DayOfWeek.SATURDAY);
 
         return jpaQueryFactory
