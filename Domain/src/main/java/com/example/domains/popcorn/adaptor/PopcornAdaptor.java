@@ -89,7 +89,7 @@ public class PopcornAdaptor {
 
         return jpaQueryFactory
                 .selectFrom(popcorn)
-                .where(popcorn.createdAt.between(startOfLastWeek.atStartOfDay(), endOfLastWeek.atTime(23, 59, 59)))
+                .where(popcorn.createdAt.between(startOfThisWeek.atStartOfDay(), endOfThisWeek.atTime(23, 59, 59)))
                 .orderBy(
                         popcorn.recommendationCount.desc(),
                         popcorn.createdAt.desc()
