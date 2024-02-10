@@ -13,6 +13,7 @@ import com.querydsl.jpa.impl.JPAUpdateClause;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,6 +29,8 @@ public class PopcornAdaptor {
     private static LocalDate today = LocalDate.now();
     private static LocalDate startOfLastWeek = today.minusDays(today.getDayOfWeek().getValue() + 6); // 지난 주의 월요일
     private static LocalDate endOfLastWeek = startOfLastWeek.plusDays(6); // 지난 주의 일요일
+    private static LocalDate startOfThisWeek = today.with(DayOfWeek.MONDAY);
+    private static LocalDate endOfThisWeek = today.with(DayOfWeek.SATURDAY);
 
     @Transactional
     public void save(Popcorn popcorn){
@@ -53,7 +56,7 @@ public class PopcornAdaptor {
 
         return jpaQueryFactory
                 .selectFrom(recommendedPopcorn)
-                .where(recommendedPopcorn.createdAt.between(startOfLastWeek.atStartOfDay(), endOfLastWeek.atTime(23, 59, 59)))
+                .where(recommendedPopcorn.createdAt.between(startOfThisWeek.atStartOfDay(), endOfThisWeek.atTime(23, 59, 59)))
                 .orderBy(
                         recommendedPopcorn.recommendationCount.desc(),
                         recommendedPopcorn.createdAt.desc()
