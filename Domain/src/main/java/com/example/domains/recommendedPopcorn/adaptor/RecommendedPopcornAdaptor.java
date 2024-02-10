@@ -36,14 +36,15 @@ public class RecommendedPopcornAdaptor {
     public List<RecommendedPopcorn> findAllThisWeek() {
         QRecommendedPopcorn recommendedPopcorn = QRecommendedPopcorn.recommendedPopcorn;
 
-        LocalDate today = LocalDate.now().plusDays(1);
-        LocalDate startOfThisWeek = today.with(DayOfWeek.SUNDAY);
-        LocalDate endOfThisWeek = today.with(DayOfWeek.SATURDAY);
+        LocalDate today = LocalDate.now();
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+        LocalDate startOfThisWeek = tomorrow.with(DayOfWeek.SUNDAY);
+        LocalDate endOfThisWeek = tomorrow.with(DayOfWeek.SATURDAY);
 
         return jpaQueryFactory
                 .selectFrom(recommendedPopcorn)
                 .where(
-                        recommendedPopcorn.createdAt.between(startOfThisWeek.atStartOfDay(), endOfThisWeek.atTime(23, 59, 59))
+                        recommendedPopcorn.createdAt.between(today.atStartOfDay(), endOfThisWeek.atTime(23, 59, 59))
                 )
                 .orderBy(
                         recommendedPopcorn.createdAt.asc()
