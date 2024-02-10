@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @UseCase
 @RequiredArgsConstructor
-public class ReviewUseCase {
+public class PostReviewUseCase {
     private final UserValidator userValidator;
 
     private final ReviewValidator reviewValidator;

@@ -9,7 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class PopcornReviewMyResponse {
+public class PopcornMyReviewResponse {
     @Schema(defaultValue = "1", description = "유저 id")
     private Long userId;
     @Schema(defaultValue = "닉네임", description = "유저 닉네임")
@@ -34,7 +34,7 @@ public class PopcornReviewMyResponse {
     private PopcornNegative popcornNegative;
 
     @Builder
-    public PopcornReviewMyResponse(Long userId,String nickName,int profileImgNum,Popcorn popcorn,boolean hasWatched, boolean beforeScreening, boolean afterScreening, String review, boolean hasAgreed, PopcornPositive popcornPositive, PopcornNegative popcornNegative) {
+    public PopcornMyReviewResponse(Long userId, String nickName, int profileImgNum, Popcorn popcorn, boolean hasWatched, boolean beforeScreening, boolean afterScreening, String review, boolean hasAgreed, PopcornPositive popcornPositive, PopcornNegative popcornNegative) {
         this.userId=userId;
         this.nickName=nickName;
         this.profileImgNum=profileImgNum;
@@ -48,8 +48,8 @@ public class PopcornReviewMyResponse {
         this.popcornNegative = popcornNegative;
     }
 
-    public static PopcornReviewMyResponse from(PopcornUser popcornUser) {
-        return PopcornReviewMyResponse.builder()
+    public static PopcornMyReviewResponse from(PopcornUser popcornUser) {
+        return PopcornMyReviewResponse.builder()
                 .userId(popcornUser.getUser().getId())
                 .nickName(popcornUser.getUser().getNickname())
                 .profileImgNum(popcornUser.getUser().getProfileImgNum())

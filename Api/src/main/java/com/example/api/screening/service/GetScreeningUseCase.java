@@ -53,14 +53,5 @@ public class GetScreeningUseCase {
         userValidator.validateUserStatusNormal(userId);
     }
 
-    public ScreeningResponse getMyScreening(Long screeningId) {
-        Long userId = SecurityUtil.getCurrentUserId();
-        validateExecution(userId);
-        UserScreening userScreening = userScreeningAdaptor.findByUserAndScreening(userId,screeningId);
-        Screening screening = screeningAdaptor.findById(screeningId);
-        if (!userScreening.isHost()) {
-            throw UserScreeningIsNotHost.EXCEPTION;
-        }
-        return ScreeningResponse.from(screening);
-    }
+
 }

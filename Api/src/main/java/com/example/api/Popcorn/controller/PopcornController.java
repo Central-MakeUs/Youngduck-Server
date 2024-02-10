@@ -54,14 +54,14 @@ public class PopcornController {
     //TODO 7: 팝콘작 팝콘지수 산출 로직 팝콘지수 GET
     @Operation(summary = "특정 팝콘작들에 대한 팝콘 지수", description = "popcornId 가져와서 요청하기")
     @GetMapping("/rate/{popcornId}")
-    public int popcornRate(@PathVariable("popcornId") Long popcornId) {
+    public int getPopcornRate(@PathVariable("popcornId") Long popcornId) {
         return getPopcornReviewUseCase.getRate(popcornId);
     }
 
     //TODO 팝콘작들에 대한 리뷰 반환
     @Operation(summary = "팝콘작들에 대한 리뷰 반환", description = "popcornId 가져와서 요청하기")
     @GetMapping("/reviews/{popcornId}")
-    public List<PopcornReviewResponse> reviewResponseList(@PathVariable("popcornId") Long popcornId) {
+    public List<PopcornReviewResponse> getReviewResponseList(@PathVariable("popcornId") Long popcornId) {
         return getPopcornReviewUseCase.execute(popcornId);
     }
 
@@ -76,14 +76,14 @@ public class PopcornController {
     //TODO 내가 쓴 팝콘작 리뷰
     @Operation(summary = "팝콘작들에 대한 나의 리뷰 반환", description = "popcornId 가져와서 요청하기")
     @GetMapping("/my/reviews")
-    public List<PopcornReviewMyResponse> reviewMyResponseList() {
+    public List<PopcornMyReviewResponse> getReviewMyResponseList() {
         return getPopcornReviewUseCase.getMyReviews();
     }
 
     //TODO 8: 팝콘 키워드 Top3 GET
     @Operation(summary = "팝콘 키워드 Top3 반환", description = "popcornId 가져와서 요청하기")
     @GetMapping("/top-keywords/{popcornId}")
-    public PopcornKeywordResponse reviewMyResponseList(@PathVariable("popcornId") Long popcornId){
+    public PopcornKeywordResponse getTopPopcornKeywords(@PathVariable("popcornId") Long popcornId){
         return getTopRatedPopcornKeyword.execute(popcornId);
     }
 }
