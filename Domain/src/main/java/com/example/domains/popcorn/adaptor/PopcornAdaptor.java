@@ -88,12 +88,11 @@ public class PopcornAdaptor {
         QPopcorn popcorn = QPopcorn.popcorn;
 
         LocalDateTime today = LocalDateTime.now();
-        //LocalDateTime startWeek = today.with(DayOfWeek.SUNDAY).minusWeeks(1);
+        LocalDateTime startWeek = today.with(DayOfWeek.SUNDAY).minusWeeks(1);
         LocalDateTime endNextWeek = today.with(DayOfWeek.SATURDAY).plusWeeks(1);
 
         return jpaQueryFactory
                 .selectFrom(popcorn)
-                .where(popcorn.createdAt.between(today, endNextWeek.withHour(23).withMinute(59).withSecond(59)))
                 .orderBy(
                         popcorn.recommendationCount.desc(),
                         popcorn.createdAt.desc()
