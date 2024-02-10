@@ -36,7 +36,7 @@ public class RecommendedPopcornAdaptor {
     public List<RecommendedPopcorn> findAllThisWeek() {
         QRecommendedPopcorn recommendedPopcorn = QRecommendedPopcorn.recommendedPopcorn;
 
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now().plusDays(1);
         LocalDate startOfThisWeek = today.with(DayOfWeek.MONDAY);
         LocalDate endOfThisWeek = today.with(DayOfWeek.SATURDAY);
 
