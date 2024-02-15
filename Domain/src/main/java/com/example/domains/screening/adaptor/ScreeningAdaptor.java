@@ -229,6 +229,7 @@ public class ScreeningAdaptor {
         return screeningRepository.findByScreeningStartDate(minusDays);
     }
 
+    //동적 쿼리 적용하기
     @Transactional
     public void incrementNegativeIffy(Screening screening) {
         QScreening qScreening = QScreening.screening;
