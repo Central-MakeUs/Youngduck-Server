@@ -1,7 +1,5 @@
-package com.example.domains.common;
+package com.example.domains.screening.schedule;
 
-import com.example.domains.screening.adaptor.ScreeningAdaptor;
-import com.example.domains.user.repository.UserRepository;
 import com.example.domains.userscreening.adaptor.UserScreeningAdaptor;
 import com.example.domains.userscreening.entity.UserScreening;
 import com.example.fcm.adaptor.FcmTokenAdaptor;
@@ -23,10 +21,7 @@ public class ScheduleService {
     private final FcmService fcmService;
 
     private final UserScreeningAdaptor userScreeningAdaptor;
-    private final ScreeningAdaptor screeningAdaptor;
-    private final UserRepository userRepository;
     private final FcmRepository fcmRepository;
-    private final FcmTokenAdaptor fcmTokenAdaptor;
 
     private static final String NOTIFICATION_TITLE = "상영회 하루 전 알림";
 //    @Scheduled(cron = "0 0/1 * * * *")

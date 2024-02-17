@@ -1,4 +1,4 @@
-package com.example.validator;
+package com.example.adaptor.validator;
 
 import com.example.adaptor.ValidEnum;
 import jakarta.validation.ConstraintValidator;

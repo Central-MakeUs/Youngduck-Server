@@ -10,6 +10,4 @@ public interface FcmRepository extends JpaRepository<FCMToken, Long> {
 
 
     void deleteByUserId(Long userId);
-
-    boolean existsByUserId(Long userId);
 }
