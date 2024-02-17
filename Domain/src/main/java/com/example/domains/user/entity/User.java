@@ -5,7 +5,6 @@ import com.example.domains.common.model.BaseTimeEntity;
 import com.example.domains.user.enums.*;
 import com.example.domains.user.exception.exceptions.AlreadyDeletedUserException;
 import com.example.error.exception.ServerForbiddenException;
-import com.example.fcm.entity.FCMToken;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -52,11 +51,7 @@ public class User extends BaseTimeEntity {
 
     private int profileImgNum;
 
-//    private String phoneNumber;
     private String appleEmail;
-
-    @OneToOne(mappedBy = "user")
-    private FCMToken fcmToken;
 
     private boolean marketingAgreement;
 

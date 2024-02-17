@@ -46,8 +46,8 @@ public class FcmService {
 
     public void sendMessageByToken(NotificationRequest request) {
         User user = userRepository.findById(request.getUserId()).orElseThrow(IllegalArgumentException::new);
-
-        String fcmToken = user.getFcmToken().getFcmToken();
+        FCMToken fcm = fcmRepository.findByUserId(user.getId()).get();
+        String fcmToken = fcm.getFcmToken();
         if (!fcmToken.isEmpty()) {
             Message message = getMessage(request, fcmToken);
 

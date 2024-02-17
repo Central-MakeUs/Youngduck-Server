@@ -1,6 +1,6 @@
 package com.example.adaptor;
 
-import com.example.validator.EnumValidator;
+import com.example.adaptor.validator.EnumValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
