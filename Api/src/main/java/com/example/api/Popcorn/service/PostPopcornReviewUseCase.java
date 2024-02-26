@@ -16,6 +16,8 @@ import com.example.domains.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.example.consts.PopCornMateConsts.*;
+
 @UseCase
 @RequiredArgsConstructor
 public class PostPopcornReviewUseCase {
@@ -34,7 +36,7 @@ public class PostPopcornReviewUseCase {
         //save, userScreenId
     }
 
-    private void validatePopcorn(Long id) {
+    void validatePopcorn(Long id) {
         if(!popcornAdaptor.checkIfExists(id).isPresent()){
             throw NoPopcornReview.EXCEPTION;
         };
@@ -67,16 +69,18 @@ public class PostPopcornReviewUseCase {
         //screeningAdaptor.save(screening);
         return PopcornReviewResponse.from(newPopcornUser);
     }
+
+    //TODO if else 없애기 - 저 값들을 static 변수로 만들기~!(0)
     @Transactional
     public void calculateRate(boolean afterScreening,boolean beforeScreening,Popcorn popcorn) {
         if(afterScreening == true && beforeScreening == true) {
-            popcornUserAdaptor.incrementPopcornRate(popcorn,100);
+            popcornUserAdaptor.incrementPopcornRate(popcorn,HIGHEST_SCORE);
         } else if(afterScreening == true && beforeScreening == false) {
-            popcornUserAdaptor.incrementPopcornRate(popcorn,25);
+            popcornUserAdaptor.incrementPopcornRate(popcorn,AVERAGE_LOW_SCORE);
         } else if(afterScreening == false && beforeScreening == true) {
-            popcornUserAdaptor.incrementPopcornRate(popcorn,75);
+            popcornUserAdaptor.incrementPopcornRate(popcorn,AVERAGE_SCORE);
         } else {
-            popcornUserAdaptor.incrementPopcornRate(popcorn,0);
+            popcornUserAdaptor.incrementPopcornRate(popcorn,LOWEST_SCORE);
         }
     }
     //TODO 더 좋은 방법이 없을까?

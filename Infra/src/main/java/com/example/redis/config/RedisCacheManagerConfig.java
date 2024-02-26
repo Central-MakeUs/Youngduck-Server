@@ -39,13 +39,6 @@ public class RedisCacheManagerConfig {
                 .build();
     }
 
-//    /* 커스텀하여 만료기간 설정 */
-//    private Map<String, RedisCacheConfiguration> customConfigurationMap(RedisCacheConfiguration redisCacheConfiguration) {
-//        Map<String, RedisCacheConfiguration> customConfigurationMap = new HashMap<>();
-//        customConfigurationMap.put("kakaoPublicKeys", redisCacheConfiguration.entryTtl(Duration.ofDays(1L)));
-//        customConfigurationMap.put("refreshToken", redisCacheConfiguration.entryTtl(Duration.ofDays(14L)));
-//        return customConfigurationMap;
-//    }
     @Bean
     public CacheManager oidcCacheManager(RedisConnectionFactory cf) {
         RedisCacheConfiguration redisCacheConfiguration =
