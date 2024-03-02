@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 @Getter
 @Entity
@@ -33,7 +34,7 @@ public class RecommendedPopcorn extends BaseTimeEntity {
         this.movieDetail = movieDetail;
         this.movieDirector = movieDirector;
         this.recommendationCount = recommendationCount;
-        this.recommendationReason=recommendationReason;
+        this.recommendationReason = recommendationReason;
     }
 
     public static RecommendedPopcorn of(String movieId, String movieTitle, String imageUrl, String  movieDetail, String movieDirector, String recommendationReason) {
@@ -45,5 +46,10 @@ public class RecommendedPopcorn extends BaseTimeEntity {
                 .movieDirector(movieDirector)
                 .recommendationReason(recommendationReason)
                 .build();
+    }
+
+
+    public void increase() {
+        this.recommendationCount += 1;
     }
 }

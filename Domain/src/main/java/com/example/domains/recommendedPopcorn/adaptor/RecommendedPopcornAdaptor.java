@@ -5,6 +5,7 @@ import com.example.domains.recommendedPopcorn.entity.QRecommendedPopcorn;
 import com.example.domains.recommendedPopcorn.entity.RecommendedPopcorn;
 import com.example.domains.recommendedPopcorn.exceptions.DuplicateMovieId;
 import com.example.domains.recommendedPopcorn.exceptions.NoRecommendedPopcorn;
+import com.example.domains.recommendedPopcorn.repository.RecommendedPopcornQueryRepository;
 import com.example.domains.recommendedPopcorn.repository.RecommendedPopcornRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
@@ -21,6 +22,7 @@ import java.util.concurrent.ThreadLocalRandom;
 @RequiredArgsConstructor
 public class RecommendedPopcornAdaptor {
     private final RecommendedPopcornRepository recommendedPopcornRepository;
+    private final RecommendedPopcornQueryRepository recommendedPopcornQueryRepository;
     private final JPAQueryFactory jpaQueryFactory;
 
     public RecommendedPopcorn save(RecommendedPopcorn recommendedPopcorn) {
@@ -54,13 +56,7 @@ public class RecommendedPopcornAdaptor {
 
     @Transactional
     public void incrementVoteCount(Long recommendedPopcorn) {
-        QRecommendedPopcorn qRecommendedPopcorn = QRecommendedPopcorn.recommendedPopcorn;
-        JPAUpdateClause updateClause = jpaQueryFactory.update(qRecommendedPopcorn);
-
-        updateClause
-                .set(qRecommendedPopcorn.recommendationCount, qRecommendedPopcorn.recommendationCount.add(1))
-                .where(qRecommendedPopcorn.id.eq(recommendedPopcorn))
-                .execute();
+       recommendedPopcornQueryRepository.incrementVoteCount(recommendedPopcorn);
     }
 
     public List<RecommendedPopcorn> findByThreeIds() {
@@ -115,7 +111,6 @@ public class RecommendedPopcornAdaptor {
             throw NoRecommendedPopcorn.EXCEPTION;
         }
     }
-
 
 //    private void validateRecommendedPopcorn() {
 //        if(recommendedPopcornRepository.findAll().size() == 0) {
