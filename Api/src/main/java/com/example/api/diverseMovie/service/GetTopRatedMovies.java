@@ -27,10 +27,8 @@ public class GetTopRatedMovies {
 
     public void getTopRated() {
         OkHttpClient client = new OkHttpClient();
-        // 현재 날짜를 얻어오기
         String currentDate = getFirstDayOfWeek();
 
-        // URL 구성
         String url = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=1eac3f860b5d6af757c4b409321d9f74&multiMovieYn=Y&targetDt=" + currentDate + "&itemPerPage=5";
 
         Request request = new Request.Builder()
@@ -42,6 +40,7 @@ public class GetTopRatedMovies {
 
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
+                System.out.println(responseData);
                 saveMovie(responseData);
             } else {
                 System.out.println("Request failed with code: " + response.code());
@@ -53,7 +52,6 @@ public class GetTopRatedMovies {
     }
 
     private void saveMovie(String responseData) throws JsonProcessingException {
-        // JSON 파싱
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
@@ -71,24 +69,20 @@ public class GetTopRatedMovies {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            // 예외 처리 로직 추가
+            // TODO 예외 처리 로직 추가
         }
 
     }
 
     private static String getCurrentDate() {
-        // 현재 날짜를 문자열로 변환
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         return dateFormat.format(new Date());
     }
 
     private static String getFirstDayOfWeek() {
-        // 현재 날짜 설정
         Calendar calendar = Calendar.getInstance();
-        // 현재 날짜를 그 주의 첫 날(일요일)로 설정
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
 
-        // 현재 날짜를 문자열로 변환
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         return dateFormat.format(calendar.getTime());
     }
