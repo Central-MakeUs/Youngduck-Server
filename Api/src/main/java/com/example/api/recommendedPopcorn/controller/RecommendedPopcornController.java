@@ -21,7 +21,6 @@ import java.util.List;
 @Slf4j
 @SecurityRequirement(name = "access-token")
 public class RecommendedPopcornController {
-    //TODO 2. 팝콘작 추천하기 - 예비팝콘 - movieId로 분별 (0)
     private final PostRecommendPopcornUseCase recommendedPopcornUseCase;
     private final GetRecommendedPopocornUseCase getRecommendedPopocornUseCase;
     private final PostVoteRecommendedPopcorn postVoteRecommendedPopcorn;
@@ -45,7 +44,6 @@ public class RecommendedPopcornController {
         return getRecommendedPopocornUseCase.execute();
     }
 
-    //TODO 4. 예비 팝콘작 투표하기
     @Operation(summary = " 예비 팝콘작 투표하기", description = "예비 팝콘작 투표하기")
     @PostMapping("/vote")
     public void voteByIdRecommendPopcorn(@RequestParam("recommendedPopcorn") Long recommendedPopcorn) {

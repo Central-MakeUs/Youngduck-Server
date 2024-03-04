@@ -58,18 +58,6 @@ public class ScreeningController {
     private final GetBookmarkedUpcomingScreeningsUseCase getBookmarkedUpcomingScreeningsUseCase;
     private final PostReviewComplainUseCase postReviewComplainUseCase;
 
-//    @Operation(description = "모임 대표 이미지")
-//    @PostMapping(value = "/image", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, APPLICATION_JSON_VALUE})
-//    public SuccessResponse<Object> uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
-//        try {
-//            String imageUrl = screeningUploadUseCase.uploadImage(file);
-//            SuccessResponse<Object> successResponse = SuccessResponse.onSuccess(200,imageUrl);
-//            return successResponse;
-//        } catch (IOException e) {
-//            throw  new IllegalArgumentException("오류");
-//        }
-//    }
-
     @Operation(description = "모임 대표 이미지")
     @GetMapping(value = "/image/{fileName}")
     public SuccessResponse<Object> uploadImage(@PathVariable("fileName") String fileName) throws IOException {
@@ -129,14 +117,11 @@ public class ScreeningController {
         return getReviewListUseCase.execute(screeningId);
     }
 
-
-    //TODO 리뷰 뿐만아니라 스크리닝 정보 가져오기
     @Operation(summary = "본인이 리뷰남긴 리뷰 목록 가져오기", description = "screeningReview list가져와서 요청하기")
     @GetMapping("/review/all")
     public List<ScreeningWithReviewDto> getScreeningReviewList() {
         return getScreeningReviewListUseCase.execute();
     }
-
 
     @Operation(summary = "나의 스크리닝 id별로 가져오기", description = "screening id가져와서 요청하기")
     @GetMapping("/myScreening/{screeningId}")
@@ -151,7 +136,6 @@ public class ScreeningController {
         postScreeningPrivateUseCase.execute(screeningId);
     }
 
-
     @Operation(
             summary = "스크리닝 수정하기",
             description = "screening RequestBody가지고 업로드")
@@ -160,8 +144,6 @@ public class ScreeningController {
         return patchScreeningUseCase.execute(screeningId,request);
     }
 
-
-    //TODO 검색하기 기능 구현하기, hostName추가하기 - private 0
     @GetMapping("/screenings/search")
     public SliceResponse<Screening> searchScreenings(
             @RequestParam(required = false,value = "title") String title,
@@ -171,7 +153,6 @@ public class ScreeningController {
         return screeningAdaptor.searchScreenings(title, category, pageable);
     }
 
-    //TODO 검색하기 기능 -> 날짜 순 - private 0
     @GetMapping("/screenings/search-by-date")
     public SliceResponse<Screening> searchScreenings(
             @RequestParam(required = false,value = "title") String title,
@@ -188,8 +169,6 @@ public class ScreeningController {
         }
     }
 
-
-    //TODO 댓글 많은 수 Top3 반환- private0
     @Operation(summary = "댓글 많은 수 Top3 반환", description = "좋아요 많은 수 Top3 반환")
     @GetMapping("/most-reviewed")
     public List<ScreeningResponseDto> getMostReviewed() {
@@ -202,46 +181,38 @@ public class ScreeningController {
         return getThisWeekScreeningsUseCase.execute();
     }
 
-
-    //private 0
     @Operation(summary = "현재시점에서 가장 치근에 올라온 3개 반환", description = "현재시점에서 가장 치근에 올라온 3개 반환")
     @GetMapping("/recent-Screening")
     public List<ScreeningResponseDto> getRecentScreening() {
         return getMostRecentScreeningUseCase.execute();
     }
 
-    //TODO 관람예정(찜하기 한 것 중에서 날짜 지난거) - private 0
     @GetMapping("/screenings/past")
     public List<ScreeningResponse> getPassedScreenings() {
         return getPastScreeningListUseCase.execute();
     }
 
-    //TODO 관람예정(찜하기 한 것 중에서 날짜 안지난거) -> try해봐야함() - private 0
     @GetMapping("/screenings/upcoming")
     public List<Screening> getPastScreenings() {
         return getBookmarkedUpcomingScreeningsUseCase.execute();
     }
 
-    //TODO duplicate 없애기
     @PostMapping("/review/complain/{reviewId}")
     public void postReviewComplain(@RequestParam("reviewId") Long reviewId) {
         postReviewComplainUseCase.execute(reviewId);
     }
 
-    //TODO 스크리닝 장소, 운영, 감상 개수 pos, neg,스크리닝지수 마다 반환 (0)
     @GetMapping("/count")
     public GetCountResponse getScreeningCount(@RequestParam("screeningId") Long screeningId){
         return getRateCountUseCase.execute(screeningId);
     }
 
-    //TODO 찜하기 한 스크리닝 목록 반환 (0)
     @GetMapping("/bookmarked")
     public List<ScreeningResponse> getBookmarkedScreenings(){
 
         return getBookMarkedScreeningUseCase.execute();
     }
 
-    //TODO 나의 스크리닝 상세보기에서 통계 탭에 필요한 API
     @GetMapping("/my/statistics/{screeningId}")
     public ScreeningStatisticsResponse getStatistics(@PathVariable("screeningId") Long screeningId) {
         return getScreeningStatisticsUseCase.execute(screeningId);

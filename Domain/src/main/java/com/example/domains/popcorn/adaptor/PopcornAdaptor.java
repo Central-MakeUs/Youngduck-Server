@@ -94,7 +94,6 @@ public class PopcornAdaptor {
         return jpaQueryFactory
                 .selectFrom(popcorn)
                 .orderBy(
-                        popcorn.recommendationCount.desc(),
                         popcorn.createdAt.desc()
                 )
                 .limit(3)

@@ -43,29 +43,24 @@ public class PopcornController {
         return getPopcornUseCase.testExecute();
     }
 
-    //TODO 5. 팝콘작 리뷰하기, 중복 금지
     @Operation(summary = "특정 팝콘작에에 리뷰 달기", description = "popcorn id가져와서 리뷰하기")
     @PostMapping("/review/{popcornId}")
     public PopcornReviewResponse reviewOnScreening(@PathVariable("popcornId") Long popcornId, @RequestBody PostPopcornReviewRequest request) {
         return postPopcornReviewUseCase.execute(popcornId, request);
     }
 
-
-    //TODO 7: 팝콘작 팝콘지수 산출 로직 팝콘지수 GET
     @Operation(summary = "특정 팝콘작들에 대한 팝콘 지수", description = "popcornId 가져와서 요청하기")
     @GetMapping("/rate/{popcornId}")
     public int getPopcornRate(@PathVariable("popcornId") Long popcornId) {
         return getPopcornReviewUseCase.getRate(popcornId);
     }
 
-    //TODO 팝콘작들에 대한 리뷰 반환
     @Operation(summary = "팝콘작들에 대한 리뷰 반환", description = "popcornId 가져와서 요청하기")
     @GetMapping("/reviews/{popcornId}")
     public List<PopcornReviewResponse> getReviewResponseList(@PathVariable("popcornId") Long popcornId) {
         return getPopcornReviewUseCase.execute(popcornId);
     }
 
-    //TODO 팝콘작 리뷰
     @Operation(summary = "팝콘작 리뷰 신고하기", description = "팝콘작 리뷰 신고하기")
     @PostMapping("/review/complain/{popcornUserId}")
     public void reviewsFromPopcorn(@PathVariable("popcornUserId") Long popcornUserId)
@@ -73,14 +68,12 @@ public class PopcornController {
         postPopcornReviewComplainUseCase.execute(popcornUserId);
     }
 
-    //TODO 내가 쓴 팝콘작 리뷰
     @Operation(summary = "팝콘작들에 대한 나의 리뷰 반환", description = "popcornId 가져와서 요청하기")
     @GetMapping("/my/reviews")
     public List<PopcornMyReviewResponse> getReviewMyResponseList() {
         return getPopcornReviewUseCase.getMyReviews();
     }
 
-    //TODO 8: 팝콘 키워드 Top3 GET
     @Operation(summary = "팝콘 키워드 Top3 반환", description = "popcornId 가져와서 요청하기")
     @GetMapping("/top-keywords/{popcornId}")
     public PopcornKeywordResponse getTopPopcornKeywords(@PathVariable("popcornId") Long popcornId){

@@ -20,7 +20,6 @@ public class OauthLoginUseCase {
     private final OauthHelper oauthHelper;
     private final UserService userDomainService;
     private final TokenGenerateHelper tokenGenerateHelper;
-    //private final SpringEnvironmentHelper springEnvironmentHelper;
 
     @Transactional
     public OauthSignInResponse loginWithCode(OauthProvider provider, String code, String referer) {
