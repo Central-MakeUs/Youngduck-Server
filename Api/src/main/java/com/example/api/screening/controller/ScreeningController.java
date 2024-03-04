@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -236,10 +237,13 @@ public class ScreeningController {
     //TODO 찜하기 한 스크리닝 목록 반환 (0)
     @GetMapping("/bookmarked")
     public List<ScreeningResponse> getBookmarkedScreenings(){
+
         return getBookMarkedScreeningUseCase.execute();
     }
 
     //TODO 나의 스크리닝 상세보기에서 통계 탭에 필요한 API
     @GetMapping("/my/statistics/{screeningId}")
-    public ScreeningStatisticsResponse getStatistics(@PathVariable("screeningId") Long screeningId) {return getScreeningStatisticsUseCase.execute(screeningId); }
+    public ScreeningStatisticsResponse getStatistics(@PathVariable("screeningId") Long screeningId) {
+        return getScreeningStatisticsUseCase.execute(screeningId);
+    }
 }

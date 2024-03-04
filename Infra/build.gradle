@@ -13,6 +13,7 @@ dependencies {
     implementation 'com.nimbusds:nimbus-jose-jwt:3.10'
     implementation "com.slack.api:slack-api-client:1.28.0"
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.kafka:spring-kafka'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
