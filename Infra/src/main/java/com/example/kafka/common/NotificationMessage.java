@@ -1,12 +1,14 @@
 package com.example.kafka.common;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.kafka.annotation.KafkaListener;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor(access=AccessLevel.PROTECTED)
 public class NotificationMessage {
-    private String userId;
+
+    private Long userId;
     private String message;
+
 }

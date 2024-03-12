@@ -4,6 +4,7 @@ import com.example.api.config.response.SuccessResponse;
 import com.example.api.config.security.SecurityUtil;
 import com.example.api.screening.dto.request.PostReviewRequest;
 import com.example.api.screening.dto.request.PostScreeningRequest;
+import com.example.api.screening.dto.request.ReviewNotificationRequest;
 import com.example.api.screening.dto.response.*;
 import com.example.api.screening.service.*;
 import com.example.domains.common.util.SliceResponse;
@@ -57,6 +58,7 @@ public class ScreeningController {
     private final GetMostRecentScreeningUseCase getMostRecentScreeningUseCase;
     private final GetBookmarkedUpcomingScreeningsUseCase getBookmarkedUpcomingScreeningsUseCase;
     private final PostReviewComplainUseCase postReviewComplainUseCase;
+    private final PostNotificationUseCase postNotificationUseCase;
 
     @Operation(description = "모임 대표 이미지")
     @GetMapping(value = "/image/{fileName}")
@@ -217,4 +219,11 @@ public class ScreeningController {
     public ScreeningStatisticsResponse getStatistics(@PathVariable("screeningId") Long screeningId) {
         return getScreeningStatisticsUseCase.execute(screeningId);
     }
+
+    //스크리닝 리뷰 알림을 보내는 로직 구현
+//    @PostMapping("/review/notifications")
+//    public NotificationResponse sendReviewNotifications(@RequestBody ReviewNotificationRequest request) {
+//        return postNotificationUseCase.execute(request);
+//    }
+
 }

@@ -1,4 +1,4 @@
-package com.example.kafka;
+package com.example.kafka.producer;
 
 import com.example.kafka.common.NotificationMessage;
 import org.apache.kafka.clients.producer.ProducerConfig;

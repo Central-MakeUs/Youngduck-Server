@@ -18,6 +18,7 @@ import com.example.domains.user.validator.UserValidator;
 import com.example.domains.userscreening.adaptor.UserScreeningAdaptor;
 import com.example.domains.userscreening.entity.UserScreening;
 import com.example.domains.userscreening.exception.exceptions.UserScreeningIsHost;
+import com.example.kafka.producer.service.ProducerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,10 +33,13 @@ public class PostReviewUseCase {
     private final ScreeningValidator screeningValidator;
     private final UserScreeningAdaptor userScreeningAdaptor;
     private final ReviewAdaptor reviewAdaptor;
+    private final ProducerService producerService;
 
     public PostReviewResponse execute(Long screenId, PostReviewRequest request) {
         Long userId = SecurityUtil.getCurrentUserId();
         UserScreening userScreening = validate(screenId,userId);
+        String message = screeningAdaptor.findById(screenId).getTitle() + "상영회에 리뷰가 달렸습니다";
+        producerService.commentNotificationCreate(String.valueOf(userId),message);
         return reviewUpload(userScreening,request);
         //save, userScreenId
     }

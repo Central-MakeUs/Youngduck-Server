@@ -39,6 +39,10 @@ subprojects {
 		implementation 'com.google.firebase:firebase-admin:9.2.0'
 
 		implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+
+		/* kafka */
+		implementation 'org.springframework.kafka:spring-kafka'
+
 	}
 
 	repositories {
