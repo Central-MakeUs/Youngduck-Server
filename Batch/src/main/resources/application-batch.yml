@@ -1,0 +1,43 @@
+---
+# local
+#spring: # zone mysql 설정 (Active profiles)
+#  batch:
+#    jdbc:
+#      initialize-schema: always
+#  datasource:
+#    hikari:
+#      jdbc-url: jdbc:mysql://127.0.0.1:3306/youngduckbatch
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+#      username: root
+#      password: root
+#spring:
+#  config:
+#    activate:
+#      on-profile: local
+#  batch:
+#    jdbc:
+#      initialize-schema: never
+spring:
+  batch:
+    job:
+      enabled: true
+    jdbc:
+      initialize-schema: never
+
+#  datasource:
+#    batch:
+#      hikari:
+#        jdbc-url: jdbc:mysql://localhost:3306/youngduckbatch
+#        username: root
+#        password: root
+#        driver-class-name: com.mysql.cj.jdbc.Driver
+#        pool-name: 'read-and-write-pool'
+
+---
+# dev
+spring:
+  batch:
+    job:
+      enabled: true
+    jdbc:
+      initialize-schema: never

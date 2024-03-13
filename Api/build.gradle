@@ -19,6 +19,7 @@ dependencies {
     implementation project(':Domain')
     implementation project(':Core')
     implementation project(':Infra')
+    implementation project(':Batch')
 }
 
 test {
