@@ -2,7 +2,7 @@
 spring:
   config:
     activate:
-      on-profile: local
+      on-profile: local,test
 
   data:
     redis:
@@ -23,6 +23,15 @@ cloud:
 
 app:
   firebase-configuration-file: popcornmate-d7ca1-firebase-adminsdk-svbpw-343677f710.json
+
+test:
+  port:
+    localhost
+
+feign:
+  httpclient:
+    enabled: true
+
 
 ---
 spring:

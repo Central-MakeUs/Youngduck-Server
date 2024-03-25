@@ -1,0 +1,600 @@
+{
+  "Query": "",
+  "KMAQuery": "",
+  "TotalCount": 1,
+  "Data": [
+    {
+      "CollName": "kmdb_new2",
+      "TotalCount": 1,
+      "Count": 1,
+      "Result": [
+        {
+          "DOCID": "K35655",
+          "movieId": "K",
+          "movieSeq": "35655",
+          "title": " 파묘",
+          "titleEng": "Exhuma (Pa-myo)",
+          "titleOrg": "",
+          "titleEtc": "파묘^破墓^Exhuma (Pa-myo)",
+          "prodYear": "2024",
+          "directors": {
+            "director": [
+              {
+                "directorNm": "장재현",
+                "directorEnNm": "JANG Jae-hyun",
+                "directorId": "00184046"
+              }
+            ]
+          },
+          "actors": {
+            "actor": [
+              {
+                "actorNm": "최민식",
+                "actorEnNm": "Choi Min-sik",
+                "actorId": "00001042"
+              },
+              {
+                "actorNm": "김고은",
+                "actorEnNm": "Kim Ko-eun",
+                "actorId": "00165913"
+              },
+              {
+                "actorNm": "유해진",
+                "actorEnNm": "Yoo Hae-jin",
+                "actorId": "00013060"
+              },
+              {
+                "actorNm": "이도현",
+                "actorEnNm": "Lee Dohyeon",
+                "actorId": "00219422"
+              },
+              {
+                "actorNm": "은수",
+                "actorEnNm": "Eunsu",
+                "actorId": "00229539"
+              },
+              {
+                "actorNm": "김민준",
+                "actorEnNm": "Kim Min-jun",
+                "actorId": "00011224"
+              },
+              {
+                "actorNm": "김병오",
+                "actorEnNm": "",
+                "actorId": ""
+              },
+              {
+                "actorNm": "코야마 리키야",
+                "actorEnNm": "Rikiya Koyama",
+                "actorId": "00156371"
+              },
+              {
+                "actorNm": "최낙윤",
+                "actorEnNm": "Choe Nak-yun",
+                "actorId": "00144858"
+              },
+              {
+                "actorNm": "김재철",
+                "actorEnNm": "Kim Jae-cheol",
+                "actorId": "00040812"
+              },
+              {
+                "actorNm": "김지안",
+                "actorEnNm": "Kim Ji An",
+                "actorId": "00201891"
+              },
+              {
+                "actorNm": "김선영",
+                "actorEnNm": "Kim Sun-young",
+                "actorId": "00177554"
+              },
+              {
+                "actorNm": "이종구",
+                "actorEnNm": "Lee Jong-gu",
+                "actorId": "00135765"
+              },
+              {
+                "actorNm": "김태준",
+                "actorEnNm": "Kim Taejun",
+                "actorId": "00032083"
+              },
+              {
+                "actorNm": "정윤하",
+                "actorEnNm": "Yunha Jung",
+                "actorId": "00209549"
+              }
+            ]
+          },
+          "nation": "대한민국",
+          "company": "㈜쇼박스,㈜파인타운 프로덕션",
+          "plots": {
+            "plot": [
+              {
+                "plotLang": "한국어",
+                "plotText": "미국 LA, 거액의 의뢰를 받은 무당 ‘화림’(김고은)과 ‘봉길’(이도현)은 기이한 병이 대물림되는 집안의 장손을 만난다.조상의 묫자리가 화근임을 알아챈 ‘화림’은 이장을 권하고, 돈 냄새를 맡은 최고의 풍수사 ‘상덕’(최민식)과 장의사 ‘영근’(유해진)이 합류한다.“전부 잘 알 거야… 묘 하나 잘못 건들면 어떻게 되는지”절대 사람이 묻힐 수 없는 악지에 자리한 기이한 묘.‘상덕’은 불길한 기운을 느끼고 제안을 거절하지만, ‘화림’의 설득으로 결국 파묘가 시작되고…나와서는 안될 것이 나왔다."
+              },
+              {
+                "plotLang": "영어",
+                "plotText": "Young shaman Hwa-rim and her partner and co-medium Bong-gil respond to a call for help from the USA, where the wealthy Park family, Korean exiles, is plagued by irritations: something is wrong with the family’s descendants and the head of the family himself is hearing screams. The duo accept the job – after all, it’s well paid – and, along with a feng shui expert and an undertaker, they start to exhume the ancestors’ grave in the north of Gangwon-do province. In the process, something escapes from the coffin, people die, others prove to be obsessed and the real problems haven’t even started yet."
+              }
+            ]
+          },
+          "runtime": "134",
+          "rating": "15세관람가",
+          "genre": "공포,미스터리",
+          "kmdbUrl": "https://www.kmdb.or.kr/db/kor/detail/movie/K/35655",
+          "type": "극영화",
+          "use": "극장용",
+          "episodes": "",
+          "ratedYn": "Y",
+          "repRatDate": "20240129",
+          "repRlsDate": "20240222",
+          "ratings": {
+            "rating": [
+              {
+                "ratingMain": "Y||0",
+                "ratingDate": "20240129||20240205",
+                "ratingNo": "2024-MF00277||2024-MF00353",
+                "ratingGrade": "15세관람가||15세관람가",
+                "releaseDate": "20240222||20240222",
+                "runtime": "134||134"
+              }
+            ]
+          },
+          "keywords": "오컬트",
+          "posters": "http://file.koreafilm.or.kr/thm/02/99/18/33/tn_DPK021733.jpg|http://file.koreafilm.or.kr/thm/02/99/18/34/tn_DPK021758.jpg|http://file.koreafilm.or.kr/thm/02/99/18/32/tn_DPK021667.jpg|http://file.koreafilm.or.kr/thm/02/99/18/32/tn_DPK021668.jpg|http://file.koreafilm.or.kr/thm/02/99/18/31/tn_DPK021655.jpg|http://file.koreafilm.or.kr/thm/02/99/18/35/tn_DPK021794.jpg|http://file.koreafilm.or.kr/thm/02/99/18/35/tn_DPK021795.jpg|http://file.koreafilm.or.kr/thm/02/99/18/36/tn_DPK021828.jpg|http://file.koreafilm.or.kr/thm/02/99/18/36/tn_DPK021829.jpg|http://file.koreafilm.or.kr/thm/02/99/18/33/tn_DPK021700.jpg|http://file.koreafilm.or.kr/thm/02/99/18/33/tn_DPK021701.jpg|http://file.koreafilm.or.kr/thm/02/99/18/33/tn_DPK021702.jpg|http://file.koreafilm.or.kr/thm/02/99/18/33/tn_DPK021703.jpg|http://file.koreafilm.or.kr/thm/02/99/18/30/tn_DPK021616.jpg|http://file.koreafilm.or.kr/thm/02/99/18/30/tn_DPK021617.jpg|http://file.koreafilm.or.kr/thm/02/99/18/30/tn_DPK021618.jpg|http://file.koreafilm.or.kr/thm/02/99/18/30/tn_DPK021619.jpg|http://file.koreafilm.or.kr/thm/02/99/18/30/tn_DPK021620.jpg|http://file.koreafilm.or.kr/thm/02/99/18/34/tn_DPK021757.jpg|http://file.koreafilm.or.kr/thm/02/99/18/32/tn_DPK021665.jpg|http://file.koreafilm.or.kr/thm/02/99/18/32/tn_DPK021666.jpg",
+          "stlls": "http://file.koreafilm.or.kr/thm/01/copy/00/66/16/tn_DST834584.jpg|http://file.koreafilm.or.kr/thm/01/copy/00/66/16/tn_DST834585.jpg|http://file.koreafilm.or.kr/thm/01/copy/00/66/16/tn_DST834586.jpg|http://file.koreafilm.or.kr/thm/01/copy/00/66/16/tn_DST834587.jpg|http://file.koreafilm.or.kr/thm/01/copy/00/66/49/tn_DST837824.jpg|http://file.koreafilm.or.kr/thm/01/copy/00/66/49/tn_DST837825.jpg|http://file.koreafilm.or.kr/thm/01/copy/00/66/49/tn_DST837826.jpg|http://file.koreafilm.or.kr/thm/01/copy/00/66/61/tn_DST839012.jpg|http://file.koreafilm.or.kr/thm/01/copy/00/66/62/tn_DST839135.jpg|http://file.koreafilm.or.kr/thm/01/copy/00/66/62/tn_DST839136.jpg",
+          "staffs": {
+            "staff": [
+              {
+                "staffNm": "장재현",
+                "staffEnNm": "JANG Jae-hyun",
+                "staffRoleGroup": "감독",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00184046"
+              },
+              {
+                "staffNm": "장재현",
+                "staffEnNm": "JANG Jae-hyun",
+                "staffRoleGroup": "각본",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00184046"
+              },
+              {
+                "staffNm": "최민식",
+                "staffEnNm": "Choi Min-sik",
+                "staffRoleGroup": "출연",
+                "staffRole": "상덕",
+                "staffEtc": "",
+                "staffId": "00001042"
+              },
+              {
+                "staffNm": "김고은",
+                "staffEnNm": "Kim Ko-eun",
+                "staffRoleGroup": "출연",
+                "staffRole": "화림",
+                "staffEtc": "",
+                "staffId": "00165913"
+              },
+              {
+                "staffNm": "유해진",
+                "staffEnNm": "Yoo Hae-jin",
+                "staffRoleGroup": "출연",
+                "staffRole": "영근",
+                "staffEtc": "",
+                "staffId": "00013060"
+              },
+              {
+                "staffNm": "이도현",
+                "staffEnNm": "Lee Dohyeon",
+                "staffRoleGroup": "출연",
+                "staffRole": "봉길",
+                "staffEtc": "",
+                "staffId": "00219422"
+              },
+              {
+                "staffNm": "은수",
+                "staffEnNm": "Eunsu",
+                "staffRoleGroup": "출연",
+                "staffRole": "김상덕 딸, 연희",
+                "staffEtc": "",
+                "staffId": "00229539"
+              },
+              {
+                "staffNm": "김민준",
+                "staffEnNm": "Kim Min-jun",
+                "staffRoleGroup": "출연",
+                "staffRole": "험한 것",
+                "staffEtc": "",
+                "staffId": "00011224"
+              },
+              {
+                "staffNm": "김병오",
+                "staffEnNm": "",
+                "staffRoleGroup": "출연",
+                "staffRole": "험한 것",
+                "staffEtc": "",
+                "staffId": ""
+              },
+              {
+                "staffNm": "코야마 리키야",
+                "staffEnNm": "Rikiya Koyama",
+                "staffRoleGroup": "출연",
+                "staffRole": "험한 것 목소리",
+                "staffEtc": "",
+                "staffId": "00156371"
+              },
+              {
+                "staffNm": "최낙윤",
+                "staffEnNm": "Choe Nak-yun",
+                "staffRoleGroup": "출연",
+                "staffRole": "험한 것 목소리",
+                "staffEtc": "",
+                "staffId": "00144858"
+              },
+              {
+                "staffNm": "김재철",
+                "staffEnNm": "Kim Jae-cheol",
+                "staffRoleGroup": "출연",
+                "staffRole": "박지용",
+                "staffEtc": "",
+                "staffId": "00040812"
+              },
+              {
+                "staffNm": "김지안",
+                "staffEnNm": "Kim Ji An",
+                "staffRoleGroup": "출연",
+                "staffRole": "박자혜",
+                "staffEtc": "",
+                "staffId": "00201891"
+              },
+              {
+                "staffNm": "김선영",
+                "staffEnNm": "Kim Sun-young",
+                "staffRoleGroup": "출연",
+                "staffRole": "오광심",
+                "staffEtc": "",
+                "staffId": "00177554"
+              },
+              {
+                "staffNm": "이종구",
+                "staffEnNm": "Lee Jong-gu",
+                "staffRoleGroup": "출연",
+                "staffRole": "보국사 보살",
+                "staffEtc": "",
+                "staffId": "00135765"
+              },
+              {
+                "staffNm": "김태준",
+                "staffEnNm": "Kim Taejun",
+                "staffRoleGroup": "출연",
+                "staffRole": "창민",
+                "staffEtc": "",
+                "staffId": "00032083"
+              },
+              {
+                "staffNm": "정윤하",
+                "staffEnNm": "Yunha Jung",
+                "staffRoleGroup": "출연",
+                "staffRole": "박지용 아내",
+                "staffEtc": "",
+                "staffId": "00209549"
+              },
+              {
+                "staffNm": "김영민",
+                "staffEnNm": "Kim Young-min",
+                "staffRoleGroup": "프로듀서",
+                "staffRole": "총괄프로듀서",
+                "staffEtc": "",
+                "staffId": "00077878"
+              },
+              {
+                "staffNm": "권지용",
+                "staffEnNm": "",
+                "staffRoleGroup": "프로듀서",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": ""
+              },
+              {
+                "staffNm": "박형진",
+                "staffEnNm": "",
+                "staffRoleGroup": "프로듀서",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": ""
+              },
+              {
+                "staffNm": "이모개",
+                "staffEnNm": "Lee Mo-gae",
+                "staffRoleGroup": "촬영",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00015511"
+              },
+              {
+                "staffNm": "이성환",
+                "staffEnNm": "Lee Seong-hwan",
+                "staffRoleGroup": "조명",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00007483"
+              },
+              {
+                "staffNm": "정병진",
+                "staffEnNm": "Jung Byung-jin",
+                "staffRoleGroup": "편집",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00133046"
+              },
+              {
+                "staffNm": "김태성",
+                "staffEnNm": "Kim Tae-seong",
+                "staffRoleGroup": "음악",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00033243"
+              },
+              {
+                "staffNm": "서성경",
+                "staffEnNm": "Seo Seong-gyeong",
+                "staffRoleGroup": "미술",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00166264"
+              },
+              {
+                "staffNm": "정인철",
+                "staffEnNm": "Jeong In-cheol",
+                "staffRoleGroup": "세트",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00185380"
+              },
+              {
+                "staffNm": "박준용",
+                "staffEnNm": "Park Jun-yong",
+                "staffRoleGroup": "소품",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00169449"
+              },
+              {
+                "staffNm": "유청",
+                "staffEnNm": "Yu Cheong",
+                "staffRoleGroup": "소품",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00007696"
+              },
+              {
+                "staffNm": "최윤선",
+                "staffEnNm": "Choe Yun-seon",
+                "staffRoleGroup": "의상",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00009521"
+              },
+              {
+                "staffNm": "이은주",
+                "staffEnNm": "Lee Eun-Ju",
+                "staffRoleGroup": "분장",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00010035"
+              },
+              {
+                "staffNm": "황효균",
+                "staffEnNm": "Hwang Hyo-gyun",
+                "staffRoleGroup": "특수분장",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00009046"
+              },
+              {
+                "staffNm": "이희은",
+                "staffEnNm": "Lee Hui-eun",
+                "staffRoleGroup": "특수분장",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00009050"
+              },
+              {
+                "staffNm": "곽태용",
+                "staffEnNm": "Gwak Tae-yong",
+                "staffRoleGroup": "특수분장",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00007996"
+              },
+              {
+                "staffNm": "김호식",
+                "staffEnNm": "Kim Ho-sik",
+                "staffRoleGroup": "특수분장",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00166512"
+              },
+              {
+                "staffNm": "구종률",
+                "staffEnNm": "Koo Jong-ryul",
+                "staffRoleGroup": "동시녹음",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00153329"
+              },
+              {
+                "staffNm": "김병인",
+                "staffEnNm": "Kim Byeong-in",
+                "staffRoleGroup": "사운드(음향)",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00162836"
+              },
+              {
+                "staffNm": "도광일",
+                "staffEnNm": "Do Gwang-il",
+                "staffRoleGroup": "특수효과",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00008781"
+              },
+              {
+                "staffNm": "도광섭",
+                "staffEnNm": "Do Gwang-seop",
+                "staffRoleGroup": "특수효과",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00044275"
+              },
+              {
+                "staffNm": "김신철",
+                "staffEnNm": "Kim Shin Cheol",
+                "staffRoleGroup": "시각효과",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00201009"
+              },
+              {
+                "staffNm": "손승현",
+                "staffEnNm": "Son Seung-hyeon",
+                "staffRoleGroup": "시각효과",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00018987"
+              },
+              {
+                "staffNm": "정윤헌",
+                "staffEnNm": "Jeong Yoonhun",
+                "staffRoleGroup": "무술감독",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00147375"
+              },
+              {
+                "staffNm": "문광식",
+                "staffEnNm": "Moon Kwang Sik",
+                "staffRoleGroup": "무술감독",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00200827"
+              },
+              {
+                "staffNm": "박진영",
+                "staffEnNm": "Park Jin-young",
+                "staffRoleGroup": "색보정",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": "00150353"
+              },
+              {
+                "staffNm": "홍정원",
+                "staffEnNm": "Hong Jeong-won",
+                "staffRoleGroup": "촬영팀",
+                "staffRole": "키그립",
+                "staffEtc": "",
+                "staffId": "00166572"
+              },
+              {
+                "staffNm": "㈜쇼박스",
+                "staffEnNm": "Showbox",
+                "staffRoleGroup": "제작사",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": ""
+              },
+              {
+                "staffNm": "㈜파인타운 프로덕션",
+                "staffEnNm": "",
+                "staffRoleGroup": "제작사",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": ""
+              },
+              {
+                "staffNm": "㈜MCMC",
+                "staffEnNm": "",
+                "staffRoleGroup": "공동제작사",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": ""
+              },
+              {
+                "staffNm": "㈜쇼박스",
+                "staffEnNm": "Showbox",
+                "staffRoleGroup": "투자사",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": ""
+              },
+              {
+                "staffNm": "㈜쇼박스",
+                "staffEnNm": "Showbox",
+                "staffRoleGroup": "배급사",
+                "staffRole": "",
+                "staffEtc": "",
+                "staffId": ""
+              }
+            ]
+          },
+          "vods": {
+            "vod": [
+              {
+                "vodClass": "파묘 [1차예고편]",
+                "vodUrl": "https://www.kmdb.or.kr/trailer/trailerPlayPop?pFileNm=MK060579_P02.mp4"
+              },
+              {
+                "vodClass": "파묘 [2차예고편]",
+                "vodUrl": "https://www.kmdb.or.kr/trailer/trailerPlayPop?pFileNm=MK060763_P02.mp4"
+              }
+            ]
+          },
+          "openThtr": "",
+          "stat": [
+            {
+              "screenArea": "",
+              "screenCnt": "",
+              "salesAcc": "",
+              "audiAcc": "",
+              "statSouce": "",
+              "statDate": ""
+            }
+          ],
+          "screenArea": "",
+          "screenCnt": "",
+          "salesAcc": "",
+          "audiAcc": "",
+          "statSouce": "",
+          "statDate": "",
+          "themeSong": "",
+          "soundtrack": "",
+          "fLocation": "",
+          "Awards1": "",
+          "Awards2": "",
+          "regDate": "20231129",
+          "modDate": "20240315",
+          "Codes": {
+            "Code": [
+              {
+                "CodeNm": "FIMS",
+                "CodeNo": "20234675"
+              }
+            ]
+          },
+          "CommCodes": {
+            "CommCode": [
+              {
+                "CodeNm": "FIMS",
+                "CodeNo": "20234675"
+              }
+            ]
+          },
+          "ALIAS": "srcKmdb2"
+        }
+      ]
+    }
+  ]
+}
