@@ -9,6 +9,9 @@ import com.example.domains.recommendedPopcornUser.adaptor.RecommendedPopcornUser
 import com.example.domains.recommendedPopcornUser.entity.RecommendedPopcornUser;
 import com.example.domains.user.adaptor.UserAdaptor;
 import com.example.domains.user.entity.User;
+import com.example.oauth.tmdb.client.TmdbClient;
+import com.example.oauth.tmdb.dto.TdmbResponseDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
@@ -26,6 +29,7 @@ import java.io.IOException;
 public class PostRecommendPopcornUseCase {
     private final RecommendedPopcornAdaptor recommendedPopcornAdaptor;
     private final UserAdaptor userAdaptor;
+    private final TmdbClient tmdbClient;
     private final RecommendedPopcornUserAdaptor recommendedPopcornUserAdaptor;
 
     @Value("${KDMB}")
@@ -38,13 +42,47 @@ public class PostRecommendPopcornUseCase {
         JsonElement jsonObject = parser.parse(request.getMovieId());
         String movieTypeWithoutQuotes = request.getMovieType().replaceAll("\"", "");
 
-        getApi(jsonObject,request,movieTypeWithoutQuotes);
+        //TODO
+        String responseString = tmdbClient.getMovieData(request.getMovieId(),movieTypeWithoutQuotes,"Y",tmdb);
+        changeToObject(responseString,request);
         //RecommendedPopcorn.of(request.getMovieId(),request.getReason())
+    }
+
+    private void changeToObject(String responseString,RecommendedPopcornRequest request) throws JsonProcessingException {
+        //값 처리하는 로직
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode rootNode = objectMapper.readTree(responseString);
+        //4. To JsonObject
+
+        JsonNode movieData = rootNode.path("Data").path(0).path("Result").path(0);
+
+
+        String title = movieData.path("title").asText();
+        title = title.trim();
+        String directorNm = movieData.path("directors").path("director").path(0).path("directorNm").asText();
+        String plotText = movieData.path("plots").path("plot").path(0).path("plotText").asText();
+        String firstPosterUrl = movieData.path("posters").asText().split("\\|")[0];
+        postRecommendation(request.getMovieId(),title,plotText,firstPosterUrl,directorNm,request);
     }
 
     private void validateMovieId(String movieId) {
         recommendedPopcornAdaptor.checkExists(movieId);
     }
+
+    public void postRecommendation(String movieId,String originalTitle, String overview, String posterPath,String directorNm, RecommendedPopcornRequest popcornRequest) {
+        Long userId = SecurityUtil.getCurrentUserId();
+        User user = userAdaptor.findById(userId);
+
+        final RecommendedPopcorn recommendedPopcorn = RecommendedPopcorn.of(movieId
+        ,originalTitle,posterPath,overview,directorNm,popcornRequest.getReason());
+        RecommendedPopcorn recommendedPopcornResult = recommendedPopcornAdaptor.save(recommendedPopcorn);
+        proceedSaving(recommendedPopcornResult,user);
+    }
+    private void proceedSaving(RecommendedPopcorn recommendedPopcorn, User user) {
+        final RecommendedPopcornUser  recommendedPopcornUser = RecommendedPopcornUser.of(true,user,recommendedPopcorn);
+        recommendedPopcornUserAdaptor.save(recommendedPopcornUser);
+    }
+
 
     private void getApi(
             JsonElement movieId, RecommendedPopcornRequest popcornRequest, String movieType) throws IOException {
@@ -83,17 +121,4 @@ public class PostRecommendPopcornUseCase {
         }
     }
 
-    public void postRecommendation(String movieId,String originalTitle, String overview, String posterPath,String directorNm, RecommendedPopcornRequest popcornRequest) {
-        Long userId = SecurityUtil.getCurrentUserId();
-        User user = userAdaptor.findById(userId);
-
-        final RecommendedPopcorn recommendedPopcorn = RecommendedPopcorn.of(movieId
-        ,originalTitle,posterPath,overview,directorNm,popcornRequest.getReason());
-        RecommendedPopcorn recommendedPopcornResult = recommendedPopcornAdaptor.save(recommendedPopcorn);
-        proceedSaving(recommendedPopcornResult,user);
-    }
-    private void proceedSaving(RecommendedPopcorn recommendedPopcorn, User user) {
-        final RecommendedPopcornUser  recommendedPopcornUser = RecommendedPopcornUser.of(true,user,recommendedPopcorn);
-        recommendedPopcornUserAdaptor.save(recommendedPopcornUser);
-    }
 }

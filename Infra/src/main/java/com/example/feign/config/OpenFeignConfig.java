@@ -2,6 +2,7 @@ package com.example.feign.config;
 
 
 import com.example.oauth.BaseFeignClientClass;
+import com.example.oauth.tmdb.client.TmdbClient;
 import feign.Logger;
 import feign.Retryer;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
