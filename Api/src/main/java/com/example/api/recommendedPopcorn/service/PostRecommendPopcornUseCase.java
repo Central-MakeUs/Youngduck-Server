@@ -43,7 +43,7 @@ public class PostRecommendPopcornUseCase {
         String movieTypeWithoutQuotes = request.getMovieType().replaceAll("\"", "");
 
         //TODO
-        String responseString = tmdbClient.getMovieData(request.getMovieId(),movieTypeWithoutQuotes,"Y",tmdb);
+        String responseString = tmdbClient.getMovieData(movieTypeWithoutQuotes,request.getMovieId(),"Y",tmdb);
         changeToObject(responseString,request);
         //RecommendedPopcorn.of(request.getMovieId(),request.getReason())
     }

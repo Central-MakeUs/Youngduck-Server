@@ -61,7 +61,7 @@ public class TmdbClientTest {
                         .withQueryParam("movieId", equalTo("K"))
                         .withQueryParam("movieSeq", equalTo("35655"))
                         .withQueryParam("detail", equalTo("Y"))
-                        .withQueryParam("ServiceKey", equalTo("33D62G26J6LHL95UV54Y"))
+                        .withQueryParam("ServiceKey", equalTo(""))
                         .willReturn(aResponse()
                                 .withStatus(HttpStatus.OK.value())
                                 .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
